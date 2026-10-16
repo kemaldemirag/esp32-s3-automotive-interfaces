@@ -1,0 +1,34 @@
+# Operating-system and editor files
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
+*.swp
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Generated firmware and hardware output
+build/
+dist/
+out/
+__pycache__/
+*.py[cod]
+*-backups/
+*.lck
+*.kicad_prl
+*.kicad_sch-bak
+*.kicad_pcb-bak
+
+# Unreviewed third-party or raw evidence
+vendor/
+third_party/
+raw/
+screenshots/
