@@ -1,0 +1,78 @@
+{
+  "schema_version": "repo03.variant.schema.v1",
+  "variant_id": "B",
+  "enabled_modules": [
+    "automotive_power",
+    "shutdown"
+  ],
+  "source": {
+    "classification": "ENGINEERING_RULE",
+    "reference": "REP-03-D1",
+    "note": "Synthetic contract fixture; no OEM electrical value or host protocol is asserted."
+  },
+  "modules": {
+    "automotive_power": {
+      "targets": {
+        "value": null,
+        "source": {
+          "classification": "UNKNOWN"
+        },
+        "result": {
+          "status": "BLOCKED"
+        }
+      },
+      "events": {
+        "value": "SYNTHETIC_ONLY",
+        "source": {
+          "classification": "ENGINEERING_RULE"
+        },
+        "result": {
+          "status": "NOT_RUN"
+        }
+      },
+      "profile_type": {
+        "value": null,
+        "source": {
+          "classification": "UNKNOWN"
+        },
+        "result": {
+          "status": "BLOCKED"
+        }
+      }
+    },
+    "shutdown": {
+      "events": {
+        "value": "SYNTHETIC_ONLY",
+        "source": {
+          "classification": "ENGINEERING_RULE"
+        },
+        "result": {
+          "status": "NOT_RUN"
+        }
+      },
+      "host_contract": {
+        "value": null,
+        "source": {
+          "classification": "UNKNOWN"
+        },
+        "result": {
+          "status": "BLOCKED"
+        }
+      }
+    }
+  },
+  "integrations": {
+    "rep02": {
+      "value": null,
+      "source": {
+        "classification": "UNKNOWN"
+      },
+      "result": {
+        "status": "BLOCKED"
+      }
+    }
+  },
+  "claims": {
+    "validation_level": "SYNTHETIC"
+  }
+}

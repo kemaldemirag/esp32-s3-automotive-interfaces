@@ -1,0 +1,22 @@
+{
+  "schema_version": "repo03.variant.schema.v1",
+  "variant_id": "A",
+  "enabled_modules": [
+    "can",
+    "lin",
+    "gnss",
+    "unknown_module"
+  ],
+  "source": {
+    "classification": "ENGINEERING_RULE"
+  },
+  "modules": {
+    "can": {},
+    "lin": {},
+    "gnss": {},
+    "unknown_module": {}
+  },
+  "claims": {
+    "validation_level": "SYNTHETIC"
+  }
+}

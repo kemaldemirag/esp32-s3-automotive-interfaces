@@ -1,15 +1,58 @@
 # esp32-s3-automotive-interfaces
 
-Durum: SCAFFOLD_ONLY — PRIORITY 3
+Durum: **D1_APPROVED / WF-03-01_COMPLETE / D2_SYNTHETIC_IMPLEMENTATION_IN_PROGRESS / G1_BLOCKED / G2_NOT_STARTED**
 
-Amaç, REP-01’i sessizce değiştirmeden CAN/TWAI, LIN ve GNSS varyantını ayrı kapsamda geliştirmektir.
+Bu depo, REP-03 kapsamında birbirinden yalıtılmış iki ürün varyantının sözleşme ve sentetik doğrulama çalışmalarını barındırır:
 
-Şu anda:
+- **Varyant A:** ESP32-S3 tabanlı CAN/TWAI, LIN ve GNSS arayüzü.
+- **Varyant B:** Raspberry Pi için otomotiv güç ve kontrollü kapatma akışı.
 
-- fiziksel CAN/LIN transceiver seçimi yoktur,
-- GNSS modül/anten/RF kararı yoktur,
-- otomotiv transient profili ve exact part’lar UNKNOWN durumundadır,
-- AEC, ISO veya saha uygunluğu iddiası yoktur,
-- bağımsız Git deposu olarak izlenmektedir.
+Kullanıcının 18 Ekim 2026 tarihli “Devam et” talebi, D1 varyant sözleşmesini izleyen sentetik uygulama çalışmalarına geçiş onayı olarak kaydedilmiştir. Bu onay donanım tasarımı veya parça seçimi onayı değildir.
 
-G1 ve G2 geçmeden donanım tasarımı başlatılmaz.
+## Mevcut çalışma kapsamı
+
+- Standart Python kütüphanesiyle çalışan, sürümlenebilir varyant sözleşmesi ve doğrulayıcı.
+- A ve B varyantları için sentetik fixture’lar.
+- Varyant sızıntısını, birleşik profil kullanımını ve eksik/geçersiz girdileri sınayan otomatik testler.
+- Sonuçların `PASS`, `FAIL`, `UNKNOWN` veya `BLOCKED` olarak, neden kodlarıyla kayda geçirilmesi.
+
+WF-03-01 sözleşme dilimi tamamlanmıştır. Şema, doğrulayıcı, yedi fixture ve 15 test için başlangıç noktaları:
+
+- [`variants/schema/repo03.variant.schema.v1.json`](variants/schema/repo03.variant.schema.v1.json)
+- [`firmware/repo03_contract/validator.py`](firmware/repo03_contract/validator.py)
+- [`variants/fixtures/`](variants/fixtures/)
+- [`tests/test_variant_contract.py`](tests/test_variant_contract.py)
+
+Eksik kaynak veya müşteri girdisi hiçbir zaman varsayımla `PASS` yapılmaz.
+G1/G2 açılana kadar donanıma duyarlı `value` alanları zorunlu `null`, davranış alanları ise yalnız `null` veya `SYNTHETIC_ONLY` olabilir.
+
+## Donanım sınırı
+
+G1 ve G2 tamamlanmadan aşağıdaki çalışmalar başlatılmaz:
+
+- KiCad şeması veya PCB yerleşimi,
+- fiziksel CAN/LIN transceiver ya da GNSS modül/anten/RF seçimi,
+- exact part, otomotiv transient profili veya Raspberry Pi kapanış protokolü hakkında kesin kabul,
+- AEC, ISO, EMC, saha uygunluğu ya da fiziksel doğrulama iddiası.
+
+Bu başlıklar doğrulanmış kaynak veya müşteri girdisi gelene kadar `UNKNOWN`/`BLOCKED` kalır.
+
+## Hızlı başlangıç
+
+Komutları depo kök dizininden çalıştırın. Harici Python paketi gerekmez.
+
+Linux/macOS:
+
+```sh
+PYTHONPATH=firmware python -m unittest discover -s tests -v
+```
+
+Windows PowerShell:
+
+```powershell
+$env:PYTHONPATH = "firmware"
+python -m unittest discover -s tests -v
+Remove-Item Env:PYTHONPATH -ErrorAction SilentlyContinue
+```
+
+WF-03-01 test sonucu gerçek komut çıktısıyla kaydedilmiştir. Bu sentetik test sonucu donanım veya otomotiv uygunluğu kanıtı değildir. Güncel denetim durumu için [`evidence/D1_validation_record.md`](evidence/D1_validation_record.md) dosyasına bakın.

@@ -1,0 +1,97 @@
+{
+  "schema_version": "repo03.variant.schema.v1",
+  "variant_id": "A",
+  "enabled_modules": [
+    "can",
+    "lin",
+    "gnss"
+  ],
+  "source": {
+    "classification": "ENGINEERING_RULE",
+    "reference": "REP-03-D1",
+    "note": "Synthetic contract fixture; no physical component value is asserted."
+  },
+  "modules": {
+    "can": {
+      "controller": {
+        "value": null,
+        "source": {
+          "classification": "UNKNOWN"
+        },
+        "result": {
+          "status": "BLOCKED"
+        }
+      },
+      "transceiver": {
+        "value": null,
+        "source": {
+          "classification": "UNKNOWN"
+        },
+        "result": {
+          "status": "BLOCKED"
+        }
+      },
+      "events": {
+        "value": "SYNTHETIC_ONLY",
+        "source": {
+          "classification": "ENGINEERING_RULE"
+        },
+        "result": {
+          "status": "NOT_RUN"
+        }
+      }
+    },
+    "lin": {
+      "uart": {
+        "value": null,
+        "source": {
+          "classification": "UNKNOWN"
+        },
+        "result": {
+          "status": "BLOCKED"
+        }
+      },
+      "transceiver": {
+        "value": null,
+        "source": {
+          "classification": "UNKNOWN"
+        },
+        "result": {
+          "status": "BLOCKED"
+        }
+      },
+      "events": {
+        "value": "SYNTHETIC_ONLY",
+        "source": {
+          "classification": "ENGINEERING_RULE"
+        },
+        "result": {
+          "status": "NOT_RUN"
+        }
+      }
+    },
+    "gnss": {
+      "hardware": {
+        "value": null,
+        "source": {
+          "classification": "UNKNOWN"
+        },
+        "result": {
+          "status": "BLOCKED"
+        }
+      },
+      "data_quality": {
+        "value": "SYNTHETIC_ONLY",
+        "source": {
+          "classification": "ENGINEERING_RULE"
+        },
+        "result": {
+          "status": "NOT_RUN"
+        }
+      }
+    }
+  },
+  "claims": {
+    "validation_level": "SYNTHETIC"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "schema_version": "repo03.variant.schema.v1",
+  "enabled_modules": [
+    "can",
+    "lin",
+    "gnss"
+  ],
+  "source": {
+    "classification": "ENGINEERING_RULE"
+  },
+  "modules": {
+    "can": {},
+    "lin": {},
+    "gnss": {}
+  },
+  "claims": {
+    "validation_level": "SYNTHETIC"
+  }
+}

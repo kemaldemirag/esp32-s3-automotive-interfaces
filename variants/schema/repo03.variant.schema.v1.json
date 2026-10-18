@@ -1,0 +1,311 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:rep-03:schema:variant:v1",
+  "title": "REP-03 Variant Contract v1",
+  "description": "Synthetic-only contract for isolated REP-03 variants. It is not hardware, automotive, RF, or OEM validation evidence.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "variant_id",
+    "enabled_modules",
+    "source",
+    "modules",
+    "claims"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "repo03.variant.schema.v1"
+    },
+    "variant_id": {
+      "enum": ["A", "B"]
+    },
+    "enabled_modules": {
+      "type": "array",
+      "items": {
+        "enum": ["can", "lin", "gnss", "automotive_power", "shutdown"]
+      },
+      "uniqueItems": true
+    },
+    "source": {
+      "$ref": "#/$defs/source"
+    },
+    "modules": {
+      "type": "object"
+    },
+    "integrations": {
+      "type": "object"
+    },
+    "claims": {
+      "$ref": "#/$defs/claims"
+    },
+    "hardware": {
+      "description": "Forbidden before G1/G2, including exact-part, RF, OEM transient, schematic, and PCB content.",
+      "not": {}
+    }
+  },
+  "additionalProperties": false,
+  "not": {
+    "required": ["combined_profile"]
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {"variant_id": {"const": "A"}},
+        "required": ["variant_id"]
+      },
+      "then": {
+        "properties": {
+          "enabled_modules": {
+            "type": "array",
+            "minItems": 3,
+            "maxItems": 3,
+            "allOf": [
+              {"contains": {"const": "can"}},
+              {"contains": {"const": "lin"}},
+              {"contains": {"const": "gnss"}}
+            ]
+          },
+          "modules": {
+            "$ref": "#/$defs/variant_a_modules"
+          }
+        },
+        "not": {
+          "required": ["integrations"]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {"variant_id": {"const": "B"}},
+        "required": ["variant_id"]
+      },
+      "then": {
+        "required": ["integrations"],
+        "properties": {
+          "enabled_modules": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "allOf": [
+              {"contains": {"const": "automotive_power"}},
+              {"contains": {"const": "shutdown"}}
+            ]
+          },
+          "modules": {
+            "$ref": "#/$defs/variant_b_modules"
+          },
+          "integrations": {
+            "$ref": "#/$defs/variant_b_integrations"
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "source_classification": {
+      "enum": [
+        "SOURCE_EXPLICIT",
+        "DERIVED",
+        "ENGINEERING_RULE",
+        "ASSUMPTION",
+        "UNKNOWN",
+        "CONFLICT"
+      ]
+    },
+    "result_status": {
+      "enum": ["PASS", "FAIL", "UNKNOWN", "BLOCKED", "NOT_RUN"]
+    },
+    "source": {
+      "type": "object",
+      "required": ["classification"],
+      "properties": {
+        "classification": {
+          "$ref": "#/$defs/source_classification"
+        },
+        "reference": {
+          "type": ["string", "null"]
+        },
+        "note": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "result": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": {
+          "$ref": "#/$defs/result_status"
+        }
+      },
+      "additionalProperties": false
+    },
+    "source_field": {
+      "type": "object",
+      "required": ["value", "source", "result"],
+      "properties": {
+        "value": {},
+        "source": {
+          "$ref": "#/$defs/source"
+        },
+        "result": {
+          "$ref": "#/$defs/result"
+        },
+        "rule_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reason_code": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "gate_locked_source_field": {
+      "allOf": [
+        {"$ref": "#/$defs/source_field"},
+        {
+          "properties": {
+            "value": {"type": "null"}
+          }
+        }
+      ]
+    },
+    "synthetic_only_source_field": {
+      "allOf": [
+        {"$ref": "#/$defs/source_field"},
+        {
+          "properties": {
+            "value": {"enum": [null, "SYNTHETIC_ONLY"]}
+          }
+        }
+      ]
+    },
+    "claims": {
+      "type": "object",
+      "required": ["validation_level"],
+      "properties": {
+        "validation_level": {
+          "const": "SYNTHETIC"
+        }
+      },
+      "additionalProperties": false
+    },
+    "variant_a_modules": {
+      "type": "object",
+      "required": ["can", "lin", "gnss"],
+      "properties": {
+        "can": {
+          "type": "object",
+          "required": ["controller", "transceiver", "events"],
+          "properties": {
+            "controller": {"$ref": "#/$defs/gate_locked_source_field"},
+            "transceiver": {"$ref": "#/$defs/gate_locked_source_field"},
+            "events": {"$ref": "#/$defs/synthetic_only_source_field"}
+          },
+          "additionalProperties": false
+        },
+        "lin": {
+          "type": "object",
+          "required": ["uart", "transceiver", "events"],
+          "properties": {
+            "uart": {"$ref": "#/$defs/gate_locked_source_field"},
+            "transceiver": {"$ref": "#/$defs/gate_locked_source_field"},
+            "events": {"$ref": "#/$defs/synthetic_only_source_field"}
+          },
+          "additionalProperties": false
+        },
+        "gnss": {
+          "type": "object",
+          "required": ["hardware", "data_quality"],
+          "properties": {
+            "hardware": {"$ref": "#/$defs/gate_locked_source_field"},
+            "data_quality": {"$ref": "#/$defs/synthetic_only_source_field"}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "variant_b_modules": {
+      "type": "object",
+      "required": ["automotive_power", "shutdown"],
+      "properties": {
+        "automotive_power": {
+          "type": "object",
+          "required": ["targets", "events", "profile_type"],
+          "properties": {
+            "targets": {"$ref": "#/$defs/gate_locked_source_field"},
+            "events": {"$ref": "#/$defs/synthetic_only_source_field"},
+            "profile_type": {"$ref": "#/$defs/gate_locked_source_field"}
+          },
+          "additionalProperties": false
+        },
+        "shutdown": {
+          "type": "object",
+          "required": ["events", "host_contract"],
+          "properties": {
+            "events": {"$ref": "#/$defs/synthetic_only_source_field"},
+            "host_contract": {"$ref": "#/$defs/gate_locked_source_field"}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "variant_b_integrations": {
+      "type": "object",
+      "required": ["rep02"],
+      "properties": {
+        "rep02": {"$ref": "#/$defs/gate_locked_source_field"}
+      },
+      "additionalProperties": false
+    },
+    "validation_report": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "variant_id",
+        "status",
+        "result",
+        "rule_id",
+        "reason_code",
+        "normalized_profile_hash",
+        "profile_hash",
+        "input_hash",
+        "tool_version",
+        "claims",
+        "issues"
+      ],
+      "properties": {
+        "schema_version": {},
+        "variant_id": {},
+        "status": {
+          "$ref": "#/$defs/result_status"
+        },
+        "result": {
+          "$ref": "#/$defs/result"
+        },
+        "rule_id": {"type": "string"},
+        "reason_code": {"type": "string"},
+        "normalized_profile_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "profile_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "input_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "tool_version": {"type": "string"},
+        "claims": {"$ref": "#/$defs/claims"},
+        "issues": {"type": "array"}
+      }
+    }
+  }
+}
