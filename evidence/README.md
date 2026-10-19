@@ -2,9 +2,11 @@
 
 Bu dizin, REP-03 kararlarını ve doğrulama çalışmalarını sohbet geçmişinden bağımsız olarak yeniden üretmeye yarayan kanıt kayıtlarını barındırır.
 
-## Mevcut kayıt
+## Mevcut kayıtlar
 
 - [`D1_validation_record.md`](D1_validation_record.md): D1 geçiş onayı, sentetik çalışma sınırı ve D2/D3 doğrulama durumu.
+- [`D2_session2_validation_record.md`](D2_session2_validation_record.md): WF-03-02 CAN/TWAI ve WF-03-03 LIN motorlarının fixture, test, kaynak ve kabul kaydı.
+- [`REP-03_Oturum_2_Sentetik_Dogrulama_Raporu_2026-10-19.docx`](REP-03_Oturum_2_Sentetik_Dogrulama_Raporu_2026-10-19.docx): Oturum 2 sonucunu sohbet geçmişinden bağımsız sunan düzenlenebilir teslim raporu.
 
 ## Kanıt kuralları
 

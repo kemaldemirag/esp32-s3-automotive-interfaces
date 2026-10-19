@@ -7,8 +7,8 @@ Bu dizin; CAN/TWAI, LIN, GNSS, otomotiv güç ve kontrollü kapatma davranışla
 | Aşama/kapı | Durum | Kanıt sınırı |
 | --- | --- | --- |
 | D1 — varyant sözleşmesi | `APPROVED_TO_PROCEED` | Kullanıcının 18 Ekim 2026 tarihli “Devam et” talebi sentetik çalışmaya geçiş onayıdır. |
-| D2 — sentetik uygulama | `IN_PROGRESS` | WF-03-01 şema/doğrulayıcı/fixture dilimi tamamlandı; olay motorları henüz başlamadı. |
-| D3 — otomatik doğrulama | `WF-03-01_PASS` | Sözleşme dilimindeki 15 test 18 Ekim 2026 tarihinde geçti; bu sonuç diğer iş akışlarını kapsamaz. |
+| D2 — sentetik uygulama | `IN_PROGRESS_SESSION_2_COMPLETE` | WF-03-01 sözleşmesi ile WF-03-02 CAN/TWAI ve WF-03-03 LIN motorları tamamlandı. D2, Oturum 3 sonuna kadar açık kalır. |
+| D3 — otomatik doğrulama | `WF-03-01_02_03_PASS` | 75 test 19 Ekim 2026 tarihinde geçti; sonuç yalnız sentetik sözleşme ve olay modellerini kapsar. |
 | G1 — gereksinim/kaynak kapanışı | `BLOCKED` | Fiziksel arayüz, RF ve OEM profili kaynakları eksiktir. |
 | G2 — donanım tasarım başlangıcı | `NOT_STARTED` | G1 kapanmadan şema/PCB çalışması yapılmaz. |
 
@@ -21,6 +21,9 @@ Bu dizin; CAN/TWAI, LIN, GNSS, otomotiv güç ve kontrollü kapatma davranışla
 - Her karar makinece okunabilir `rule_id` ve `reason_code` ile açıklanır.
 - Girdi/profil özeti ve araç sürümü tekrar üretilebilir kanıta eklenir.
 - G1/G2 kapalıyken donanıma duyarlı değerler `null` kalır; sentetik davranış alanlarında yalnız `SYNTHETIC_ONLY` işaretçisi kullanılabilir.
+- CAN ve LIN senaryoları tam Varyant A modül kümesini ve onaylı D1 profil özetini taşır.
+- Kaynağı eksik, çelişkili veya varsayımsal eşikler genel sonucu `PASS` yapamaz.
+- Controller/UART sonucu, transceiver veya fiziksel bus başarısı olarak yorumlanmaz.
 
 ## Varyant sınırları
 
@@ -37,4 +40,4 @@ Bu dizin; CAN/TWAI, LIN, GNSS, otomotiv güç ve kontrollü kapatma davranışla
 - OEM transient/cold-crank ve ignition profili: `BLOCKED_SOURCE_VERIFICATION`.
 - Raspberry Pi modeli ve host shutdown protokolü: `BLOCKED_CLIENT_INPUT`.
 
-Bu girdiler kapanmadan KiCad şeması, PCB, parça seçimi veya fiziksel uygunluk iddiası üretilmez. Doğrulama kaydı [`../evidence/D1_validation_record.md`](../evidence/D1_validation_record.md) dosyasındadır.
+Bu girdiler kapanmadan KiCad şeması, PCB, parça seçimi veya fiziksel uygunluk iddiası üretilmez. Oturum 2 doğrulama kaydı [`../evidence/D2_session2_validation_record.md`](../evidence/D2_session2_validation_record.md) dosyasındadır.

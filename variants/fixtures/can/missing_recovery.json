@@ -1,0 +1,50 @@
+{
+  "schema_version": "repo03.can.scenario.v1",
+  "variant_id": "A",
+  "enabled_modules": ["can", "lin", "gnss"],
+  "variant_contract": {
+    "schema_version": "repo03.variant.schema.v1",
+    "profile_hash": "f74c42bb2a2519ab563a91cb05cfb6d4e5accd9d6f2570ed89604bbad5e0367e",
+    "source": {
+      "classification": "SOURCE_EXPLICIT",
+      "reference": "variants/fixtures/valid_variant_a.json",
+      "version": "1.0.0"
+    }
+  },
+  "module_id": "can",
+  "engine_id": "repo03_can",
+  "scenario_id": "can-missing-recovery",
+  "synthetic_data": true,
+  "source": {
+    "classification": "ENGINEERING_RULE",
+    "reference": "WF-03-02 synthetic CAN/TWAI scenarios",
+    "version": "1.0.0"
+  },
+  "known_gaps": ["GAP-01"],
+  "recovery_timeout_ms": 1000,
+  "threshold_sources": {
+    "error_state": {
+      "classification": "ENGINEERING_RULE",
+      "reference": "WF-03-02 explicit synthetic error-state events; no physical threshold inference",
+      "version": "1.0.0"
+    },
+    "recovery_timeout": {
+      "classification": "ENGINEERING_RULE",
+      "reference": "WF-03-02 synthetic test timeout; not an OEM or component value",
+      "version": "1.0.0"
+    }
+  },
+  "initial_state": {
+    "controller_state": "ERROR_ACTIVE",
+    "transceiver_state": "SYNTHETIC_ON",
+    "bus_observation": "NO_SYNTHETIC_OBSERVATION",
+    "tx_error_counter": 0,
+    "rx_error_counter": 0
+  },
+  "events": [
+    {
+      "type": "BUS_OFF",
+      "timestamp_ms": 20
+    }
+  ]
+}

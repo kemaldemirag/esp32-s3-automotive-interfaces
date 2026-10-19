@@ -1,0 +1,30 @@
+{
+  "schema_version": "repo03.lin.scenario.v1",
+  "scenario_id": "lin-wake-timeout",
+  "engine_id": "repo03-lin-engine",
+  "module_id": "lin",
+  "variant_id": "A",
+  "enabled_modules": ["can", "lin", "gnss"],
+  "variant_contract": {"schema_version": "repo03.variant.schema.v1", "profile_hash": "f74c42bb2a2519ab563a91cb05cfb6d4e5accd9d6f2570ed89604bbad5e0367e", "source": {"classification": "SOURCE_EXPLICIT", "reference": "variants/fixtures/valid_variant_a.json", "version": "D1-2026-10-17"}},
+  "source": {"classification": "ENGINEERING_RULE", "reference": "REP-03/WF-03-03/wake-timeout-scenario", "version": "1.0.0"},
+  "synthetic_data": true,
+  "initial_state": "sleep",
+  "uart_peripheral": {"mode": "synthetic", "source": {"classification": "ENGINEERING_RULE", "reference": "REP-03/WF-03-03/synthetic-uart", "version": "1.0.0"}},
+  "lin_bus": {"mode": "synthetic", "source": {"classification": "ENGINEERING_RULE", "reference": "REP-03/WF-03-03/synthetic-bus", "version": "1.0.0"}},
+  "lin_transceiver": {
+    "profile_id": "synthetic-lin-transceiver-v1",
+    "scope": "SYNTHETIC_BEHAVIOURAL_MODEL",
+    "operational_state": "synthetic-enabled",
+    "source": {"classification": "ENGINEERING_RULE", "reference": "REP-03/WF-03-03/synthetic-transceiver", "version": "1.0.0"},
+    "wake_timeout_ms": {"value_ms": 25, "source": {"classification": "ENGINEERING_RULE", "reference": "REP-03/WF-03-03/wake-timeout", "version": "1.0.0"}},
+    "stuck_dominant_ms": {"value_ms": 20, "source": {"classification": "ENGINEERING_RULE", "reference": "REP-03/WF-03-03/stuck-dominant", "version": "1.0.0"}}
+  },
+  "state_policy": {
+    "frame_timeout_ms": {"value_ms": 15, "source": {"classification": "ENGINEERING_RULE", "reference": "REP-03/WF-03-03/frame-timeout", "version": "1.0.0"}},
+    "min_awake_before_sleep_ms": {"value_ms": 10, "source": {"classification": "ENGINEERING_RULE", "reference": "REP-03/WF-03-03/min-awake", "version": "1.0.0"}}
+  },
+  "events": [
+    {"event": "wake-request", "domain": "state-control", "elapsed_time_ms": 0, "wake_source": "synthetic-control"},
+    {"event": "wake-timeout", "domain": "timer", "elapsed_time_ms": 25, "wake_source": "synthetic-timer"}
+  ]
+}

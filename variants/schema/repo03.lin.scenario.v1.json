@@ -1,0 +1,356 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:rep-03:schema:lin-scenario:v1",
+  "title": "REP-03 synthetic LIN scenario v1",
+  "description": "Synthetic-only LIN FSM input. Missing or off transceiver profiles are valid negative inputs and resolve to BLOCKED at runtime. UART observations are never physical LIN evidence.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "scenario_id",
+    "engine_id",
+    "module_id",
+    "variant_id",
+    "enabled_modules",
+    "variant_contract",
+    "source",
+    "synthetic_data",
+    "initial_state",
+    "uart_peripheral",
+    "lin_bus",
+    "state_policy",
+    "events"
+  ],
+  "properties": {
+    "schema_version": {"const": "repo03.lin.scenario.v1"},
+    "scenario_id": {"type": "string", "minLength": 1},
+    "engine_id": {"const": "repo03-lin-engine"},
+    "module_id": {"const": "lin"},
+    "variant_id": {"const": "A"},
+    "enabled_modules": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "uniqueItems": true,
+      "items": {"enum": ["can", "lin", "gnss"]},
+      "allOf": [
+        {"contains": {"const": "can"}},
+        {"contains": {"const": "lin"}},
+        {"contains": {"const": "gnss"}}
+      ]
+    },
+    "variant_contract": {"$ref": "#/$defs/variant_contract"},
+    "source": {"$ref": "#/$defs/source"},
+    "synthetic_data": {"const": true},
+    "initial_state": {"$ref": "#/$defs/state"},
+    "uart_peripheral": {"$ref": "#/$defs/synthetic_boundary"},
+    "lin_transceiver": {
+      "oneOf": [
+        {"$ref": "#/$defs/lin_transceiver"},
+        {"type": "null"}
+      ]
+    },
+    "lin_bus": {"$ref": "#/$defs/synthetic_boundary"},
+    "state_policy": {"$ref": "#/$defs/state_policy"},
+    "events": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/event"}
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "state": {
+      "enum": ["sleep", "wake-request", "awake", "frame-wait", "timeout", "stuck-dominant", "fault"]
+    },
+    "status": {
+      "enum": ["PASS", "FAIL", "UNKNOWN", "BLOCKED", "NOT_RUN"]
+    },
+    "source": {
+      "type": "object",
+      "required": ["classification", "reference", "version"],
+      "properties": {
+        "classification": {
+          "enum": ["SOURCE_EXPLICIT", "DERIVED", "ENGINEERING_RULE", "ASSUMPTION", "UNKNOWN", "CONFLICT"]
+        },
+        "reference": {"type": "string", "minLength": 1},
+        "version": {"type": "string", "minLength": 1},
+        "note": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "variant_contract": {
+      "type": "object",
+      "required": ["schema_version", "profile_hash", "source"],
+      "properties": {
+        "schema_version": {"const": "repo03.variant.schema.v1"},
+        "profile_hash": {"const": "f74c42bb2a2519ab563a91cb05cfb6d4e5accd9d6f2570ed89604bbad5e0367e"},
+        "source": {"$ref": "#/$defs/source"}
+      },
+      "additionalProperties": false
+    },
+    "threshold": {
+      "type": "object",
+      "required": ["value_ms", "source"],
+      "properties": {
+        "value_ms": {"type": "number", "minimum": 0},
+        "source": {"$ref": "#/$defs/source"}
+      },
+      "additionalProperties": false
+    },
+    "synthetic_boundary": {
+      "type": "object",
+      "required": ["mode", "source"],
+      "properties": {
+        "mode": {"const": "synthetic"},
+        "source": {"$ref": "#/$defs/source"}
+      },
+      "additionalProperties": false
+    },
+    "lin_transceiver": {
+      "type": "object",
+      "required": ["profile_id", "scope", "operational_state", "source", "wake_timeout_ms", "stuck_dominant_ms"],
+      "properties": {
+        "profile_id": {"type": "string", "minLength": 1},
+        "scope": {"const": "SYNTHETIC_BEHAVIOURAL_MODEL"},
+        "operational_state": {"enum": ["synthetic-enabled", "off"]},
+        "source": {"$ref": "#/$defs/source"},
+        "wake_timeout_ms": {"$ref": "#/$defs/threshold"},
+        "stuck_dominant_ms": {"$ref": "#/$defs/threshold"}
+      },
+      "additionalProperties": false
+    },
+    "state_policy": {
+      "type": "object",
+      "required": ["frame_timeout_ms", "min_awake_before_sleep_ms"],
+      "properties": {
+        "frame_timeout_ms": {"$ref": "#/$defs/threshold"},
+        "min_awake_before_sleep_ms": {"$ref": "#/$defs/threshold"}
+      },
+      "additionalProperties": false
+    },
+    "event": {
+      "type": "object",
+      "required": ["event", "domain", "elapsed_time_ms"],
+      "properties": {
+        "event": {
+          "enum": ["wake-request", "wake-detected", "sleep-request", "frame-request", "uart-frame-received", "wake-timeout", "frame-timeout", "bus-dominant", "bus-recessive", "fault-detected", "reset"]
+        },
+        "domain": {
+          "enum": ["state-control", "uart-peripheral", "lin-transceiver", "lin-bus", "timer"]
+        },
+        "elapsed_time_ms": {"type": "number", "minimum": 0},
+        "wake_source": {
+          "enum": ["synthetic-control", "synthetic-transceiver-observation", "synthetic-timer"]
+        },
+        "observation_duration_ms": {"type": "number", "minimum": 0}
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {"event": {"enum": ["wake-request", "wake-detected", "wake-timeout"]}},
+            "required": ["event"]
+          },
+          "then": {"required": ["wake_source"]},
+          "else": {"not": {"required": ["wake_source"]}}
+        },
+        {
+          "if": {
+            "properties": {"event": {"const": "bus-dominant"}},
+            "required": ["event"]
+          },
+          "then": {"required": ["observation_duration_ms"]},
+          "else": {"not": {"required": ["observation_duration_ms"]}}
+        }
+      ],
+      "oneOf": [
+        {
+          "properties": {
+            "event": {"const": "wake-request"},
+            "domain": {"const": "state-control"},
+            "wake_source": {"const": "synthetic-control"}
+          }
+        },
+        {
+          "properties": {
+            "event": {"enum": ["sleep-request", "frame-request", "reset"]},
+            "domain": {"const": "state-control"}
+          }
+        },
+        {
+          "properties": {
+            "event": {"const": "uart-frame-received"},
+            "domain": {"const": "uart-peripheral"}
+          }
+        },
+        {
+          "properties": {
+            "event": {"const": "wake-detected"},
+            "domain": {"const": "lin-transceiver"},
+            "wake_source": {"const": "synthetic-transceiver-observation"}
+          }
+        },
+        {
+          "properties": {
+            "event": {"const": "fault-detected"},
+            "domain": {"const": "lin-transceiver"}
+          }
+        },
+        {
+          "properties": {
+            "event": {"enum": ["bus-dominant", "bus-recessive"]},
+            "domain": {"const": "lin-bus"}
+          }
+        },
+        {
+          "properties": {
+            "event": {"const": "wake-timeout"},
+            "domain": {"const": "timer"},
+            "wake_source": {"const": "synthetic-timer"}
+          }
+        },
+        {
+          "properties": {
+            "event": {"const": "frame-timeout"},
+            "domain": {"const": "timer"}
+          }
+        }
+      ]
+    },
+    "threshold_source_trace": {
+      "type": "object",
+      "required": ["name", "value_ms", "classification", "reference", "version"],
+      "properties": {
+        "name": {"type": ["string", "null"]},
+        "value_ms": {"type": ["number", "null"]},
+        "classification": {"type": "string"},
+        "reference": {"type": ["string", "null"]},
+        "version": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "trace_row": {
+      "type": "object",
+      "required": ["event_index", "previous_state", "new_state", "event", "elapsed_time_ms", "observation_duration_ms", "elapsed_total_ms", "wake_source", "responsibility", "uart_state", "transceiver_state", "bus_observation", "threshold_source", "status", "rule_id", "reason_code", "input_hash", "tool_version", "schema_version", "source_reference", "source_version"],
+      "properties": {
+        "event_index": {"type": ["integer", "null"]},
+        "previous_state": {"$ref": "#/$defs/state"},
+        "new_state": {"$ref": "#/$defs/state"},
+        "event": {"type": "string"},
+        "elapsed_time_ms": {"type": "number"},
+        "observation_duration_ms": {"type": ["number", "null"]},
+        "elapsed_total_ms": {"type": "number"},
+        "wake_source": {"type": ["string", "null"]},
+        "responsibility": {"type": "string"},
+        "uart_state": {"type": "string"},
+        "transceiver_state": {"type": "string"},
+        "bus_observation": {"type": "string"},
+        "threshold_source": {"$ref": "#/$defs/threshold_source_trace"},
+        "status": {"$ref": "#/$defs/status"},
+        "rule_id": {"type": "string"},
+        "reason_code": {"type": "string"},
+        "input_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "tool_version": {"type": "string"},
+        "schema_version": {"const": "repo03.lin.scenario.v1"},
+        "source_reference": {"type": ["string", "null"]},
+        "source_version": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "issue": {
+      "type": "object",
+      "required": ["status", "rule_id", "reason_code", "path", "message"],
+      "properties": {
+        "status": {"$ref": "#/$defs/status"},
+        "rule_id": {"type": "string"},
+        "reason_code": {"type": "string"},
+        "path": {"type": "string"},
+        "message": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "result": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {"status": {"$ref": "#/$defs/status"}},
+      "additionalProperties": false
+    },
+    "physical_evidence_claim": {
+      "type": "object",
+      "required": ["status", "rule_id", "reason_code"],
+      "properties": {
+        "status": {"const": "UNKNOWN"},
+        "rule_id": {"const": "REP03-LIN-CLAIM-001"},
+        "reason_code": {"const": "SYNTHETIC_UART_NOT_PHYSICAL_LIN_EVIDENCE"}
+      },
+      "additionalProperties": false
+    },
+    "claims": {
+      "type": "object",
+      "required": ["validation_level", "uart_result_scope", "physical_lin_evidence"],
+      "properties": {
+        "validation_level": {"const": "SYNTHETIC"},
+        "uart_result_scope": {"const": "SYNTHETIC_PERIPHERAL_ONLY"},
+        "physical_lin_evidence": {"$ref": "#/$defs/physical_evidence_claim"}
+      },
+      "additionalProperties": false
+    },
+    "source_versions": {
+      "type": "object",
+      "required": ["scenario_schema", "scenario_source_reference", "scenario_source_version", "transceiver_profile", "variant_contract_schema", "variant_contract_profile_hash", "uart_source_reference", "bus_source_reference"],
+      "properties": {
+        "scenario_schema": {"const": "repo03.lin.scenario.v1"},
+        "scenario_source_reference": {"type": ["string", "null"]},
+        "scenario_source_version": {"type": ["string", "null"]},
+        "transceiver_profile": {"type": ["string", "null"]},
+        "variant_contract_schema": {"type": ["string", "null"]},
+        "variant_contract_profile_hash": {"type": ["string", "null"]},
+        "uart_source_reference": {"type": ["string", "null"]},
+        "bus_source_reference": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "dependency_result": {
+      "type": "object",
+      "required": ["status", "rule_id", "reason_code"],
+      "properties": {
+        "status": {"enum": ["UNKNOWN", "BLOCKED"]},
+        "rule_id": {"type": "string"},
+        "reason_code": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "dependencies": {
+      "type": "object",
+      "required": ["GAP-01"],
+      "properties": {"GAP-01": {"$ref": "#/$defs/dependency_result"}},
+      "additionalProperties": false
+    },
+    "run_report": {
+      "type": "object",
+      "required": ["schema_version", "scenario_id", "engine_id", "module_id", "variant_id", "status", "result", "rule_id", "reason_code", "initial_state", "final_state", "trace", "issues", "input_hash", "tool_version", "synthetic_data", "claims", "source_versions", "dependencies"],
+      "properties": {
+        "schema_version": {"const": "repo03.lin.scenario.v1"},
+        "scenario_id": {},
+        "engine_id": {"const": "repo03-lin-engine"},
+        "module_id": {"const": "lin"},
+        "variant_id": {},
+        "status": {"$ref": "#/$defs/status"},
+        "result": {"$ref": "#/$defs/result"},
+        "rule_id": {"type": "string"},
+        "reason_code": {"type": "string"},
+        "initial_state": {"$ref": "#/$defs/state"},
+        "final_state": {"$ref": "#/$defs/state"},
+        "trace": {"type": "array", "items": {"$ref": "#/$defs/trace_row"}},
+        "issues": {"type": "array", "items": {"$ref": "#/$defs/issue"}},
+        "input_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "tool_version": {"type": "string"},
+        "synthetic_data": {"const": true},
+        "claims": {"$ref": "#/$defs/claims"},
+        "source_versions": {"$ref": "#/$defs/source_versions"},
+        "dependencies": {"$ref": "#/$defs/dependencies"}
+      },
+      "additionalProperties": false
+    }
+  }
+}

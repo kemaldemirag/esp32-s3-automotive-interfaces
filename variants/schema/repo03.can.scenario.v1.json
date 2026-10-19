@@ -1,0 +1,401 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:rep-03:schema:can-scenario:v1",
+  "title": "REP-03 Synthetic CAN/TWAI Scenario v1",
+  "description": "Variant-A synthetic controller-event contract with controller, external-transceiver and bus-observation domains kept separate. It is not physical CAN, ISO, AEC, exact-part, voltage or measured validation evidence.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "scenario_id",
+    "variant_id",
+    "enabled_modules",
+    "variant_contract",
+    "module_id",
+    "engine_id",
+    "synthetic_data",
+    "source",
+    "known_gaps",
+    "recovery_timeout_ms",
+    "threshold_sources",
+    "initial_state",
+    "events"
+  ],
+  "properties": {
+    "schema_version": {"const": "repo03.can.scenario.v1"},
+    "scenario_id": {"type": "string", "minLength": 1},
+    "variant_id": {"const": "A"},
+    "enabled_modules": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {"enum": ["can", "lin", "gnss"]},
+      "allOf": [
+        {"contains": {"const": "can"}},
+        {"contains": {"const": "lin"}},
+        {"contains": {"const": "gnss"}}
+      ],
+      "uniqueItems": true
+    },
+    "variant_contract": {"$ref": "#/$defs/variant_contract"},
+    "module_id": {"const": "can"},
+    "engine_id": {"const": "repo03_can"},
+    "synthetic_data": {"const": true},
+    "source": {"$ref": "#/$defs/source"},
+    "known_gaps": {
+      "type": "array",
+      "description": "GAP-01 remains mandatory until exact external-transceiver behaviour has an approved source.",
+      "minItems": 1,
+      "maxItems": 1,
+      "contains": {"const": "GAP-01"},
+      "items": {"const": "GAP-01"},
+      "uniqueItems": true
+    },
+    "recovery_timeout_ms": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Synthetic scenario timeout; not an OEM or component specification."
+    },
+    "threshold_sources": {
+      "type": "object",
+      "required": ["error_state", "recovery_timeout"],
+      "properties": {
+        "error_state": {"$ref": "#/$defs/source"},
+        "recovery_timeout": {"$ref": "#/$defs/source"}
+      },
+      "additionalProperties": false
+    },
+    "initial_state": {"$ref": "#/$defs/state"},
+    "events": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/event"}
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "source": {
+      "type": "object",
+      "required": ["classification", "reference", "version"],
+      "properties": {
+        "classification": {
+          "enum": ["SOURCE_EXPLICIT", "DERIVED", "ENGINEERING_RULE", "ASSUMPTION", "UNKNOWN", "CONFLICT"]
+        },
+        "reference": {"type": "string", "minLength": 1},
+        "version": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "variant_contract": {
+      "type": "object",
+      "required": ["schema_version", "profile_hash", "source"],
+      "properties": {
+        "schema_version": {"const": "repo03.variant.schema.v1"},
+        "profile_hash": {
+          "const": "f74c42bb2a2519ab563a91cb05cfb6d4e5accd9d6f2570ed89604bbad5e0367e"
+        },
+        "source": {"$ref": "#/$defs/source"}
+      },
+      "additionalProperties": false
+    },
+    "controller_state": {
+      "enum": ["ERROR_ACTIVE", "ERROR_WARNING", "ERROR_PASSIVE", "BUS_OFF", "RECOVERY_PENDING"]
+    },
+    "transceiver_state": {
+      "enum": ["SYNTHETIC_ON", "SYNTHETIC_OFF", "UNKNOWN"]
+    },
+    "bus_observation": {
+      "enum": ["NO_SYNTHETIC_OBSERVATION", "SYNTHETIC_FRAME_OBSERVED", "UNKNOWN"]
+    },
+    "counter": {"type": "integer", "minimum": 0, "maximum": 255},
+    "state": {
+      "type": "object",
+      "required": [
+        "controller_state",
+        "transceiver_state",
+        "bus_observation",
+        "tx_error_counter",
+        "rx_error_counter"
+      ],
+      "properties": {
+        "controller_state": {"$ref": "#/$defs/controller_state"},
+        "transceiver_state": {"$ref": "#/$defs/transceiver_state"},
+        "bus_observation": {"$ref": "#/$defs/bus_observation"},
+        "tx_error_counter": {"$ref": "#/$defs/counter"},
+        "rx_error_counter": {"$ref": "#/$defs/counter"}
+      },
+      "additionalProperties": false
+    },
+    "timestamp": {"type": "integer", "minimum": 0},
+    "normal_frame": {
+      "type": "object",
+      "required": ["type", "timestamp_ms", "frame_id", "dlc", "data_hex"],
+      "properties": {
+        "type": {"const": "NORMAL_FRAME"},
+        "timestamp_ms": {"$ref": "#/$defs/timestamp"},
+        "frame_id": {"type": "integer", "minimum": 0, "maximum": 536870911},
+        "dlc": {"type": "integer", "minimum": 0, "maximum": 8},
+        "data_hex": {"type": "string", "pattern": "^[0-9A-Fa-f]*$"}
+      },
+      "additionalProperties": false
+    },
+    "error_counter_update": {
+      "type": "object",
+      "required": ["type", "timestamp_ms", "tx_error_counter", "rx_error_counter", "controller_state"],
+      "properties": {
+        "type": {"const": "ERROR_COUNTER_UPDATE"},
+        "timestamp_ms": {"$ref": "#/$defs/timestamp"},
+        "tx_error_counter": {"$ref": "#/$defs/counter"},
+        "rx_error_counter": {"$ref": "#/$defs/counter"},
+        "controller_state": {"enum": ["ERROR_ACTIVE", "ERROR_WARNING", "ERROR_PASSIVE"]}
+      },
+      "additionalProperties": false
+    },
+    "simple_event": {
+      "type": "object",
+      "required": ["type", "timestamp_ms"],
+      "properties": {
+        "type": {
+          "enum": ["BUS_OFF", "RECOVERY_REQUEST", "RECOVERY_COMPLETE", "RECOVERY_TIMEOUT", "TRANSCEIVER_OFF"]
+        },
+        "timestamp_ms": {"$ref": "#/$defs/timestamp"}
+      },
+      "additionalProperties": false
+    },
+    "event": {
+      "oneOf": [
+        {"$ref": "#/$defs/normal_frame"},
+        {"$ref": "#/$defs/error_counter_update"},
+        {"$ref": "#/$defs/simple_event"}
+      ]
+    },
+    "result_status": {"enum": ["PASS", "FAIL", "UNKNOWN", "BLOCKED"]},
+    "nullable_controller_state": {
+      "anyOf": [{"$ref": "#/$defs/controller_state"}, {"type": "null"}]
+    },
+    "nullable_transceiver_state": {
+      "anyOf": [{"$ref": "#/$defs/transceiver_state"}, {"type": "null"}]
+    },
+    "nullable_bus_observation": {
+      "anyOf": [{"$ref": "#/$defs/bus_observation"}, {"type": "null"}]
+    },
+    "nullable_counter": {
+      "anyOf": [{"$ref": "#/$defs/counter"}, {"type": "null"}]
+    },
+    "state_snapshot": {
+      "type": "object",
+      "required": [
+        "controller_state",
+        "transceiver_state",
+        "bus_observation",
+        "tx_error_counter",
+        "rx_error_counter"
+      ],
+      "properties": {
+        "controller_state": {"$ref": "#/$defs/nullable_controller_state"},
+        "transceiver_state": {"$ref": "#/$defs/nullable_transceiver_state"},
+        "bus_observation": {"$ref": "#/$defs/nullable_bus_observation"},
+        "tx_error_counter": {"$ref": "#/$defs/nullable_counter"},
+        "rx_error_counter": {"$ref": "#/$defs/nullable_counter"}
+      },
+      "additionalProperties": false
+    },
+    "error_counters": {
+      "type": "object",
+      "required": ["tx", "rx"],
+      "properties": {
+        "tx": {"$ref": "#/$defs/nullable_counter"},
+        "rx": {"$ref": "#/$defs/nullable_counter"}
+      },
+      "additionalProperties": false
+    },
+    "result_record": {
+      "type": "object",
+      "required": ["status", "rule_id", "reason_code"],
+      "properties": {
+        "status": {"$ref": "#/$defs/result_status"},
+        "rule_id": {"type": "string", "minLength": 1},
+        "reason_code": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "domain_results": {
+      "type": "object",
+      "required": ["controller", "transceiver", "bus_observation"],
+      "properties": {
+        "controller": {"$ref": "#/$defs/result_record"},
+        "transceiver": {"$ref": "#/$defs/result_record"},
+        "bus_observation": {"$ref": "#/$defs/result_record"}
+      },
+      "additionalProperties": false
+    },
+    "issue": {
+      "type": "object",
+      "required": ["status", "rule_id", "reason_code", "path", "message"],
+      "properties": {
+        "status": {"$ref": "#/$defs/result_status"},
+        "rule_id": {"type": "string", "minLength": 1},
+        "reason_code": {"type": "string", "minLength": 1},
+        "path": {"type": "string"},
+        "message": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "limitation": {
+      "type": "object",
+      "required": ["gap_id", "status", "rule_id", "reason_code", "description"],
+      "properties": {
+        "gap_id": {"const": "GAP-01"},
+        "status": {"enum": ["UNKNOWN", "BLOCKED"]},
+        "rule_id": {"type": "string", "minLength": 1},
+        "reason_code": {"type": "string", "minLength": 1},
+        "description": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "dependency_results": {
+      "type": "object",
+      "required": ["external_transceiver", "physical_bus"],
+      "properties": {
+        "external_transceiver": {"$ref": "#/$defs/limitation"},
+        "physical_bus": {"$ref": "#/$defs/result_record"}
+      },
+      "additionalProperties": false
+    },
+    "claims": {
+      "type": "object",
+      "required": [
+        "validation_level",
+        "physical_can_validation",
+        "physical_transceiver_validation",
+        "iso_compliance",
+        "aec_qualification"
+      ],
+      "properties": {
+        "validation_level": {"const": "SYNTHETIC"},
+        "physical_can_validation": {"const": false},
+        "physical_transceiver_validation": {"const": false},
+        "iso_compliance": {"const": false},
+        "aec_qualification": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "nullable_state_value": {
+      "anyOf": [
+        {"$ref": "#/$defs/controller_state"},
+        {"$ref": "#/$defs/transceiver_state"},
+        {"$ref": "#/$defs/bus_observation"},
+        {"$ref": "#/$defs/counter"},
+        {"type": "null"}
+      ]
+    },
+    "trace_row": {
+      "type": "object",
+      "required": [
+        "sequence",
+        "previous_state",
+        "next_state",
+        "previous_controller_state",
+        "new_controller_state",
+        "previous_transceiver_state",
+        "new_transceiver_state",
+        "previous_bus_observation",
+        "new_bus_observation",
+        "previous_error_counters",
+        "new_error_counters",
+        "event",
+        "elapsed_ms",
+        "timeout_ms",
+        "threshold_source",
+        "status",
+        "rule_id",
+        "reason_code",
+        "domain_results"
+      ],
+      "properties": {
+        "sequence": {"type": "integer", "minimum": 0},
+        "previous_state": {"$ref": "#/$defs/state_snapshot"},
+        "next_state": {"$ref": "#/$defs/state_snapshot"},
+        "previous_controller_state": {"$ref": "#/$defs/nullable_controller_state"},
+        "new_controller_state": {"$ref": "#/$defs/nullable_controller_state"},
+        "previous_transceiver_state": {"$ref": "#/$defs/nullable_transceiver_state"},
+        "new_transceiver_state": {"$ref": "#/$defs/nullable_transceiver_state"},
+        "previous_bus_observation": {"$ref": "#/$defs/nullable_bus_observation"},
+        "new_bus_observation": {"$ref": "#/$defs/nullable_bus_observation"},
+        "previous_error_counters": {"$ref": "#/$defs/error_counters"},
+        "new_error_counters": {"$ref": "#/$defs/error_counters"},
+        "event": {"type": "string"},
+        "elapsed_ms": {"type": ["integer", "null"]},
+        "timeout_ms": {"type": ["integer", "null"]},
+        "threshold_source": {
+          "anyOf": [{"$ref": "#/$defs/source"}, {"type": "null"}]
+        },
+        "status": {"$ref": "#/$defs/result_status"},
+        "rule_id": {"type": "string", "minLength": 1},
+        "reason_code": {"type": "string", "minLength": 1},
+        "domain_results": {"$ref": "#/$defs/domain_results"}
+      },
+      "additionalProperties": false
+    },
+    "report": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "variant_id",
+        "module_id",
+        "engine_id",
+        "scenario_id",
+        "status",
+        "rule_id",
+        "reason_code",
+        "final_state",
+        "trace",
+        "issues",
+        "input_hash",
+        "tool_version",
+        "source",
+        "source_reference",
+        "source_version",
+        "variant_contract",
+        "expected_variant_contract_profile_hash",
+        "synthetic_data",
+        "dependency_results",
+        "known_limitations",
+        "claims"
+      ],
+      "properties": {
+        "schema_version": {"const": "repo03.can.scenario.v1"},
+        "variant_id": {"const": "A"},
+        "module_id": {"const": "can"},
+        "engine_id": {"const": "repo03_can"},
+        "scenario_id": {"type": ["string", "null"]},
+        "status": {"$ref": "#/$defs/result_status"},
+        "rule_id": {"type": "string"},
+        "reason_code": {"type": "string"},
+        "final_state": {"$ref": "#/$defs/state_snapshot"},
+        "trace": {"type": "array", "items": {"$ref": "#/$defs/trace_row"}},
+        "issues": {"type": "array", "items": {"$ref": "#/$defs/issue"}},
+        "input_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "tool_version": {"type": "string"},
+        "source": {
+          "anyOf": [{"$ref": "#/$defs/source"}, {"type": "null"}]
+        },
+        "source_reference": {"type": ["string", "null"]},
+        "source_version": {"type": ["string", "null"]},
+        "variant_contract": {
+          "anyOf": [{"$ref": "#/$defs/variant_contract"}, {"type": "null"}]
+        },
+        "expected_variant_contract_profile_hash": {
+          "const": "f74c42bb2a2519ab563a91cb05cfb6d4e5accd9d6f2570ed89604bbad5e0367e"
+        },
+        "synthetic_data": {"const": true},
+        "dependency_results": {"$ref": "#/$defs/dependency_results"},
+        "known_limitations": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/limitation"}
+        },
+        "claims": {"$ref": "#/$defs/claims"}
+      },
+      "additionalProperties": false
+    }
+  }
+}
