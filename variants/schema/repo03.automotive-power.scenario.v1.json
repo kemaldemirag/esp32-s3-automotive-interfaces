@@ -1,0 +1,472 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:rep-03:schema:automotive-power-scenario:v1",
+  "title": "REP-03 synthetic automotive-power scenario v1",
+  "description": "Closed synthetic-only Variant B profile and versioned REP-02 file-API adapter contract. It is not an electrical simulation or physical/compliance evidence.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "scenario_id",
+    "engine_id",
+    "module_id",
+    "variant_id",
+    "enabled_modules",
+    "variant_contract",
+    "source",
+    "synthetic_data",
+    "known_gaps",
+    "requirements",
+    "rep02_adapter",
+    "profile",
+    "assessment_scope"
+  ],
+  "properties": {
+    "schema_version": {"const": "repo03.automotive-power.scenario.v1"},
+    "scenario_id": {"type": "string", "minLength": 1},
+    "engine_id": {"const": "repo03-power-engine"},
+    "module_id": {"const": "automotive_power"},
+    "variant_id": {"const": "B"},
+    "enabled_modules": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "uniqueItems": true,
+      "items": {"enum": ["automotive_power", "shutdown"]},
+      "allOf": [
+        {"contains": {"const": "automotive_power"}},
+        {"contains": {"const": "shutdown"}}
+      ]
+    },
+    "variant_contract": {"$ref": "#/$defs/variant_contract"},
+    "source": {"$ref": "#/$defs/source"},
+    "synthetic_data": {"const": true},
+    "known_gaps": {
+      "type": "array",
+      "prefixItems": [{"const": "GAP-03"}],
+      "minItems": 1,
+      "maxItems": 1
+    },
+    "requirements": {"$ref": "#/$defs/requirements"},
+    "rep02_adapter": {"$ref": "#/$defs/rep02_adapter"},
+    "profile": {"$ref": "#/$defs/profile"},
+    "assessment_scope": {
+      "enum": ["SYNTHETIC_REQUIREMENT_ONLY", "EXACT_PART_OR_PHYSICAL_THRESHOLD"]
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "status": {"enum": ["PASS", "FAIL", "UNKNOWN", "BLOCKED"]},
+    "source": {
+      "type": "object",
+      "required": ["classification", "authority", "reference", "version"],
+      "properties": {
+        "classification": {
+          "enum": ["SOURCE_EXPLICIT", "DERIVED", "ENGINEERING_RULE", "ASSUMPTION", "UNKNOWN", "CONFLICT"]
+        },
+        "authority": {"enum": ["PROJECT_REQUIREMENT", "OEM", "ENGINEERING"]},
+        "reference": {"type": "string", "minLength": 1},
+        "version": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "nullable_source": {
+      "oneOf": [{"$ref": "#/$defs/source"}, {"type": "null"}]
+    },
+    "variant_contract": {
+      "type": "object",
+      "required": ["schema_version", "profile_hash", "source"],
+      "properties": {
+        "schema_version": {"const": "repo03.variant.schema.v1"},
+        "profile_hash": {"const": "1b82f114d7fb4280f55d3f72a7a61816f38242b7495a23cfa468f17b92d00fcd"},
+        "source": {"$ref": "#/$defs/source"}
+      },
+      "additionalProperties": false
+    },
+    "requirement_quantity": {
+      "type": "object",
+      "required": ["value", "unit", "source"],
+      "properties": {
+        "value": {"type": "number"},
+        "unit": {"enum": ["V", "A"]},
+        "source": {"$ref": "#/$defs/source"}
+      },
+      "additionalProperties": false
+    },
+    "requirements": {
+      "type": "object",
+      "required": ["input_nominal_voltage", "output_target_voltage", "output_target_current"],
+      "properties": {
+        "input_nominal_voltage": {
+          "allOf": [
+            {"$ref": "#/$defs/requirement_quantity"},
+            {"properties": {"value": {"const": 12}, "unit": {"const": "V"}}}
+          ]
+        },
+        "output_target_voltage": {
+          "allOf": [
+            {"$ref": "#/$defs/requirement_quantity"},
+            {"properties": {"value": {"const": 5.1}, "unit": {"const": "V"}}}
+          ]
+        },
+        "output_target_current": {
+          "allOf": [
+            {"$ref": "#/$defs/requirement_quantity"},
+            {"properties": {"value": {"const": 5}, "unit": {"const": "A"}}}
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "rail_units": {
+      "type": "object",
+      "required": ["voltage", "current", "factor", "power"],
+      "properties": {
+        "voltage": {"const": "V"},
+        "current": {"const": "A"},
+        "factor": {"const": "1"},
+        "power": {"const": "W"}
+      },
+      "additionalProperties": false
+    },
+    "sequencing_units": {
+      "type": "object",
+      "required": ["time"],
+      "properties": {"time": {"const": "s"}},
+      "additionalProperties": false
+    },
+    "rail_input_fields": {
+      "type": "array",
+      "prefixItems": [
+        {"const": "schema_version"},
+        {"const": "rail"},
+        {"const": "loads"},
+        {"const": "capacity"},
+        {"const": "derating"},
+        {"const": "efficiency"},
+        {"const": "sources"}
+      ],
+      "minItems": 7,
+      "maxItems": 7
+    },
+    "sequencing_input_fields": {
+      "type": "array",
+      "prefixItems": [
+        {"const": "schema_version"},
+        {"const": "scenario_id"},
+        {"const": "scenario_kind"},
+        {"const": "timing_rules"},
+        {"const": "power_off_rule"},
+        {"const": "events"},
+        {"const": "sources"},
+        {"const": "observation_end_offset"},
+        {"const": "observation_end_at"},
+        {"const": "observation_provenance"},
+        {"const": "observation_source_refs"},
+        {"const": "sorting_policy"},
+        {"const": "simultaneous_policy"}
+      ],
+      "minItems": 13,
+      "maxItems": 13
+    },
+    "rep02_rail_budget": {
+      "type": "object",
+      "required": ["input_schema_version", "package_version", "formula_version", "rule_id", "input_fields", "units"],
+      "properties": {
+        "input_schema_version": {"const": "1.0.0"},
+        "package_version": {"const": "0.3.0"},
+        "formula_version": {"const": "REP02-RB-1.0.0"},
+        "rule_id": {"const": "REP02.RAIL_BUDGET.STATIC"},
+        "input_fields": {"$ref": "#/$defs/rail_input_fields"},
+        "units": {"$ref": "#/$defs/rail_units"}
+      },
+      "additionalProperties": false
+    },
+    "rep02_sequencing": {
+      "type": "object",
+      "required": ["input_schema_version", "engine_version", "fsm_version", "rule_set_version", "input_fields", "units"],
+      "properties": {
+        "input_schema_version": {"const": "1.0.0"},
+        "engine_version": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Pinned REP-02 sequencing engine version; the WF-03-05 runtime accepts only 0.3.0 and returns BLOCKED for incompatible versions."
+        },
+        "fsm_version": {"const": "REP02-SEQ-FSM-1.0.0"},
+        "rule_set_version": {"const": "REP02-SEQ-RULESET-1.0.0"},
+        "input_fields": {"$ref": "#/$defs/sequencing_input_fields"},
+        "units": {"$ref": "#/$defs/sequencing_units"}
+      },
+      "additionalProperties": false
+    },
+    "rep02_adapter": {
+      "type": "object",
+      "required": ["schema_version", "transport", "native_api", "source", "profile_hash", "rail_budget", "sequencing"],
+      "properties": {
+        "schema_version": {"const": "repo03.rep02.file-adapter.v1"},
+        "transport": {"const": "FILE_API"},
+        "native_api": {"const": "JSON_COMPATIBLE_MAPPING"},
+        "source": {"$ref": "#/$defs/source"},
+        "profile_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "rail_budget": {"$ref": "#/$defs/rep02_rail_budget"},
+        "sequencing": {"$ref": "#/$defs/rep02_sequencing"}
+      },
+      "additionalProperties": false
+    },
+    "profile": {
+      "type": "object",
+      "required": ["profile_type", "input_voltage", "duration_ms", "suppression_state", "source"],
+      "properties": {
+        "profile_type": {
+          "enum": ["nominal", "cold_crank", "load_dump_suppressed", "load_dump_unsuppressed", "jump_start", "brownout"]
+        },
+        "input_voltage": {"type": "number", "minimum": 0},
+        "duration_ms": {"type": "number", "minimum": 0},
+        "suppression_state": {"enum": ["NOT_APPLICABLE", "SUPPRESSED", "UNSUPPRESSED"]},
+        "source": {"$ref": "#/$defs/nullable_source"}
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {"properties": {"profile_type": {"const": "load_dump_suppressed"}}, "required": ["profile_type"]},
+          "then": {"properties": {"suppression_state": {"const": "SUPPRESSED"}}}
+        },
+        {
+          "if": {"properties": {"profile_type": {"const": "load_dump_unsuppressed"}}, "required": ["profile_type"]},
+          "then": {"properties": {"suppression_state": {"const": "UNSUPPRESSED"}}}
+        },
+        {
+          "if": {
+            "properties": {"profile_type": {"enum": ["nominal", "cold_crank", "jump_start", "brownout"]}},
+            "required": ["profile_type"]
+          },
+          "then": {"properties": {"suppression_state": {"const": "NOT_APPLICABLE"}}}
+        }
+      ]
+    },
+    "issue": {
+      "type": "object",
+      "required": ["status", "rule_id", "reason_code", "path", "message"],
+      "properties": {
+        "status": {"$ref": "#/$defs/status"},
+        "rule_id": {"type": "string", "minLength": 1},
+        "reason_code": {"type": "string", "minLength": 1},
+        "path": {"type": "string"},
+        "message": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "profile_assessment": {
+      "type": "object",
+      "required": ["status", "profile_type", "input_voltage", "input_voltage_unit", "duration_ms", "suppression_state", "source"],
+      "properties": {
+        "status": {"$ref": "#/$defs/status"},
+        "profile_type": {"oneOf": [{"enum": ["nominal", "cold_crank", "load_dump_suppressed", "load_dump_unsuppressed", "jump_start", "brownout"]}, {"type": "null"}]},
+        "input_voltage": {"type": ["number", "null"]},
+        "input_voltage_unit": {"const": "V"},
+        "duration_ms": {"type": ["number", "null"]},
+        "suppression_state": {"oneOf": [{"enum": ["NOT_APPLICABLE", "SUPPRESSED", "UNSUPPRESSED"]}, {"type": "null"}]},
+        "source": {"$ref": "#/$defs/nullable_source"}
+      },
+      "additionalProperties": false
+    },
+    "report_requirements": {
+      "type": "object",
+      "required": ["input_nominal_voltage", "output_target_voltage", "output_target_current", "source_reference", "source_version"],
+      "properties": {
+        "input_nominal_voltage": {"$ref": "#/$defs/report_voltage_12"},
+        "output_target_voltage": {"$ref": "#/$defs/report_voltage_5_1"},
+        "output_target_current": {"$ref": "#/$defs/report_current_5"},
+        "source_reference": {"const": "REP-03-WF-03-05-REQUIREMENTS"},
+        "source_version": {"const": "1.0.0"}
+      },
+      "additionalProperties": false
+    },
+    "report_voltage_12": {
+      "type": "object",
+      "required": ["value", "unit"],
+      "properties": {"value": {"const": 12}, "unit": {"const": "V"}},
+      "additionalProperties": false
+    },
+    "report_voltage_5_1": {
+      "type": "object",
+      "required": ["value", "unit"],
+      "properties": {"value": {"const": 5.1}, "unit": {"const": "V"}},
+      "additionalProperties": false
+    },
+    "report_current_5": {
+      "type": "object",
+      "required": ["value", "unit"],
+      "properties": {"value": {"const": 5}, "unit": {"const": "A"}},
+      "additionalProperties": false
+    },
+    "source_versions": {
+      "type": "object",
+      "required": ["scenario_source", "variant_contract_source", "variant_contract_schema", "variant_contract_profile_hash"],
+      "properties": {
+        "scenario_source": {"$ref": "#/$defs/nullable_source"},
+        "variant_contract_source": {"$ref": "#/$defs/nullable_source"},
+        "variant_contract_schema": {"type": ["string", "null"]},
+        "variant_contract_profile_hash": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"}
+      },
+      "additionalProperties": false
+    },
+    "gap_dependency": {
+      "type": "object",
+      "required": ["gap_id", "status", "rule_id", "reason_code", "description"],
+      "properties": {
+        "gap_id": {"const": "GAP-03"},
+        "status": {"const": "UNKNOWN"},
+        "rule_id": {"const": "REP03-POWER-GAP-003"},
+        "reason_code": {"const": "AUTOMOTIVE_POWER_EXACT_PART_AND_THRESHOLDS_UNRESOLVED"},
+        "description": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "rep02_dependency": {
+      "type": "object",
+      "required": ["status", "rule_id", "reason_code", "integration_status", "integration_reason_code", "execution_status", "execution_reason_code", "schema_version", "profile_hash", "source_reference", "source_version", "package_version", "rail_budget_input_schema_version", "rail_budget_formula_version", "rail_budget_rule_id", "sequencing_input_schema_version", "sequencing_engine_version", "sequencing_fsm_version", "sequencing_rule_set_version"],
+      "properties": {
+        "status": {"enum": ["PASS", "BLOCKED"]},
+        "rule_id": {"type": "string", "minLength": 1},
+        "reason_code": {"type": "string", "minLength": 1},
+        "integration_status": {"const": "BLOCKED"},
+        "integration_reason_code": {"const": "LIVE_REP02_INTEGRATION_NOT_AUTHORIZED"},
+        "execution_status": {"const": "NOT_RUN"},
+        "execution_reason_code": {"const": "REP02_ENGINE_NOT_EXECUTED"},
+        "schema_version": {"type": ["string", "null"]},
+        "profile_hash": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+        "source_reference": {"type": ["string", "null"]},
+        "source_version": {"type": ["string", "null"]},
+        "package_version": {"type": ["string", "null"]},
+        "rail_budget_input_schema_version": {"type": ["string", "null"]},
+        "rail_budget_formula_version": {"type": ["string", "null"]},
+        "rail_budget_rule_id": {"type": ["string", "null"]},
+        "sequencing_input_schema_version": {"type": ["string", "null"]},
+        "sequencing_engine_version": {"type": ["string", "null"]},
+        "sequencing_fsm_version": {"type": ["string", "null"]},
+        "sequencing_rule_set_version": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "dependencies": {
+      "type": "object",
+      "required": ["GAP-03", "rep02"],
+      "properties": {
+        "GAP-03": {"$ref": "#/$defs/gap_dependency"},
+        "rep02": {"$ref": "#/$defs/rep02_dependency"}
+      },
+      "additionalProperties": false
+    },
+    "mapping_disposition": {
+      "enum": ["MAPPED_REQUIREMENT", "UNRESOLVED", "UNSUPPORTED", "NOT_APPLICABLE"]
+    },
+    "mapping_row": {
+      "type": "object",
+      "required": ["source_path", "target_path", "disposition", "rule_id", "reason_code", "value", "unit"],
+      "properties": {
+        "source_path": {"type": "string", "minLength": 1},
+        "target_path": {"type": ["string", "null"]},
+        "disposition": {"$ref": "#/$defs/mapping_disposition"},
+        "rule_id": {"type": "string", "minLength": 1},
+        "reason_code": {"type": "string", "minLength": 1},
+        "value": {"type": ["number", "string", "null"]},
+        "unit": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "rail_budget_mapping": {
+      "type": "object",
+      "required": ["disposition", "rule_id", "reason_code", "target_schema_version", "mapping", "unresolved_required_fields", "rail_budget_input"],
+      "properties": {
+        "disposition": {"const": "BLOCKED"},
+        "rule_id": {"type": "string", "minLength": 1},
+        "reason_code": {"type": "string", "minLength": 1},
+        "target_schema_version": {"const": "1.0.0"},
+        "mapping": {"type": "array", "items": {"$ref": "#/$defs/mapping_row"}},
+        "unresolved_required_fields": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "rail_budget_input": {"type": "null"}
+      },
+      "additionalProperties": false
+    },
+    "sequencing_mapping": {
+      "type": "object",
+      "required": ["disposition", "rule_id", "reason_code", "target_schema_version", "supported_scenario_kinds", "selected_scenario_kind", "mapping", "sequencing_input"],
+      "properties": {
+        "disposition": {"const": "NOT_RUN"},
+        "rule_id": {"type": "string", "minLength": 1},
+        "reason_code": {"type": "string", "minLength": 1},
+        "target_schema_version": {"const": "1.0.0"},
+        "supported_scenario_kinds": {
+          "type": "array",
+          "prefixItems": [{"const": "STARTUP"}, {"const": "POWER_OFF"}],
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "selected_scenario_kind": {"type": "null"},
+        "mapping": {"type": "array", "items": {"$ref": "#/$defs/mapping_row"}},
+        "sequencing_input": {"type": "null"}
+      },
+      "additionalProperties": false
+    },
+    "adapter_mapping": {
+      "type": "object",
+      "required": ["profile_type", "rail_budget", "sequencing"],
+      "properties": {
+        "profile_type": {"oneOf": [{"enum": ["nominal", "cold_crank", "load_dump_suppressed", "load_dump_unsuppressed", "jump_start", "brownout"]}, {"type": "null"}]},
+        "rail_budget": {"$ref": "#/$defs/rail_budget_mapping"},
+        "sequencing": {"$ref": "#/$defs/sequencing_mapping"}
+      },
+      "additionalProperties": false
+    },
+    "claims": {
+      "type": "object",
+      "required": ["validation_level", "physical_validation", "exact_part_decision", "oem_compliance", "iso_compliance", "aec_qualification", "rep02_execution"],
+      "properties": {
+        "validation_level": {"const": "SYNTHETIC"},
+        "physical_validation": {"const": false},
+        "exact_part_decision": {"const": false},
+        "oem_compliance": {"const": false},
+        "iso_compliance": {"const": false},
+        "aec_qualification": {"const": false},
+        "rep02_execution": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "report": {
+      "type": "object",
+      "required": ["schema_version", "scenario_id", "engine_id", "module_id", "variant_id", "status", "result", "rule_id", "reason_code", "input_hash", "tool_version", "synthetic_data", "profile_assessment", "requirements", "source_versions", "adapter_mapping", "dependencies", "issues", "claims"],
+      "properties": {
+        "schema_version": {"const": "repo03.automotive-power.scenario.v1"},
+        "scenario_id": {"type": ["string", "null"]},
+        "engine_id": {"const": "repo03-power-engine"},
+        "module_id": {"const": "automotive_power"},
+        "variant_id": {"type": ["string", "null"]},
+        "status": {"$ref": "#/$defs/status"},
+        "result": {
+          "type": "object",
+          "required": ["status"],
+          "properties": {"status": {"$ref": "#/$defs/status"}},
+          "additionalProperties": false
+        },
+        "rule_id": {"type": "string", "minLength": 1},
+        "reason_code": {"type": "string", "minLength": 1},
+        "input_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "tool_version": {"const": "repo03-power-engine/1.0.0"},
+        "synthetic_data": {"const": true},
+        "profile_assessment": {"$ref": "#/$defs/profile_assessment"},
+        "requirements": {"$ref": "#/$defs/report_requirements"},
+        "source_versions": {"$ref": "#/$defs/source_versions"},
+        "adapter_mapping": {"$ref": "#/$defs/adapter_mapping"},
+        "dependencies": {"$ref": "#/$defs/dependencies"},
+        "issues": {"type": "array", "items": {"$ref": "#/$defs/issue"}},
+        "claims": {"$ref": "#/$defs/claims"}
+      },
+      "additionalProperties": false
+    }
+  }
+}

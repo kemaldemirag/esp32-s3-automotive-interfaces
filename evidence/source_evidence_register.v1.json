@@ -1,0 +1,461 @@
+{
+  "schema_version": "repo03.source-evidence-register.v1",
+  "register_id": "REP-03-SOURCE-EVIDENCE-REGISTER",
+  "register_version": "1.0.0",
+  "project": {
+    "project_id": "REP-03",
+    "repository": "esp32-s3-automotive-interfaces",
+    "baseline_commit": "9c06fce366c4c65df2e13c5e48846f0c977d6b0d",
+    "register_purpose": "Single machine-readable authority, source, closure, and physical-claim gate for GAP-01 through GAP-04."
+  },
+  "review": {
+    "last_reviewed": "2026-10-24",
+    "evidence_cutoff": "2026-10-24",
+    "review_scope": "REP-03 local contracts, the local position-based task plan, and the 23 October 2026 Drive literature set."
+  },
+  "policy": {
+    "structure": "CLOSED_TEST_ENFORCED",
+    "unknown_properties": "REJECT",
+    "gap_status_vocabulary": [
+      "BLOCKED",
+      "CLOSED"
+    ],
+    "missing_or_unverified_evidence": "BLOCKED",
+    "conflicting_evidence": "BLOCKED",
+    "remote_source_without_content_hash": "RESEARCH_ONLY",
+    "closure_rule": "A gap may become CLOSED only when every closure criterion is PASS and every required source is AVAILABLE_VERIFIED, closure-capable, authority-matched, versioned, and SHA-256 pinned.",
+    "invalid_or_unknown_status_behavior": "REJECT_REGISTER_AND_KEEP_G1_BLOCKED",
+    "physical_claim_default": "PROHIBITED"
+  },
+  "sources": [
+    {
+      "source_id": "SRC-PLAN-WF-03-06-V1",
+      "title": "REP-03 Codex Görev Planı Pozisyon Bazlı v1",
+      "source_role": "PROJECT_CONTRACT_GUIDANCE",
+      "owner": "REP-03 project records",
+      "authority": "PROJECT_PLAN",
+      "source_status": "VERIFIED_LOCAL",
+      "reference": "docs/REP-03_Codex_Gorev_Plani_Pozisyon_Bazli_v1.docx",
+      "version": "v1",
+      "sha256": "0f1d3d3d8b67979d35874f571536d29485b628ba0832d82589c6715518d1054d",
+      "reviewed_on": "2026-10-24",
+      "can_close_gap": false,
+      "applies_to": [
+        "GAP-04"
+      ],
+      "limitation": "Defines the planned WF-03-06 host ACK and shutdown-flow semantics. It does not identify the Raspberry Pi model, approve the host protocol, set electrical timing, or prove physical shutdown behavior."
+    },
+    {
+      "source_id": "SRC-DRIVE-LIT-2026-10-23-SYNTHESIS",
+      "title": "23.10.2026 — Power Rail, Automotive Interfaces ve DART Sim | Kapsamlı Literatür Taraması",
+      "source_role": "RESEARCH_GUIDANCE",
+      "owner": "REP-03 Google Drive research archive",
+      "authority": "RESEARCH_SYNTHESIS",
+      "source_status": "REMOTE_REFERENCE_REVIEWED",
+      "reference": "https://docs.google.com/document/d/1WgYWkPWDguF28yn62bRFnQEhkaw7ZSceaF2nTs2js3s/edit",
+      "version": "Drive snapshot reviewed 2026-10-23",
+      "sha256": null,
+      "reviewed_on": "2026-10-24",
+      "can_close_gap": false,
+      "applies_to": [
+        "GAP-01",
+        "GAP-02",
+        "GAP-03",
+        "GAP-04"
+      ],
+      "limitation": "General research synthesis only. It may inform questions and review checklists but cannot select an exact part, replace an OEM or client requirement, or close a gap."
+    },
+    {
+      "source_id": "SRC-DRIVE-TI-SLVA477C",
+      "title": "Basic Calculation of a Buck Converter's Power Stage",
+      "source_role": "RESEARCH_GUIDANCE",
+      "owner": "Texas Instruments",
+      "authority": "VENDOR_APPLICATION_NOTE",
+      "source_status": "REMOTE_REFERENCE_REVIEWED",
+      "reference": "https://drive.google.com/file/d/17-CxksgfBscNc3FZJFs8WcSTJ8mSdvP5/view",
+      "version": "SLVA477C",
+      "sha256": null,
+      "reviewed_on": "2026-10-24",
+      "can_close_gap": false,
+      "applies_to": [
+        "GAP-03"
+      ],
+      "limitation": "Generic buck power-stage sizing guidance. It is not an OEM transient profile, an exact selected-IC datasheet, a loop-compensation source, or physical evidence."
+    },
+    {
+      "source_id": "SRC-DRIVE-ADI-AN-932",
+      "title": "AN-932 Power Supply Sequencing",
+      "source_role": "RESEARCH_GUIDANCE",
+      "owner": "Analog Devices",
+      "authority": "VENDOR_APPLICATION_NOTE",
+      "source_status": "REMOTE_REFERENCE_REVIEWED",
+      "reference": "https://drive.google.com/file/d/1qRTOs4S4PizK7t630CQCL_7fpPWHnHab/view",
+      "version": "AN-932",
+      "sha256": null,
+      "reviewed_on": "2026-10-24",
+      "can_close_gap": false,
+      "applies_to": [
+        "GAP-03",
+        "GAP-04"
+      ],
+      "limitation": "General power-sequencing guidance. It does not define REP-03 host ACK semantics, the Raspberry Pi model, exact thresholds, or a project-approved power-down protocol."
+    },
+    {
+      "source_id": "SRC-DRIVE-ADI-AN-1311",
+      "title": "AN-1311 Complex Power Supply Sequencing Made Easy",
+      "source_role": "RESEARCH_GUIDANCE",
+      "owner": "Analog Devices",
+      "authority": "VENDOR_APPLICATION_NOTE",
+      "source_status": "REMOTE_REFERENCE_REVIEWED",
+      "reference": "https://drive.google.com/file/d/1zXsnnMVUfE6xVlxvnDrGYXmjc3YlaRN-/view",
+      "version": "AN-1311",
+      "sha256": null,
+      "reviewed_on": "2026-10-24",
+      "can_close_gap": false,
+      "applies_to": [
+        "GAP-03",
+        "GAP-04"
+      ],
+      "limitation": "General sequencing architecture guidance. It cannot substitute for the selected parts, OEM limits, client-approved shutdown behavior, or measured evidence."
+    },
+    {
+      "source_id": "SRC-REQ-GAP-01",
+      "title": "Required CAN and LIN transceiver closure evidence",
+      "source_role": "REQUIRED_CLOSURE_EVIDENCE",
+      "owner": "REP-03 hardware decision owner and client",
+      "authority": "APPROVED_BOM_AND_COMPONENT_MANUFACTURER",
+      "source_status": "MISSING_REQUIRED_SOURCE",
+      "reference": null,
+      "version": null,
+      "sha256": null,
+      "reviewed_on": "2026-10-24",
+      "can_close_gap": false,
+      "applies_to": [
+        "GAP-01"
+      ],
+      "limitation": "Placeholder for the approved exact CAN and LIN transceiver parts, manufacturer datasheets and errata, and project mapping. Missing evidence keeps GAP-01 BLOCKED."
+    },
+    {
+      "source_id": "SRC-REQ-GAP-02",
+      "title": "Required GNSS module, antenna, and RF closure evidence",
+      "source_role": "REQUIRED_CLOSURE_EVIDENCE",
+      "owner": "REP-03 RF decision owner and client",
+      "authority": "APPROVED_BOM_COMPONENT_MANUFACTURER_AND_RF_REVIEW",
+      "source_status": "MISSING_REQUIRED_SOURCE",
+      "reference": null,
+      "version": null,
+      "sha256": null,
+      "reviewed_on": "2026-10-24",
+      "can_close_gap": false,
+      "applies_to": [
+        "GAP-02"
+      ],
+      "limitation": "Placeholder for the exact GNSS module and antenna, authoritative integration sources, and project RF-feed and layout review. Missing evidence keeps GAP-02 BLOCKED."
+    },
+    {
+      "source_id": "SRC-REQ-GAP-03",
+      "title": "Required OEM transient and exact power-path closure evidence",
+      "source_role": "REQUIRED_CLOSURE_EVIDENCE",
+      "owner": "Client or vehicle OEM requirement owner and REP-03 power decision owner",
+      "authority": "APPROVED_OEM_REQUIREMENT_AND_COMPONENT_MANUFACTURER",
+      "source_status": "MISSING_REQUIRED_SOURCE",
+      "reference": null,
+      "version": null,
+      "sha256": null,
+      "reviewed_on": "2026-10-24",
+      "can_close_gap": false,
+      "applies_to": [
+        "GAP-03"
+      ],
+      "limitation": "Placeholder for approved vehicle/OEM transient profiles, exact power-path parts, datasheets and errata, and project limits. Missing evidence keeps GAP-03 BLOCKED."
+    },
+    {
+      "source_id": "SRC-REQ-GAP-04",
+      "title": "Required Raspberry Pi model and host shutdown closure evidence",
+      "source_role": "REQUIRED_CLOSURE_EVIDENCE",
+      "owner": "Client and REP-03 host-integration decision owner",
+      "authority": "APPROVED_CLIENT_REQUIREMENT_AND_PLATFORM_MANUFACTURER",
+      "source_status": "MISSING_REQUIRED_SOURCE",
+      "reference": null,
+      "version": null,
+      "sha256": null,
+      "reviewed_on": "2026-10-24",
+      "can_close_gap": false,
+      "applies_to": [
+        "GAP-04"
+      ],
+      "limitation": "Placeholder for the exact Raspberry Pi model/revision, platform power requirements, and client-approved host shutdown and ACK protocol. Missing evidence keeps GAP-04 BLOCKED."
+    }
+  ],
+  "gaps": [
+    {
+      "gap_id": "GAP-01",
+      "title": "CAN and LIN transceiver selection and physical interface evidence",
+      "variant_scope": [
+        "VARIANT_A"
+      ],
+      "status": "BLOCKED",
+      "status_reason": "MISSING_EXACT_TRANSCEIVER_AND_AUTHORITY_SOURCES",
+      "source_owner": "REP-03 hardware decision owner and client",
+      "required_authorities": [
+        "APPROVED_BOM",
+        "COMPONENT_MANUFACTURER"
+      ],
+      "current_source_ids": [
+        "SRC-DRIVE-LIT-2026-10-23-SYNTHESIS",
+        "SRC-REQ-GAP-01"
+      ],
+      "required_source_ids": [
+        "SRC-REQ-GAP-01"
+      ],
+      "affected_contracts": [
+        {
+          "kind": "FILE",
+          "reference": "variants/schema/repo03.variant.schema.v1.json"
+        },
+        {
+          "kind": "FILE",
+          "reference": "variants/schema/repo03.can.scenario.v1.json"
+        },
+        {
+          "kind": "FILE",
+          "reference": "variants/schema/repo03.lin.scenario.v1.json"
+        },
+        {
+          "kind": "FILE",
+          "reference": "firmware/repo03_can/engine.py"
+        },
+        {
+          "kind": "FILE",
+          "reference": "firmware/repo03_lin/engine.py"
+        }
+      ],
+      "closure_criteria": [
+        {
+          "criterion_id": "GAP-01-C1",
+          "requirement": "Approve exact CAN and LIN transceiver manufacturer part numbers and variant-to-part mapping.",
+          "current_result": "BLOCKED",
+          "evidence_rule": "Approved BOM or signed project decision plus versioned manufacturer datasheets and errata, all referenceable and SHA-256 pinned."
+        },
+        {
+          "criterion_id": "GAP-01-C2",
+          "requirement": "Map supply, logic-level, standby, wake, dominant-state, bus-fault, temperature, protection, and timing limits into the affected contracts without guessed values.",
+          "current_result": "BLOCKED",
+          "evidence_rule": "Every adopted value must cite page or section, source version, unit, tolerance, and applicability. Conflicts remain BLOCKED."
+        },
+        {
+          "criterion_id": "GAP-01-C3",
+          "requirement": "Pass closed-schema regression and independent source review after the contracts are updated.",
+          "current_result": "BLOCKED",
+          "evidence_rule": "Automated tests and review record must pass; source closure alone does not claim bench, EMC, ISO, or vehicle validation."
+        }
+      ],
+      "last_reviewed": "2026-10-24",
+      "physical_claim_limit": {
+        "physical_claims_allowed": false,
+        "allowed_claim_level": "SYNTHETIC_ONLY",
+        "statement": "Controller/UART and synthetic state-machine results do not prove a physical transceiver, bus, harness, protection network, EMC performance, or vehicle suitability."
+      }
+    },
+    {
+      "gap_id": "GAP-02",
+      "title": "GNSS module, antenna, RF feed, and layout evidence",
+      "variant_scope": [
+        "VARIANT_A"
+      ],
+      "status": "BLOCKED",
+      "status_reason": "MISSING_EXACT_GNSS_AND_RF_AUTHORITY_SOURCES",
+      "source_owner": "REP-03 RF decision owner and client",
+      "required_authorities": [
+        "APPROVED_BOM",
+        "COMPONENT_MANUFACTURER",
+        "PROJECT_RF_REVIEW"
+      ],
+      "current_source_ids": [
+        "SRC-DRIVE-LIT-2026-10-23-SYNTHESIS",
+        "SRC-REQ-GAP-02"
+      ],
+      "required_source_ids": [
+        "SRC-REQ-GAP-02"
+      ],
+      "affected_contracts": [
+        {
+          "kind": "FILE",
+          "reference": "variants/schema/repo03.variant.schema.v1.json"
+        },
+        {
+          "kind": "FILE",
+          "reference": "variants/schema/repo03.gnss.scenario.v1.json"
+        },
+        {
+          "kind": "FILE",
+          "reference": "firmware/repo03_gnss/validator.py"
+        }
+      ],
+      "closure_criteria": [
+        {
+          "criterion_id": "GAP-02-C1",
+          "requirement": "Approve the exact GNSS module/revision and antenna type/part with compatible frequency, bias, connector, and power requirements.",
+          "current_result": "BLOCKED",
+          "evidence_rule": "Approved BOM or signed project decision plus versioned manufacturer datasheet and integration guide, all referenceable and SHA-256 pinned."
+        },
+        {
+          "criterion_id": "GAP-02-C2",
+          "requirement": "Document the RF feed, impedance, matching, ground/keep-out, placement, cable, and ESD constraints against authoritative sections.",
+          "current_result": "BLOCKED",
+          "evidence_rule": "Project RF review must map each constraint to a source page or section and preserve unresolved items as BLOCKED."
+        },
+        {
+          "criterion_id": "GAP-02-C3",
+          "requirement": "Update the GNSS source matrix and pass closed-schema, source-integrity, and independent review checks.",
+          "current_result": "BLOCKED",
+          "evidence_rule": "Synthetic fix-quality tests may pass separately; RF suitability cannot pass until the required sources and project review pass."
+        }
+      ],
+      "last_reviewed": "2026-10-24",
+      "physical_claim_limit": {
+        "physical_claims_allowed": false,
+        "allowed_claim_level": "SYNTHETIC_ONLY",
+        "statement": "A synthetically valid fix does not prove module integration, RF-feed quality, antenna gain, placement, sensitivity, accuracy, EMC performance, or field reception."
+      }
+    },
+    {
+      "gap_id": "GAP-03",
+      "title": "OEM automotive transient profile and exact power-path evidence",
+      "variant_scope": [
+        "VARIANT_B"
+      ],
+      "status": "BLOCKED",
+      "status_reason": "MISSING_APPROVED_OEM_PROFILE_AND_EXACT_POWER_PARTS",
+      "source_owner": "Client or vehicle OEM requirement owner and REP-03 power decision owner",
+      "required_authorities": [
+        "APPROVED_OEM_OR_VEHICLE_REQUIREMENT",
+        "APPROVED_BOM",
+        "COMPONENT_MANUFACTURER"
+      ],
+      "current_source_ids": [
+        "SRC-DRIVE-LIT-2026-10-23-SYNTHESIS",
+        "SRC-DRIVE-TI-SLVA477C",
+        "SRC-DRIVE-ADI-AN-932",
+        "SRC-DRIVE-ADI-AN-1311",
+        "SRC-REQ-GAP-03"
+      ],
+      "required_source_ids": [
+        "SRC-REQ-GAP-03"
+      ],
+      "affected_contracts": [
+        {
+          "kind": "FILE",
+          "reference": "variants/schema/repo03.variant.schema.v1.json"
+        },
+        {
+          "kind": "FILE",
+          "reference": "variants/schema/repo03.automotive-power.scenario.v1.json"
+        },
+        {
+          "kind": "FILE",
+          "reference": "firmware/repo03_power/engine.py"
+        }
+      ],
+      "closure_criteria": [
+        {
+          "criterion_id": "GAP-03-C1",
+          "requirement": "Obtain approved nominal, cold-crank, brownout, jump-start, suppressed and unsuppressed load-dump, ignition, and recovery profiles with applicability and tolerances.",
+          "current_result": "BLOCKED",
+          "evidence_rule": "Client/OEM or approved vehicle requirement must be versioned, referenceable, and SHA-256 pinned; generic application notes cannot substitute."
+        },
+        {
+          "criterion_id": "GAP-03-C2",
+          "requirement": "Approve exact regulator and protection-path parts and map absolute maximum, operating range, current limit, switching, efficiency, inductor, capacitor derating, PGOOD, inrush, back-power, sequencing, and thermal limits.",
+          "current_result": "BLOCKED",
+          "evidence_rule": "Manufacturer datasheets and errata must be pinned by version and SHA-256; adopted values must cite page or section and include unit and tolerance."
+        },
+        {
+          "criterion_id": "GAP-03-C3",
+          "requirement": "Update the power contract, verify the REP-02 integration input, and pass closed-schema and independent source review.",
+          "current_result": "BLOCKED",
+          "evidence_rule": "A contract or adapter PASS is not electrical simulation, bench, transient, EMC, ISO, AEC, thermal, or vehicle validation."
+        }
+      ],
+      "last_reviewed": "2026-10-24",
+      "physical_claim_limit": {
+        "physical_claims_allowed": false,
+        "allowed_claim_level": "SYNTHETIC_ONLY",
+        "statement": "Current profiles are contract test vectors, not measured waveforms. No regulator, protection network, transient survival, sequencing, thermal, EMC, ISO, AEC, or vehicle claim is permitted."
+      }
+    },
+    {
+      "gap_id": "GAP-04",
+      "title": "Raspberry Pi model and host shutdown and ACK contract",
+      "variant_scope": [
+        "VARIANT_B"
+      ],
+      "status": "BLOCKED",
+      "status_reason": "MISSING_CLIENT_APPROVED_PLATFORM_AND_HOST_PROTOCOL",
+      "source_owner": "Client and REP-03 host-integration decision owner",
+      "required_authorities": [
+        "APPROVED_CLIENT_REQUIREMENT",
+        "PLATFORM_MANUFACTURER",
+        "HOST_SOFTWARE_OWNER"
+      ],
+      "current_source_ids": [
+        "SRC-PLAN-WF-03-06-V1",
+        "SRC-DRIVE-LIT-2026-10-23-SYNTHESIS",
+        "SRC-DRIVE-ADI-AN-932",
+        "SRC-DRIVE-ADI-AN-1311",
+        "SRC-REQ-GAP-04"
+      ],
+      "required_source_ids": [
+        "SRC-REQ-GAP-04"
+      ],
+      "affected_contracts": [
+        {
+          "kind": "FILE",
+          "reference": "variants/schema/repo03.variant.schema.v1.json"
+        },
+        {
+          "kind": "FILE",
+          "reference": "firmware/repo03_contract/validator.py"
+        },
+        {
+          "kind": "FILE",
+          "reference": "docs/REP-03_Codex_Gorev_Plani_Pozisyon_Bazli_v1.docx"
+        },
+        {
+          "kind": "FILE",
+          "reference": "variants/schema/repo03.shutdown.scenario.v1.json"
+        },
+        {
+          "kind": "FILE",
+          "reference": "firmware/repo03_shutdown/engine.py"
+        }
+      ],
+      "closure_criteria": [
+        {
+          "criterion_id": "GAP-04-C1",
+          "requirement": "Approve the exact Raspberry Pi model/revision, supported power path, rail/current limits, boot/shutdown behavior, and any back-power constraints.",
+          "current_result": "BLOCKED",
+          "evidence_rule": "Client decision and applicable platform-manufacturer sources must be versioned, referenceable, and SHA-256 pinned."
+        },
+        {
+          "criterion_id": "GAP-04-C2",
+          "requirement": "Approve the host shutdown protocol including trigger, command owner, ACK definition, timeout, retry, missing/stuck ACK handling, logging, fail-safe action, and final power-off order.",
+          "current_result": "BLOCKED",
+          "evidence_rule": "Client and host-software owner approval is required. The local task plan supplies workflow semantics only and cannot satisfy this criterion by itself."
+        },
+        {
+          "criterion_id": "GAP-04-C3",
+          "requirement": "Implement WF-03-06 as a host-independent synthetic FSM and pass normal ACK, missing or late ACK, early cut, duplicate ACK, ignition bounce, rapid restart, missing protocol, closed-schema, and malformed-input tests.",
+          "current_result": "PASS",
+          "evidence_rule": "The 24 October 2026 Session 4 record proves only the synthetic software-contract portion. Hardware timing, back-power behavior, power-down order, and safe physical power removal still require approved sources and physical verification."
+        }
+      ],
+      "last_reviewed": "2026-10-24",
+      "physical_claim_limit": {
+        "physical_claims_allowed": false,
+        "allowed_claim_level": "SYNTHETIC_ONLY",
+        "statement": "A synthetic ACK or shutdown trace does not prove operating-system completion, storage integrity, rail discharge, absence of back-power, safe power removal, or hardware timing."
+      }
+    }
+  ]
+}

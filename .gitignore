@@ -4,6 +4,7 @@ Thumbs.db
 Desktop.ini
 .idea/
 .vscode/
+.venv-test/
 *.swp
 
 # Local configuration and credentials

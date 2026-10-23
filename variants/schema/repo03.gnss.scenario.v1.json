@@ -1,0 +1,383 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:rep-03:schema:gnss-scenario:v1",
+  "title": "REP-03 synthetic GNSS scenario v1",
+  "description": "Closed synthetic-only GNSS fix validation contract. Coordinates are test vectors, not measurements; hardware and RF suitability remain separate GAP-02 dependencies.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "scenario_id",
+    "engine_id",
+    "module_id",
+    "variant_id",
+    "enabled_modules",
+    "variant_contract",
+    "source",
+    "synthetic_data",
+    "known_gaps",
+    "module_profile",
+    "freshness_policy",
+    "observation"
+  ],
+  "properties": {
+    "schema_version": {"const": "repo03.gnss.scenario.v1"},
+    "scenario_id": {"type": "string", "minLength": 1},
+    "engine_id": {"const": "repo03-gnss-validator"},
+    "module_id": {"const": "gnss"},
+    "variant_id": {"const": "A"},
+    "enabled_modules": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "uniqueItems": true,
+      "items": {"enum": ["can", "lin", "gnss"]},
+      "allOf": [
+        {"contains": {"const": "can"}},
+        {"contains": {"const": "lin"}},
+        {"contains": {"const": "gnss"}}
+      ]
+    },
+    "variant_contract": {"$ref": "#/$defs/variant_contract"},
+    "source": {"$ref": "#/$defs/source"},
+    "synthetic_data": {"const": true},
+    "known_gaps": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 1,
+      "uniqueItems": true,
+      "items": {"const": "GAP-02"}
+    },
+    "module_profile": {
+      "oneOf": [
+        {"$ref": "#/$defs/module_profile"},
+        {"type": "null"}
+      ]
+    },
+    "freshness_policy": {"$ref": "#/$defs/freshness_policy"},
+    "observation": {"$ref": "#/$defs/observation"}
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "status": {"enum": ["PASS", "FAIL", "UNKNOWN", "BLOCKED"]},
+    "source_classification": {
+      "enum": ["SOURCE_EXPLICIT", "DERIVED", "ENGINEERING_RULE", "ASSUMPTION", "UNKNOWN", "CONFLICT"]
+    },
+    "source": {
+      "type": "object",
+      "required": ["classification", "reference", "version"],
+      "properties": {
+        "classification": {"$ref": "#/$defs/source_classification"},
+        "reference": {"type": "string", "minLength": 1},
+        "version": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "variant_contract": {
+      "type": "object",
+      "required": ["schema_version", "profile_hash", "source"],
+      "properties": {
+        "schema_version": {"const": "repo03.variant.schema.v1"},
+        "profile_hash": {"const": "f74c42bb2a2519ab563a91cb05cfb6d4e5accd9d6f2570ed89604bbad5e0367e"},
+        "source": {"$ref": "#/$defs/source"}
+      },
+      "additionalProperties": false
+    },
+    "component": {
+      "type": "object",
+      "required": ["value", "source"],
+      "properties": {
+        "value": {"type": ["string", "null"], "minLength": 1},
+        "source": {"$ref": "#/$defs/source"}
+      },
+      "additionalProperties": false
+    },
+    "module_profile": {
+      "type": "object",
+      "required": [
+        "profile_id",
+        "scope",
+        "module_variant",
+        "antenna_type",
+        "rf_feed",
+        "power_profile",
+        "integration_guide",
+        "rf_layout_evidence"
+      ],
+      "properties": {
+        "profile_id": {"type": "string", "minLength": 1},
+        "scope": {"const": "SYNTHETIC_CONFIGURATION"},
+        "module_variant": {"$ref": "#/$defs/component"},
+        "antenna_type": {"$ref": "#/$defs/component"},
+        "rf_feed": {"$ref": "#/$defs/component"},
+        "power_profile": {"$ref": "#/$defs/component"},
+        "integration_guide": {"$ref": "#/$defs/source"},
+        "rf_layout_evidence": {"$ref": "#/$defs/source"}
+      },
+      "additionalProperties": false
+    },
+    "freshness_policy": {
+      "type": "object",
+      "required": ["max_age_ms", "source"],
+      "properties": {
+        "max_age_ms": {"type": "integer", "minimum": 1},
+        "source": {"$ref": "#/$defs/source"}
+      },
+      "additionalProperties": false
+    },
+    "position": {
+      "type": "object",
+      "required": ["latitude_deg", "longitude_deg", "altitude_m", "synthetic_data"],
+      "properties": {
+        "latitude_deg": {"type": "number", "minimum": -90, "maximum": 90},
+        "longitude_deg": {"type": "number", "minimum": -180, "maximum": 180},
+        "altitude_m": {"type": ["number", "null"]},
+        "synthetic_data": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "observation": {
+      "type": "object",
+      "required": [
+        "fix_quality",
+        "timestamp_ms",
+        "previous_timestamp_ms",
+        "evaluation_timestamp_ms",
+        "age_ms",
+        "antenna_status",
+        "position",
+        "source"
+      ],
+      "properties": {
+        "fix_quality": {"enum": ["NO_FIX", "FIX_2D", "FIX_3D"]},
+        "timestamp_ms": {"type": "integer", "minimum": 0},
+        "previous_timestamp_ms": {"type": ["integer", "null"], "minimum": 0},
+        "evaluation_timestamp_ms": {"type": "integer", "minimum": 0},
+        "age_ms": {"type": "integer", "minimum": 0},
+        "antenna_status": {"enum": ["NOMINAL", "OPEN", "SHORT", "UNKNOWN"]},
+        "position": {
+          "oneOf": [
+            {"$ref": "#/$defs/position"},
+            {"type": "null"}
+          ]
+        },
+        "source": {"$ref": "#/$defs/source"}
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {"fix_quality": {"const": "NO_FIX"}},
+            "required": ["fix_quality"]
+          },
+          "then": {"properties": {"position": {"type": "null"}}},
+          "else": {"properties": {"position": {"$ref": "#/$defs/position"}}}
+        }
+      ]
+    },
+    "issue": {
+      "type": "object",
+      "required": ["status", "rule_id", "reason_code", "path", "message"],
+      "properties": {
+        "status": {"$ref": "#/$defs/status"},
+        "rule_id": {"type": "string"},
+        "reason_code": {"type": "string"},
+        "path": {"type": "string"},
+        "message": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "result": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {"status": {"$ref": "#/$defs/status"}},
+      "additionalProperties": false
+    },
+    "safe_position": {
+      "type": ["object", "null"],
+      "required": ["latitude_deg", "longitude_deg", "altitude_m", "synthetic_data"],
+      "properties": {
+        "latitude_deg": {"type": ["number", "null"]},
+        "longitude_deg": {"type": ["number", "null"]},
+        "altitude_m": {"type": ["number", "null"]},
+        "synthetic_data": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "safe_observation": {
+      "type": "object",
+      "required": ["fix_quality", "timestamp_ms", "previous_timestamp_ms", "evaluation_timestamp_ms", "age_ms", "antenna_status", "position"],
+      "properties": {
+        "fix_quality": {"type": ["string", "null"]},
+        "timestamp_ms": {"type": ["integer", "null"]},
+        "previous_timestamp_ms": {"type": ["integer", "null"]},
+        "evaluation_timestamp_ms": {"type": ["integer", "null"]},
+        "age_ms": {"type": ["integer", "null"]},
+        "antenna_status": {"type": ["string", "null"]},
+        "position": {"$ref": "#/$defs/safe_position"}
+      },
+      "additionalProperties": false
+    },
+    "threshold_source": {
+      "type": "object",
+      "required": ["name", "value_ms", "classification", "reference", "version", "status"],
+      "properties": {
+        "name": {"const": "max_age_ms"},
+        "value_ms": {"type": ["integer", "null"]},
+        "classification": {"type": "string"},
+        "reference": {"type": ["string", "null"]},
+        "version": {"type": ["string", "null"]},
+        "status": {"enum": ["PASS", "UNKNOWN", "BLOCKED"]}
+      },
+      "additionalProperties": false
+    },
+    "trace_row": {
+      "type": "object",
+      "required": ["event", "fix_quality", "timestamp_ms", "previous_timestamp_ms", "evaluation_timestamp_ms", "age_ms", "antenna_status", "threshold_source", "status", "rule_id", "reason_code", "input_hash", "tool_version", "schema_version", "source_reference", "source_version", "synthetic_data"],
+      "properties": {
+        "event": {"enum": ["preflight", "validate-fix"]},
+        "fix_quality": {"type": ["string", "null"]},
+        "timestamp_ms": {"type": ["integer", "null"]},
+        "previous_timestamp_ms": {"type": ["integer", "null"]},
+        "evaluation_timestamp_ms": {"type": ["integer", "null"]},
+        "age_ms": {"type": ["integer", "null"]},
+        "antenna_status": {"type": ["string", "null"]},
+        "threshold_source": {"$ref": "#/$defs/threshold_source"},
+        "status": {"$ref": "#/$defs/status"},
+        "rule_id": {"type": "string"},
+        "reason_code": {"type": "string"},
+        "input_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "tool_version": {"const": "repo03-gnss-validator/1.0.0"},
+        "schema_version": {"const": "repo03.gnss.scenario.v1"},
+        "source_reference": {"type": ["string", "null"]},
+        "source_version": {"type": ["string", "null"]},
+        "synthetic_data": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "source_matrix_entry": {
+      "type": "object",
+      "required": ["classification", "reference", "version", "status", "rule_id", "reason_code"],
+      "properties": {
+        "classification": {"type": "string"},
+        "reference": {"type": ["string", "null"]},
+        "version": {"type": ["string", "null"]},
+        "status": {"enum": ["PASS", "UNKNOWN", "BLOCKED"]},
+        "rule_id": {"type": "string"},
+        "reason_code": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "source_matrix": {
+      "type": "object",
+      "required": ["integration_guide", "module_variant", "antenna_type", "rf_feed", "rf_layout_evidence", "power_profile", "fix_quality", "freshness", "timestamp", "age", "antenna_status"],
+      "properties": {
+        "integration_guide": {"$ref": "#/$defs/source_matrix_entry"},
+        "module_variant": {"$ref": "#/$defs/source_matrix_entry"},
+        "antenna_type": {"$ref": "#/$defs/source_matrix_entry"},
+        "rf_feed": {"$ref": "#/$defs/source_matrix_entry"},
+        "rf_layout_evidence": {"$ref": "#/$defs/source_matrix_entry"},
+        "power_profile": {"$ref": "#/$defs/source_matrix_entry"},
+        "fix_quality": {"$ref": "#/$defs/source_matrix_entry"},
+        "freshness": {"$ref": "#/$defs/source_matrix_entry"},
+        "timestamp": {"$ref": "#/$defs/source_matrix_entry"},
+        "age": {"$ref": "#/$defs/source_matrix_entry"},
+        "antenna_status": {"$ref": "#/$defs/source_matrix_entry"}
+      },
+      "additionalProperties": false
+    },
+    "source_versions": {
+      "type": "object",
+      "required": ["scenario_schema", "scenario_source_reference", "scenario_source_version", "observation_source_reference", "observation_source_version", "freshness_source_reference", "freshness_source_version", "module_profile_id", "variant_contract_schema", "variant_contract_profile_hash"],
+      "properties": {
+        "scenario_schema": {"const": "repo03.gnss.scenario.v1"},
+        "scenario_source_reference": {"type": ["string", "null"]},
+        "scenario_source_version": {"type": ["string", "null"]},
+        "observation_source_reference": {"type": ["string", "null"]},
+        "observation_source_version": {"type": ["string", "null"]},
+        "freshness_source_reference": {"type": ["string", "null"]},
+        "freshness_source_version": {"type": ["string", "null"]},
+        "module_profile_id": {"type": ["string", "null"]},
+        "variant_contract_schema": {"const": "repo03.variant.schema.v1"},
+        "variant_contract_profile_hash": {"const": "f74c42bb2a2519ab563a91cb05cfb6d4e5accd9d6f2570ed89604bbad5e0367e"}
+      },
+      "additionalProperties": false
+    },
+    "dependency": {
+      "type": "object",
+      "required": ["status", "rule_id", "reason_code"],
+      "properties": {
+        "status": {"enum": ["UNKNOWN", "BLOCKED"]},
+        "rule_id": {"type": "string"},
+        "reason_code": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "dependencies": {
+      "type": "object",
+      "required": ["GAP-02", "rf_suitability", "physical_gnss"],
+      "properties": {
+        "GAP-02": {"$ref": "#/$defs/dependency"},
+        "rf_suitability": {"$ref": "#/$defs/dependency"},
+        "physical_gnss": {"$ref": "#/$defs/dependency"}
+      },
+      "additionalProperties": false
+    },
+    "limitation": {
+      "type": "object",
+      "required": ["gap_id", "status", "rule_id", "reason_code"],
+      "properties": {
+        "gap_id": {"const": "GAP-02"},
+        "status": {"enum": ["UNKNOWN", "BLOCKED"]},
+        "rule_id": {"type": "string"},
+        "reason_code": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "claims": {
+      "type": "object",
+      "required": ["validation_level", "coordinate_scope", "coordinates_are_measured", "physical_gnss_validation", "rf_suitability_validated", "antenna_validation"],
+      "properties": {
+        "validation_level": {"const": "SYNTHETIC"},
+        "coordinate_scope": {"const": "SYNTHETIC_TEST_VECTOR"},
+        "coordinates_are_measured": {"const": false},
+        "physical_gnss_validation": {"const": false},
+        "rf_suitability_validated": {"const": false},
+        "antenna_validation": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "run_report": {
+      "type": "object",
+      "required": ["schema_version", "scenario_id", "engine_id", "module_id", "variant_id", "status", "result", "rule_id", "reason_code", "final_observation", "trace", "issues", "input_hash", "tool_version", "synthetic_data", "source_versions", "variant_contract", "source_matrix", "dependencies", "known_limitations", "claims"],
+      "properties": {
+        "schema_version": {"const": "repo03.gnss.scenario.v1"},
+        "scenario_id": {"type": ["string", "null"]},
+        "engine_id": {"const": "repo03-gnss-validator"},
+        "module_id": {"const": "gnss"},
+        "variant_id": {"const": "A"},
+        "status": {"$ref": "#/$defs/status"},
+        "result": {"$ref": "#/$defs/result"},
+        "rule_id": {"type": "string"},
+        "reason_code": {"type": "string"},
+        "final_observation": {"$ref": "#/$defs/safe_observation"},
+        "trace": {"type": "array", "items": {"$ref": "#/$defs/trace_row"}},
+        "issues": {"type": "array", "items": {"$ref": "#/$defs/issue"}},
+        "input_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "tool_version": {"const": "repo03-gnss-validator/1.0.0"},
+        "synthetic_data": {"const": true},
+        "source_versions": {"$ref": "#/$defs/source_versions"},
+        "variant_contract": {
+          "oneOf": [
+            {"$ref": "#/$defs/variant_contract"},
+            {"type": "null"}
+          ]
+        },
+        "source_matrix": {"$ref": "#/$defs/source_matrix"},
+        "dependencies": {"$ref": "#/$defs/dependencies"},
+        "known_limitations": {"type": "array", "items": {"$ref": "#/$defs/limitation"}},
+        "claims": {"$ref": "#/$defs/claims"}
+      },
+      "additionalProperties": false
+    }
+  }
+}

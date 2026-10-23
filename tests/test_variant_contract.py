@@ -119,6 +119,62 @@ class VariantContractTests(unittest.TestCase):
         self.assertEqual(first["profile_hash"], reordered_result["profile_hash"])
         self.assertEqual(first["input_hash"], second["input_hash"])
 
+    def test_non_finite_numbers_return_structured_failures(self) -> None:
+        for value in (float("nan"), float("inf"), float("-inf")):
+            with self.subTest(value=value):
+                profile = load_fixture("valid_variant_a.json")
+                profile["modules"]["can"]["events"]["value"] = value
+
+                result = validate_profile(profile)
+
+                self.assert_result_envelope(result)
+                self.assertEqual(result_status(result), "FAIL")
+                self.assertTrue(
+                    any(
+                        issue["rule_id"] == "REP03-SCHEMA-010"
+                        and issue["reason_code"] == "NON_FINITE_NUMBER"
+                        and issue["path"] == "modules.can.events.value"
+                        for issue in result["issues"]
+                    )
+                )
+
+    def test_non_finite_numbers_in_arrays_report_their_index(self) -> None:
+        profile = load_fixture("valid_variant_a.json")
+        profile["modules"]["can"]["events"]["value"] = [
+            "SYNTHETIC_ONLY",
+            float("nan"),
+        ]
+
+        result = validate_profile(profile)
+
+        self.assertEqual(result_status(result), "FAIL")
+        self.assertTrue(
+            any(
+                issue["reason_code"] == "NON_FINITE_NUMBER"
+                and issue["path"] == "modules.can.events.value.1"
+                for issue in result["issues"]
+            )
+        )
+
+    def test_non_finite_identity_fields_do_not_leak_into_report(self) -> None:
+        for field in ("schema_version", "variant_id"):
+            with self.subTest(field=field):
+                profile = load_fixture("valid_variant_a.json")
+                profile[field] = float("nan")
+
+                result = validate_profile(profile)
+
+                self.assertEqual(result_status(result), "FAIL")
+                self.assertIsNone(result[field])
+                self.assertTrue(
+                    any(
+                        issue["reason_code"] == "NON_FINITE_NUMBER"
+                        and issue["path"] == field
+                        for issue in result["issues"]
+                    )
+                )
+                json.dumps(result, allow_nan=False)
+
     def test_variant_leakage_reason_codes_are_reported(self) -> None:
         profile = load_fixture("valid_variant_a.json")
         profile["enabled_modules"].append("shutdown")

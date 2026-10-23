@@ -9,6 +9,7 @@ from __future__ import annotations
 from collections.abc import Mapping, Sequence
 import hashlib
 import json
+import math
 from typing import Any
 
 
@@ -143,9 +144,38 @@ def _normalise_json_value(value: Any, path: tuple[str, ...] = ()) -> Any:
                 ),
             )
         return normalised
+    if isinstance(value, float) and not math.isfinite(value):
+        if math.isnan(value):
+            label = "NaN"
+        elif value > 0:
+            label = "Infinity"
+        else:
+            label = "-Infinity"
+        return {"__non_finite_number__": label}
     if value is None or isinstance(value, (str, int, float, bool)):
         return value
     return {"__unsupported_type__": type(value).__name__}
+
+
+def _non_finite_number_paths(
+    value: Any,
+    path: tuple[str, ...] = (),
+) -> list[tuple[str, ...]]:
+    """Return deterministic paths to numbers JSON cannot represent."""
+
+    if isinstance(value, float) and not math.isfinite(value):
+        return [path]
+    if isinstance(value, Mapping):
+        paths: list[tuple[str, ...]] = []
+        for key, item in sorted(value.items(), key=lambda pair: str(pair[0])):
+            paths.extend(_non_finite_number_paths(item, path + (str(key),)))
+        return paths
+    if isinstance(value, (list, tuple)):
+        paths = []
+        for index, item in enumerate(value):
+            paths.extend(_non_finite_number_paths(item, path + (str(index),)))
+        return paths
+    return []
 
 
 def normalized_profile_hash(profile: Any) -> str:
@@ -212,6 +242,15 @@ def validate_profile(profile: Mapping[str, Any]) -> dict[str, Any]:
             "Profile must be a JSON object.",
         )
         return _build_report(None, None, profile_hash, issues)
+
+    for non_finite_path in _non_finite_number_paths(profile):
+        add_issue(
+            "FAIL",
+            "REP03-SCHEMA-010",
+            "NON_FINITE_NUMBER",
+            non_finite_path,
+            "JSON numeric values must be finite; NaN and infinity are forbidden.",
+        )
 
     for key in profile:
         if not isinstance(key, str):
@@ -787,10 +826,13 @@ def _build_report(
         rule_id = "REP03-CONTRACT-000"
         reason_code = "CONTRACT_VALID"
 
+    safe_schema_version = schema_version if isinstance(schema_version, str) else None
+    safe_variant_id = variant_id if isinstance(variant_id, str) else None
+
     return {
-        "schema_version": schema_version,
+        "schema_version": safe_schema_version,
         "expected_schema_version": SCHEMA_VERSION,
-        "variant_id": variant_id,
+        "variant_id": safe_variant_id,
         "status": status,
         "result": {"status": status},
         "rule_id": rule_id,

@@ -1,0 +1,33 @@
+{
+  "schema_version": "repo03.gnss.scenario.v1",
+  "scenario_id": "gnss-antenna-fault",
+  "engine_id": "repo03-gnss-validator",
+  "module_id": "gnss",
+  "variant_id": "A",
+  "enabled_modules": ["can", "lin", "gnss"],
+  "variant_contract": {"schema_version": "repo03.variant.schema.v1", "profile_hash": "f74c42bb2a2519ab563a91cb05cfb6d4e5accd9d6f2570ed89604bbad5e0367e", "source": {"classification": "SOURCE_EXPLICIT", "reference": "variants/fixtures/valid_variant_a.json", "version": "D1-2026-10-17"}},
+  "source": {"classification": "ENGINEERING_RULE", "reference": "REP-03/WF-03-04/antenna-fault", "version": "1.0.0"},
+  "synthetic_data": true,
+  "known_gaps": ["GAP-02"],
+  "module_profile": {
+    "profile_id": "synthetic-gnss-profile-v1",
+    "scope": "SYNTHETIC_CONFIGURATION",
+    "module_variant": {"value": "UNRESOLVED_VARIANT_A_GNSS", "source": {"classification": "UNKNOWN", "reference": "GAP-02/module-variant/unresolved", "version": "2026-10-19"}},
+    "antenna_type": {"value": null, "source": {"classification": "UNKNOWN", "reference": "GAP-02/antenna-type/unresolved", "version": "2026-10-19"}},
+    "rf_feed": {"value": null, "source": {"classification": "UNKNOWN", "reference": "GAP-02/rf-feed/unresolved", "version": "2026-10-19"}},
+    "power_profile": {"value": "SYNTHETIC_POWERED", "source": {"classification": "ENGINEERING_RULE", "reference": "REP-03/WF-03-04/synthetic-power-state", "version": "1.0.0"}},
+    "integration_guide": {"classification": "UNKNOWN", "reference": "GAP-02/integration-guide/unresolved", "version": "2026-10-19"},
+    "rf_layout_evidence": {"classification": "UNKNOWN", "reference": "GAP-02/rf-layout/unresolved", "version": "2026-10-19"}
+  },
+  "freshness_policy": {"max_age_ms": 1000, "source": {"classification": "ENGINEERING_RULE", "reference": "REP-03/WF-03-04/synthetic-freshness-threshold", "version": "1.0.0"}},
+  "observation": {
+    "fix_quality": "FIX_3D",
+    "timestamp_ms": 100000,
+    "previous_timestamp_ms": 99000,
+    "evaluation_timestamp_ms": 100200,
+    "age_ms": 200,
+    "antenna_status": "OPEN",
+    "position": {"latitude_deg": 41.0082, "longitude_deg": 28.9784, "altitude_m": 42.0, "synthetic_data": true},
+    "source": {"classification": "ENGINEERING_RULE", "reference": "REP-03/WF-03-04/synthetic-antenna-fault", "version": "1.0.0"}
+  }
+}

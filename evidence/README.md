@@ -7,6 +7,11 @@ Bu dizin, REP-03 kararlarını ve doğrulama çalışmalarını sohbet geçmişi
 - [`D1_validation_record.md`](D1_validation_record.md): D1 geçiş onayı, sentetik çalışma sınırı ve D2/D3 doğrulama durumu.
 - [`D2_session2_validation_record.md`](D2_session2_validation_record.md): WF-03-02 CAN/TWAI ve WF-03-03 LIN motorlarının fixture, test, kaynak ve kabul kaydı.
 - [`REP-03_Oturum_2_Sentetik_Dogrulama_Raporu_2026-10-19.docx`](REP-03_Oturum_2_Sentetik_Dogrulama_Raporu_2026-10-19.docx): Oturum 2 sonucunu sohbet geçmişinden bağımsız sunan düzenlenebilir teslim raporu.
+- [`D2_session3_validation_record.md`](D2_session3_validation_record.md): WF-03-04 GNSS ve WF-03-05 automotive-power uygulamalarının D2 kapanış, fixture, kaynak, REP-02 adapter ve kabul kaydı.
+- [`REP-03_Oturum_3_D2_Kapanis_Raporu_2026-10-19.docx`](REP-03_Oturum_3_D2_Kapanis_Raporu_2026-10-19.docx): Oturum 3 ve D2 kapanışını sohbet geçmişinden bağımsız sunan düzenlenebilir teslim raporu.
+- [`REP-03_23-10-2026_Literatur_Entegrasyon_ve_Bitis_Yolu_Analizi.docx`](REP-03_23-10-2026_Literatur_Entegrasyon_ve_Bitis_Yolu_Analizi.docx): 23 Ekim literatür ve entegrasyon klasörlerini repo gerçekliğiyle karşılaştıran, kısaltılmış bitirme yolunu belirleyen analiz.
+- [`source_evidence_register.v1.json`](source_evidence_register.v1.json): GAP-01–04 için kaynak sahipliği, otorite, kapanış ölçütleri ve fiziksel iddia sınırlarını tutan kapalı makine kaydı.
+- [`D3_session4_validation_record.md`](D3_session4_validation_record.md): P0 doğruluk düzeltmeleri, WF-03-06 shutdown FSM’i, 44 fixture/rapor şema regresyonu ve 174 testlik Oturum 4 kabul kaydı.
 
 ## Kanıt kuralları
 

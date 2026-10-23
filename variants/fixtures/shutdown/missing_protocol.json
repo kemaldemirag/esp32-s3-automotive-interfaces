@@ -1,0 +1,29 @@
+{
+  "schema_version": "repo03.shutdown.scenario.v1",
+  "scenario_id": "SHUTDOWN-MISSING-PROTOCOL-001",
+  "engine_id": "repo03-shutdown-engine",
+  "module_id": "shutdown",
+  "variant_id": "B",
+  "enabled_modules": ["automotive_power", "shutdown"],
+  "variant_contract": {
+    "schema_version": "repo03.variant.schema.v1",
+    "profile_hash": "1b82f114d7fb4280f55d3f72a7a61816f38242b7495a23cfa468f17b92d00fcd",
+    "source": {"classification": "ENGINEERING_RULE", "authority": "ENGINEERING", "reference": "REP-03-D1", "version": "1.0.0"}
+  },
+  "source": {"classification": "ENGINEERING_RULE", "authority": "ENGINEERING", "reference": "docs/REP-03_Codex_Gorev_Plani_Pozisyon_Bazli_v1.docx#WF-03-06", "version": "v1"},
+  "synthetic_data": true,
+  "known_gaps": ["GAP-04"],
+  "host_contract": {"raspberry_pi_model": null, "protocol_id": null, "source": null},
+  "timing_policy": {
+    "ack_timeout_ms": {"value_ms": null, "source": null},
+    "grace_period_ms": {"value_ms": null, "source": null},
+    "ignition_debounce_ms": {"value_ms": null, "source": null},
+    "restart_minimum_ms": {"value_ms": null, "source": null}
+  },
+  "initial_state": "IGNITION_ON",
+  "events": [
+    {"event": "ignition-off", "elapsed_time": 0},
+    {"event": "host-notify", "elapsed_time": 0}
+  ],
+  "assertions": {"validation_level": "SYNTHETIC", "real_os_shutdown": false, "physical_power_cut": false}
+}
