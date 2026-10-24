@@ -1,0 +1,32 @@
+[build-system]
+requires = [
+  "setuptools==84.0.0",
+  "wheel==0.48.0",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "esp32-s3-automotive-interfaces"
+dynamic = ["version"]
+description = "Deterministic offline validation tools for the REP-03 automotive interface variants"
+readme = { file = "README.md", content-type = "text/markdown" }
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+repo03 = "repo03_cli.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "firmware" }
+include-package-data = true
+
+[tool.setuptools.dynamic]
+version = { attr = "repo03_cli.__version__" }
+
+[tool.setuptools.packages.find]
+where = ["firmware"]
+include = ["repo03_*"]
+namespaces = false
+
+[tool.setuptools.package-data]
+repo03_integration = ["rep02_dependency.v1.json"]

@@ -1,0 +1,6 @@
+.gitattributes text eol=lf
+firmware/repo03_integration/** text eol=lf
+scripts/verify_int02a_wheel.py text eol=lf
+tests/test_int02a_handoff.py text eol=lf
+evidence/INT-02A/** text eol=lf
+evidence/D4/** text eol=lf

@@ -1,0 +1,663 @@
+{
+  "environment": {
+    "build_tools": {
+      "setuptools": "84.0.0",
+      "wheel": "0.48.0"
+    },
+    "platform": "Windows-11-10.0.26300-SP0",
+    "python_implementation": "CPython",
+    "python_version": "3.12.14"
+  },
+  "generated_files": [
+    {
+      "path": "evidence/D4/cli-smoke-results.json",
+      "sha256": "84f628562ca944ef1c11332c1090acada5cd421ac70e667275be657125a27250",
+      "size_bytes": 4282
+    },
+    {
+      "path": "evidence/D4/unit-test.log",
+      "sha256": "a282fe321b343ef5e8973a0f93ec0ad66c7cce8ee10f9b8ad2eb6179d8de7fc3",
+      "size_bytes": 103
+    },
+    {
+      "path": "evidence/D4/verification-record.md",
+      "sha256": "6a318d39d881505937a05b2d4d4afc8d77c080811f4907a3d44102a4fb95fd90",
+      "size_bytes": 2247
+    },
+    {
+      "path": "evidence/D4/verification-result.json",
+      "sha256": "4a8bf3c12e6c6311b130bcaef08306408da90d39cc2d2d9f6d1e97d4c49dd08d",
+      "size_bytes": 8534
+    }
+  ],
+  "license": {
+    "file": null,
+    "spdx_expression": null,
+    "status": "BLOCKED_CLIENT_DECISION"
+  },
+  "local_verification_status": "PASS",
+  "not_run_checks": [
+    {
+      "check_id": "PHYSICAL_VALIDATION",
+      "status": "NOT_RUN"
+    },
+    {
+      "check_id": "RF_VALIDATION",
+      "status": "NOT_RUN"
+    },
+    {
+      "check_id": "EMC_VALIDATION",
+      "status": "NOT_RUN"
+    },
+    {
+      "check_id": "AEC_QUALIFICATION",
+      "status": "NOT_RUN"
+    },
+    {
+      "check_id": "ISO_COMPLIANCE_VALIDATION",
+      "status": "NOT_RUN"
+    },
+    {
+      "check_id": "REAL_HOST_SHUTDOWN",
+      "status": "NOT_RUN"
+    },
+    {
+      "check_id": "LIVE_ADAPTER_EXECUTION",
+      "status": "NOT_RUN"
+    },
+    {
+      "check_id": "REMOTE_CI",
+      "status": "NOT_RUN"
+    }
+  ],
+  "open_gaps": [
+    {
+      "gap_id": "GAP-01",
+      "status": "BLOCKED"
+    },
+    {
+      "gap_id": "GAP-02",
+      "status": "BLOCKED"
+    },
+    {
+      "gap_id": "GAP-03",
+      "status": "BLOCKED"
+    },
+    {
+      "gap_id": "GAP-04",
+      "status": "BLOCKED"
+    }
+  ],
+  "package": {
+    "distribution_name": "esp32-s3-automotive-interfaces",
+    "runtime_dependencies": [],
+    "version": "0.1.0"
+  },
+  "recorded_at_utc": "2026-10-24T12:09:28Z",
+  "release_blockers": [
+    "LICENSE_DECISION_REQUIRED",
+    "REMOTE_CI_NOT_RUN"
+  ],
+  "release_gate_id": "D4",
+  "release_status": "BLOCKED",
+  "remote_ci": {
+    "run_url": null,
+    "status": "NOT_RUN"
+  },
+  "repository": {
+    "baseline_git_head": "9273237e8e884b3da6cde8271f119434b784b5b8",
+    "git_status": {
+      "entry_count": 30,
+      "format": "git-status-porcelain-v1-z",
+      "output_path_excluded": "evidence/D4",
+      "sha256": "5af3dd61f548cd5beaf9115ded9f9974fa259c58a7a197ee3609785cf0e4155d"
+    },
+    "source_state": "UNCOMMITTED_D4_WORKTREE"
+  },
+  "schema_version": "repo03.d4.release-manifest.v1",
+  "source_files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "9cbe6769521078e15f6e09c3ff2c4842acf58169484e6d356b5ba7291b23b750",
+      "size_bytes": 213
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "sha256": "839ef8cb1b97903c28f83eeb0954850d0f40407cedc76804d1e4829e748db2f5",
+      "size_bytes": 2255
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "4b13b9c941ea1453b46d1337388711579e4d730c9de0e5f1b2b90bda878f9fb6",
+      "size_bytes": 470
+    },
+    {
+      "path": "README.md",
+      "sha256": "be7933d9526e91584cfe9577ca3025d5d3eb154cbb75afd0d7c7f9873ac4d690",
+      "size_bytes": 12516
+    },
+    {
+      "path": "docs/README.md",
+      "sha256": "69eb53b049134f7d5045c8b6e93b70c8d2a3761343e82a76ae3c4ae516039c07",
+      "size_bytes": 4762
+    },
+    {
+      "path": "evidence/INT-02A/manifest.json",
+      "sha256": "22b7e67994debaa60ae5900e27c1ba0f0308cc570b01fc81f84d4b818f9338d9",
+      "size_bytes": 3047
+    },
+    {
+      "path": "evidence/INT-02A/manifest.json.sha256",
+      "sha256": "294fb4b76143dc07744f54b81f01161cc2ec494038d42d74643f8bf0f929461c",
+      "size_bytes": 80
+    },
+    {
+      "path": "evidence/README.md",
+      "sha256": "25f273deae7478b00a558814a66ecb24f19f3b035b7ff5089027c3e856988961",
+      "size_bytes": 3716
+    },
+    {
+      "path": "evidence/source_evidence_register.v1.json",
+      "sha256": "386bf650b1bdb4cc60631a4d8520d04001d31ddd0081313281b8295e39b8a25f",
+      "size_bytes": 20348
+    },
+    {
+      "path": "firmware/README.md",
+      "sha256": "2639f6de2dc6fcba8abc03186fb53fa8f78fd1dbcecfc91dc0303744a9848ee7",
+      "size_bytes": 2695
+    },
+    {
+      "path": "firmware/repo03_can/__init__.py",
+      "sha256": "1d321773e43d3fdca48b9cefa6cb3975c73cf953dcbdf71448b3e40f766e00bf",
+      "size_bytes": 273
+    },
+    {
+      "path": "firmware/repo03_can/engine.py",
+      "sha256": "12b53fa1105b44a34d4da5ed451f5a6645ff75ba230aa3ace9e90b184b2da214",
+      "size_bytes": 43811
+    },
+    {
+      "path": "firmware/repo03_cli/__init__.py",
+      "sha256": "23c7ef54ed6ce5afdd1a15d9037a9de5aecbc6766c25200478a3c4a6cb8ab1e0",
+      "size_bytes": 211
+    },
+    {
+      "path": "firmware/repo03_cli/__main__.py",
+      "sha256": "d1f25b770b9b632d7ebb527471f432c4d18360b5c6d422f87a39cd300bd6ce9f",
+      "size_bytes": 156
+    },
+    {
+      "path": "firmware/repo03_cli/cli.py",
+      "sha256": "1a03bf64ed79908bb855a50a297402b57ee328079c0139fced7a97a7498fce67",
+      "size_bytes": 11154
+    },
+    {
+      "path": "firmware/repo03_cli/report.py",
+      "sha256": "1ffcacc2305359b893104d41d231b914491d4145ca003c5f61402ec5e5e52a70",
+      "size_bytes": 4367
+    },
+    {
+      "path": "firmware/repo03_contract/__init__.py",
+      "sha256": "d484dfa6bdf90527a85043bdcc9a979c1d764e0e8cb6a75db101e108a82faa9b",
+      "size_bytes": 275
+    },
+    {
+      "path": "firmware/repo03_contract/validator.py",
+      "sha256": "329a972650a3c329f490fbc1d0a57d20ac9caf45f156ff72f3f71bd641e136c4",
+      "size_bytes": 28470
+    },
+    {
+      "path": "firmware/repo03_gnss/__init__.py",
+      "sha256": "c2e623951da6debe4a688ab56acd6141eef3c24b6c8cf5c0a71a5540a25f7f73",
+      "size_bytes": 670
+    },
+    {
+      "path": "firmware/repo03_gnss/validator.py",
+      "sha256": "818fc1eae36bbfd345874163ac3a1ff1e2378ae5efe25e81f248b4794a66f21e",
+      "size_bytes": 45219
+    },
+    {
+      "path": "firmware/repo03_integration/__init__.py",
+      "sha256": "d016fd5bb540d000d48d96a46bc98031ce3f5f5ff330f05018083410a6de4485",
+      "size_bytes": 906
+    },
+    {
+      "path": "firmware/repo03_integration/rep02_dependency.v1.json",
+      "sha256": "423c728d505ad8660f5eb51e54a23bb61842979bac43f445d4487803d44b406f",
+      "size_bytes": 1909
+    },
+    {
+      "path": "firmware/repo03_integration/rep02_file_api.py",
+      "sha256": "91ed0ad23a8467eaaa01b763d63ebeb75531031d44f13587e1097cab5fd7bcf2",
+      "size_bytes": 18216
+    },
+    {
+      "path": "firmware/repo03_lin/__init__.py",
+      "sha256": "d6fd47bf4210daefcb4d2de34812b75227d670d61b452385a86dda756028180c",
+      "size_bytes": 635
+    },
+    {
+      "path": "firmware/repo03_lin/engine.py",
+      "sha256": "d700b80af3b8ba66890acf8803b401e6e62a5acfb45bb5e1d2af0361349631b7",
+      "size_bytes": 58026
+    },
+    {
+      "path": "firmware/repo03_power/__init__.py",
+      "sha256": "d1fd23bd748354fd48c2bfd76db61b1c9fc20675c0f2ab9f25a7ac3b249dd1ad",
+      "size_bytes": 857
+    },
+    {
+      "path": "firmware/repo03_power/engine.py",
+      "sha256": "9e2e9656a0106428a934e47b4e293fcbb63767498bdb9052c85d37b20c077f60",
+      "size_bytes": 50265
+    },
+    {
+      "path": "firmware/repo03_shutdown/__init__.py",
+      "sha256": "1a2e6840e0e91b9fb5999ef1cbfb3f5832a9607666ecc7ace4639b6d7e88960a",
+      "size_bytes": 768
+    },
+    {
+      "path": "firmware/repo03_shutdown/engine.py",
+      "sha256": "4a45549a690dc863b3b6e2639b4cca82f2feda0be920d663c1a427ddcf47deb4",
+      "size_bytes": 38316
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "72c3239bafa0458046897c1b6d5a4c07188485e2cbcc9db6b657b8321ebb90f0",
+      "size_bytes": 777
+    },
+    {
+      "path": "requirements-test.txt",
+      "sha256": "bb3ab0cefb45cdefe8ebb3440d9b8f6bd27fc73cc49419f76e1968575b7f882c",
+      "size_bytes": 139
+    },
+    {
+      "path": "scripts/record_d4_evidence.py",
+      "sha256": "ea5ddaf8f465fce1048a81ff2649a7a5dcad3180feb84508c84c67b79bc48887",
+      "size_bytes": 51195
+    },
+    {
+      "path": "scripts/verify_d4_release.py",
+      "sha256": "9388a3386af24700635381f1ad08876093960679c90f59f170971a673a54e5f5",
+      "size_bytes": 36830
+    },
+    {
+      "path": "scripts/verify_int02a_wheel.py",
+      "sha256": "ad1c20d327945773ff5915ec1d4b24bf3b5558483e7ecc05713a90a40643bce3",
+      "size_bytes": 30663
+    },
+    {
+      "path": "tests/README.md",
+      "sha256": "2825742449d12cf742fd604d42872a0a364b70bddab9c2f93b8ac76653fd69d8",
+      "size_bytes": 4857
+    },
+    {
+      "path": "tests/test_can_engine.py",
+      "sha256": "8fa69ad5b907e3788f449958a652f2ec5a5d8717b0701c97d6bc92711d78ac24",
+      "size_bytes": 20852
+    },
+    {
+      "path": "tests/test_cli.py",
+      "sha256": "c5d75f7a7b42846b91be24e2efc2bf84c37a5d279977f115eb3eecfe87a0e7c0",
+      "size_bytes": 13311
+    },
+    {
+      "path": "tests/test_gnss_validator.py",
+      "sha256": "b0d26cef26c4c9ba6a3081ddc706ed307af13de38800784dc45e662fd7cf87ec",
+      "size_bytes": 24416
+    },
+    {
+      "path": "tests/test_int02a_handoff.py",
+      "sha256": "9b3f64c29044cb596e90794619b5609f2f33b6c562b248e7735b62e4ed33536e",
+      "size_bytes": 14042
+    },
+    {
+      "path": "tests/test_json_schema_regression.py",
+      "sha256": "60b6df6957da232cddd1ed67ebe3d3dccce5db47e5f2916858a6f17c7dea720c",
+      "size_bytes": 10843
+    },
+    {
+      "path": "tests/test_lin_engine.py",
+      "sha256": "f1b32962a81f213e9e148982774840d0603891256df02d3a9bfe94473938b08f",
+      "size_bytes": 28275
+    },
+    {
+      "path": "tests/test_power_profiles.py",
+      "sha256": "b1ef2fff4e12924e08796f56fcad1ca7525b5268b10a95aa4723e9105f056469",
+      "size_bytes": 27558
+    },
+    {
+      "path": "tests/test_release_packaging.py",
+      "sha256": "3d298395478fcc682bbbb2ebf54e8df1e43e237bd0faacf209530241a32740d9",
+      "size_bytes": 3898
+    },
+    {
+      "path": "tests/test_shutdown_engine.py",
+      "sha256": "fb52829a73dae74ec88a1adc86f42704abc47287243de100a57b2858a565047c",
+      "size_bytes": 17927
+    },
+    {
+      "path": "tests/test_source_evidence_register.py",
+      "sha256": "f02327e34c42aa804d1b4b6b4760001219b5bb5c0e7bd4b8682fb76bf0e97402",
+      "size_bytes": 11725
+    },
+    {
+      "path": "tests/test_variant_contract.py",
+      "sha256": "3f8b3d16766ef19547fd30e3a58686bdb1669dfc982f7bf275bd4b8b072df9e3",
+      "size_bytes": 11756
+    },
+    {
+      "path": "variants/README.md",
+      "sha256": "5d678aff2142495b95172cd2b94c336d309dc656771a0e054127ba8ff4480e19",
+      "size_bytes": 3787
+    },
+    {
+      "path": "variants/fixtures/automotive_power/brownout.json",
+      "sha256": "56fc41be171e38b0585437e3530bd04b8561d7fa103f8aed34723e61f3183407",
+      "size_bytes": 3700
+    },
+    {
+      "path": "variants/fixtures/automotive_power/cold_crank.json",
+      "sha256": "73cfc221a8cb3152b8eb6360c30afaa42c16c49a66075589f996022cadddefad",
+      "size_bytes": 3703
+    },
+    {
+      "path": "variants/fixtures/automotive_power/exact_threshold_blocked.json",
+      "sha256": "9d736ef1e9e9eed58264eb6be66e655a0ae9ea82036dfde02155ef9421dcd1ad",
+      "size_bytes": 3717
+    },
+    {
+      "path": "variants/fixtures/automotive_power/jump_start.json",
+      "sha256": "af254f0756707b2a9743f6ca66438cd040438f6f26fbefc50041a96133adeb69",
+      "size_bytes": 3706
+    },
+    {
+      "path": "variants/fixtures/automotive_power/load_dump_suppressed.json",
+      "sha256": "45f5fd055d3d04dd6611425df6a0edcf56ad0397d4ea78d587fab12ecb963ce1",
+      "size_bytes": 3720
+    },
+    {
+      "path": "variants/fixtures/automotive_power/load_dump_unsuppressed.json",
+      "sha256": "96eeee851183f04e7963d5e5156e8a49de6ade103fd755fdf14a38cd3092a109",
+      "size_bytes": 3726
+    },
+    {
+      "path": "variants/fixtures/automotive_power/missing_profile_source.json",
+      "sha256": "3832f15de9b5f066647ce55422972bb08b6cad8482d9081cb4e41a41d8ed95b3",
+      "size_bytes": 3545
+    },
+    {
+      "path": "variants/fixtures/automotive_power/nominal.json",
+      "sha256": "fc99e2baa4d48cc458e38ae0f710ab42c91b294a86af22af35cb62265e61f465",
+      "size_bytes": 3615
+    },
+    {
+      "path": "variants/fixtures/automotive_power/rep02_version_mismatch.json",
+      "sha256": "3a0be3639ebc20dd3923223f9b09f3d9c9e57a9a8d462eb8f018b0740d4d829e",
+      "size_bytes": 3710
+    },
+    {
+      "path": "variants/fixtures/blocked_missing_source_input.json",
+      "sha256": "2d2c64fdefda4ee83a5609acda8af8d9935b383cf4366cf57fded3d97cf10732",
+      "size_bytes": 1870
+    },
+    {
+      "path": "variants/fixtures/can/error_escalation_recovery_success.json",
+      "sha256": "545f094d4eec619713e132ff909788f31523c13f3f30147d68e92049ad57fa2a",
+      "size_bytes": 2115
+    },
+    {
+      "path": "variants/fixtures/can/invalid_sequence.json",
+      "sha256": "b1dfbda462365d4ad07d454c4d24165d9709a196aa065a536e3f16cc35f82ad3",
+      "size_bytes": 1469
+    },
+    {
+      "path": "variants/fixtures/can/missing_recovery.json",
+      "sha256": "7a0d87798b8b19dfd6197e470c55281959d7c419b41629ea91da639a00825852",
+      "size_bytes": 1459
+    },
+    {
+      "path": "variants/fixtures/can/normal_frame.json",
+      "sha256": "bf321de42daa443e7faa8ca0d8c28afaf06c26612865e2819578052e26862ec0",
+      "size_bytes": 1529
+    },
+    {
+      "path": "variants/fixtures/can/recovery_timeout.json",
+      "sha256": "3584db6a7262078bd0288daa6a6dba9e51bc5a0d2bdd2e2aa74b535a62bdee98",
+      "size_bytes": 1605
+    },
+    {
+      "path": "variants/fixtures/can/transceiver_off_unknown.json",
+      "sha256": "612ce871fbe52da19326e621158a689428cd90ee3bf27f854af10015beedafae",
+      "size_bytes": 1474
+    },
+    {
+      "path": "variants/fixtures/gnss/antenna_fault.json",
+      "sha256": "ec0eb7844690abc6fdb482f52618eaa775ea7714fc12fed021d767c1e7d1f8a1",
+      "size_bytes": 2348
+    },
+    {
+      "path": "variants/fixtures/gnss/missing_module.json",
+      "sha256": "6be06c5d7f9abed0b64d6f2446d401680018927650c1995e0fb6fdd42a414703",
+      "size_bytes": 1355
+    },
+    {
+      "path": "variants/fixtures/gnss/no_fix.json",
+      "sha256": "54b8c957d0708d8b2a9fed2407a7410556093040b00996348b0f1ff79a8b52b9",
+      "size_bytes": 2266
+    },
+    {
+      "path": "variants/fixtures/gnss/stale_lower_boundary.json",
+      "sha256": "cb1dfada1c9f604f1d8a40dcc0d8e6790cd96962b4eb9c886f5eed9850ddf1dd",
+      "size_bytes": 2364
+    },
+    {
+      "path": "variants/fixtures/gnss/stale_upper_boundary.json",
+      "sha256": "707f55d58d633df119e0d09335228c4df0a93b3f40b38c81cdbcda456886ef14",
+      "size_bytes": 2364
+    },
+    {
+      "path": "variants/fixtures/gnss/timestamp_rollback.json",
+      "sha256": "2334ba1a31b8f65525b20bd44b34677a27123ea5a084cce0cc936aaea96a99fd",
+      "size_bytes": 2354
+    },
+    {
+      "path": "variants/fixtures/gnss/valid_synthetic_fix.json",
+      "sha256": "9e57bae52c0249f0cf894f6398dbc88694e9649097c6e2bf1e135a3424df62fd",
+      "size_bytes": 2823
+    },
+    {
+      "path": "variants/fixtures/invalid_combined.json",
+      "sha256": "56c41cac32c6189852f0a80a30e4444cb09edd2b07138c718b0b4638c2915133",
+      "size_bytes": 429
+    },
+    {
+      "path": "variants/fixtures/invalid_missing_variant_id.json",
+      "sha256": "e8cb8c8b98c35a772aa682c983559af95ca78fcb8cf88336a5ddbb6901284267",
+      "size_bytes": 292
+    },
+    {
+      "path": "variants/fixtures/invalid_schema_version.json",
+      "sha256": "2ee83d7fe74068865df1e71cc477ffbac0eaadc23386407afc7dadff024081e4",
+      "size_bytes": 315
+    },
+    {
+      "path": "variants/fixtures/invalid_unknown_module.json",
+      "sha256": "e7353d4fd48433fb3ddb9dbd5669a7c104ef666a974292db9f4a3f53e3b2e0a1",
+      "size_bytes": 361
+    },
+    {
+      "path": "variants/fixtures/lin/invalid_order.json",
+      "sha256": "196b5dcad7ce2916e83fae09a85f351b61c8c603ebc3d34c10bc391c8121be82",
+      "size_bytes": 2037
+    },
+    {
+      "path": "variants/fixtures/lin/missing_transceiver_profile.json",
+      "sha256": "7c9856df9a450bff065a0340564cf5cf2fab0599e150c1f022d4aa3ea0dbe109",
+      "size_bytes": 1616
+    },
+    {
+      "path": "variants/fixtures/lin/normal_wake_sleep.json",
+      "sha256": "c224ee08bc0e3e89bc8a17991994a11b19b631c835b2cf9b1fee01693e03f72d",
+      "size_bytes": 2819
+    },
+    {
+      "path": "variants/fixtures/lin/off_transceiver.json",
+      "sha256": "2221569cbb8bea2a102afed9f6189db5a175ba2fc2337b3c28985dfe5e4ab6ad",
+      "size_bytes": 2549
+    },
+    {
+      "path": "variants/fixtures/lin/rapid_re_sleep.json",
+      "sha256": "73709c8ed6236d791bdfaadc552e6b1031163285cd8ba2b6179a45af26f44676",
+      "size_bytes": 2290
+    },
+    {
+      "path": "variants/fixtures/lin/stuck_dominant.json",
+      "sha256": "5dfe51fefdcfaccd46eacf11a63f34a62125a5b6de8c8268ca3eb565a585ad19",
+      "size_bytes": 2323
+    },
+    {
+      "path": "variants/fixtures/lin/wake_timeout.json",
+      "sha256": "d9e9ee7e949ea0ee52d4a9dfae3c421a39cdf57d108d106cf0f5a706bd811cd7",
+      "size_bytes": 2186
+    },
+    {
+      "path": "variants/fixtures/shutdown/duplicate_ack.json",
+      "sha256": "79e86f116d1fe0c881f681fa9c002a84d0b8b715a322cb1a083525ab554a142c",
+      "size_bytes": 1581
+    },
+    {
+      "path": "variants/fixtures/shutdown/early_power_cut.json",
+      "sha256": "40fe93d348b6526c2a06d1e830b32cd0958f0d9b855ab470c2f82304f667d1a1",
+      "size_bytes": 1447
+    },
+    {
+      "path": "variants/fixtures/shutdown/ignition_bounce.json",
+      "sha256": "a0a9b1a13deae436faf1c0beb74a8016deb8f001e32bd4cf70883d0dafa0176a",
+      "size_bytes": 1462
+    },
+    {
+      "path": "variants/fixtures/shutdown/late_ack.json",
+      "sha256": "8bc053ecc6d8d0a3de449b5ff809c2005e15e2bbccbd07ee6967a4973f056abc",
+      "size_bytes": 1492
+    },
+    {
+      "path": "variants/fixtures/shutdown/missing_ack.json",
+      "sha256": "499e2760410af269f2b9c9e5b94be6d165970047071b101c5cd6100da19ed0db",
+      "size_bytes": 1453
+    },
+    {
+      "path": "variants/fixtures/shutdown/missing_protocol.json",
+      "sha256": "0f6d39fa52be1e73d1e346d0476c0b4722e2c229a71c35157ce4f8bd19260d5d",
+      "size_bytes": 1412
+    },
+    {
+      "path": "variants/fixtures/shutdown/normal_ack.json",
+      "sha256": "a0754938566806668d2242c39bfd0b6c99384cacb535abfb73562bfb1e38199b",
+      "size_bytes": 1636
+    },
+    {
+      "path": "variants/fixtures/shutdown/rapid_restart.json",
+      "sha256": "6fba478403521f587f9f003783a4e0bdd04b9148c8eefa33a21769a386f17f03",
+      "size_bytes": 1585
+    },
+    {
+      "path": "variants/fixtures/valid_variant_a.json",
+      "sha256": "02f25c4cb8a7ed80edf9b035bb494886333d71eb53a79374e51cb48754f13176",
+      "size_bytes": 1954
+    },
+    {
+      "path": "variants/fixtures/valid_variant_b.json",
+      "sha256": "10a346c786ddb14e701c5469684a56d59d7eefa8508853433bb3007c0e7996b5",
+      "size_bytes": 1591
+    },
+    {
+      "path": "variants/schema/repo03.automotive-power.scenario.v1.json",
+      "sha256": "6b28ecc926c57aef3a91209966f145f779a0aa57f5ab4776a70d7541acb4981f",
+      "size_bytes": 20087
+    },
+    {
+      "path": "variants/schema/repo03.can.scenario.v1.json",
+      "sha256": "c4d1a0955c903e28fddaf197457796eeea5fc0555c8d34aa8d952cacac68c845",
+      "size_bytes": 14079
+    },
+    {
+      "path": "variants/schema/repo03.gnss.scenario.v1.json",
+      "sha256": "b19bf7293645d4326128d33392d0d5be750a87b688d925b58c0f7bfb30516314",
+      "size_bytes": 15729
+    },
+    {
+      "path": "variants/schema/repo03.lin.scenario.v1.json",
+      "sha256": "74a9e374519373728cb310c676ec40e8d3e47ce78ab80b3cb95e6154f268cabf",
+      "size_bytes": 13328
+    },
+    {
+      "path": "variants/schema/repo03.shutdown.scenario.v1.json",
+      "sha256": "35f31f736d78e0a422712d98b20c4c3778c10286c4b27a9c4f1f38832775f7e5",
+      "size_bytes": 12302
+    },
+    {
+      "path": "variants/schema/repo03.variant.schema.v1.json",
+      "sha256": "5878361e6814476bce5353198b61c30d9b9c384ab74b940ed640ab2fb7e46348",
+      "size_bytes": 9324
+    }
+  ],
+  "test_dependencies": {
+    "excluded_untrusted_bytecode_count": 74,
+    "file_count": 151,
+    "packages": [
+      {
+        "name": "attrs",
+        "record_entry_count": 56,
+        "record_sha256": "2ee46bdceec39649a98fff1ed8c58f90bff1082abf96db5a2b1691608bcb602f",
+        "version": "26.1.0"
+      },
+      {
+        "name": "jsonschema",
+        "record_entry_count": 81,
+        "record_sha256": "869c7edf2bc44e023cabe8e679412f95cc80450068fa56df58c1a95a72ae400c",
+        "version": "4.25.1"
+      },
+      {
+        "name": "jsonschema-specifications",
+        "record_entry_count": 34,
+        "record_sha256": "768e473edd79e63e881c81591d25e120ae68b4417cc54b7e59ba7e4c87c2dcfd",
+        "version": "2025.9.1"
+      },
+      {
+        "name": "referencing",
+        "record_entry_count": 34,
+        "record_sha256": "9a49a179c1f74f727d3f8b751fa5b4c37c41979a82e77f79ac4f49d4cf470190",
+        "version": "0.37.0"
+      },
+      {
+        "name": "rpds-py",
+        "record_entry_count": 12,
+        "record_sha256": "430df17308db3ec261703dcd8e45bd63248858ffb8752108cb5275bb7b54af02",
+        "version": "2026.9.1"
+      },
+      {
+        "name": "typing-extensions",
+        "record_entry_count": 8,
+        "record_sha256": "9861cb1104df8ec0ce0e5de06999ed8540a156766893cf404a41e9adb275afff",
+        "version": "4.16.0"
+      }
+    ],
+    "path": "repo03-testdeps",
+    "path_scope": "INPUT_BASENAME",
+    "requirements_file": "requirements-test.txt",
+    "requirements_sha256": "bb3ab0cefb45cdefe8ebb3440d9b8f6bd27fc73cc49419f76e1968575b7f882c",
+    "status": "PASS",
+    "tree_manifest_sha256": "70b371112639af0da09ee84dce9ac6b0468cdf24ac2e4daf5a2f0c4401602419"
+  },
+  "unit_tests": {
+    "status": "PASS",
+    "test_count": 207
+  },
+  "wheel": {
+    "path": "dist/esp32_s3_automotive_interfaces-0.1.0-py3-none-any.whl",
+    "path_scope": "REPOSITORY_RELATIVE",
+    "sha256": "83a4935a6347c6ce24299c8c3f9f293fd391482743fee7430dd2b665173a00d6",
+    "size_bytes": 72959
+  }
+}

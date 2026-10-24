@@ -1,0 +1,48 @@
+{
+  "api_version": "1.0.0",
+  "claim_limits": [
+    "DESCRIPTOR_STRUCTURE_AND_FILE_INTEGRITY_ONLY",
+    "SYNTHETIC_FIXTURES_ONLY",
+    "LIVE_ADAPTERS_NOT_RUN",
+    "NO_REP01_OR_REP03_SEMANTIC_MAPPING_CLAIM",
+    "NO_HARDWARE_COMPLIANCE_CLAIM"
+  ],
+  "compatibility": {
+    "api_version_match": "EXACT",
+    "hash_mismatch_status": "BLOCKED",
+    "incompatible_version_status": "BLOCKED",
+    "malformed_json_status": "BLOCKED",
+    "missing_artifact_status": "NOT_RUN",
+    "schema_version_match": "EXACT"
+  },
+  "configurations": [
+    {
+      "artifact_gaps": [],
+      "artifacts": [
+        {
+          "access_status": "AVAILABLE",
+          "artifact_id": "REP03-POWER-NOMINAL-001-REPORT",
+          "file_name": "artifacts/power-nominal-001.report.json",
+          "media_type": "application/json",
+          "role": "ASSESSMENT_INPUT",
+          "sha256": "283b71938deefb22a2cc89192f2193c2f52967224cd5408d63e8d0cae900c256"
+        }
+      ],
+      "configuration_id": "REP03-VARIANT-B",
+      "profile_id": "POWER-NOMINAL-001"
+    }
+  ],
+  "consumer": {
+    "api_version": "1.0.0",
+    "repository_id": "REP-02",
+    "schema_version": "1.0.0"
+  },
+  "descriptor_id": "INT-02A-REP03-POWER-NOMINAL-001",
+  "input_hash": "d4eb1b548689adf7cf7e217310ec1ea631c7a8ec9e4dc01233d2525890d39336",
+  "producer": {
+    "api_version": "1.0.0",
+    "repository_id": "REP-03",
+    "schema_version": "1.0.0"
+  },
+  "schema_version": "1.0.0"
+}

@@ -20,8 +20,10 @@ Desktop.ini
 build/
 dist/
 out/
+tmp/
 __pycache__/
 *.py[cod]
+*.egg-info/
 *-backups/
 *.lck
 *.kicad_prl

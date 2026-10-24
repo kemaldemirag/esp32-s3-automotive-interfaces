@@ -35,3 +35,5 @@ Shutdown fixture’larında Raspberry Pi modeli, host protokolü ve zaman eşikl
 Kapı kilidi yalnız üst seviye alanları değil, modül içindeki `value` alanlarını da kapsar: donanıma duyarlı yollar `null`, davranış yolları `null` veya `SYNTHETIC_ONLY` ile sınırlıdır.
 
 Bu dizin herhangi bir parça seçimi, RF uygunluğu veya fiziksel doğrulama iddiası içermez.
+
+INT-02A bu şema/fixture alanını genişletmez. Yalnız mevcut nominal Varyant B motor raporunu deterministik JSON artifact'ına dönüştürür ve REP-02 `0.5.0` offline file API'siyle byte bütünlüğünü doğrular. Tarihsel `repo03.rep02.file-adapter.v1` capability map geriye dönük kanıt olarak korunur; gerçek file-API descriptor'ı [`../evidence/INT-02A/handoff/rep03-to-rep02.descriptor.json`](../evidence/INT-02A/handoff/rep03-to-rep02.descriptor.json) dosyasındadır.

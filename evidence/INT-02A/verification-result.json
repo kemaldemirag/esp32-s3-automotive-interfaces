@@ -1,0 +1,146 @@
+{
+  "claim_boundary": {
+    "descriptor_and_exact_bytes": true,
+    "live_adapter_execution": false,
+    "physical_or_compliance_validation": false,
+    "rep02_power_engine_execution": false,
+    "semantic_power_mapping": false
+  },
+  "dependency_contract": {
+    "path": "firmware/repo03_integration/rep02_dependency.v1.json",
+    "sha256": "423c728d505ad8660f5eb51e54a23bb61842979bac43f445d4487803d44b406f"
+  },
+  "handoff": {
+    "artifact_path": "evidence/INT-02A/handoff/artifacts/power-nominal-001.report.json",
+    "artifact_sha256": "283b71938deefb22a2cc89192f2193c2f52967224cd5408d63e8d0cae900c256",
+    "artifact_size_bytes": 6036,
+    "descriptor_input_hash": "d4eb1b548689adf7cf7e217310ec1ea631c7a8ec9e4dc01233d2525890d39336",
+    "descriptor_path": "evidence/INT-02A/handoff/rep03-to-rep02.descriptor.json",
+    "embedded_d2_execution_status": "NOT_RUN",
+    "embedded_d2_integration_status": "BLOCKED"
+  },
+  "installed_runtime": {
+    "api_version": "1.0.0",
+    "contract_sha256": "e1a40ffd49fb126152a89e37e173ca8aeb87c76f9dc6477540a4b0708c2857da",
+    "contract_source_id": "REP02-FILE-API-CONTRACT",
+    "descriptor_schema_version": "1.0.0",
+    "engine_version": "0.1.0",
+    "package_version": "0.5.0",
+    "rule_id": "REP02.INTEGRATION.FILE_API",
+    "tool_name": "power-rail-file-api-validator"
+  },
+  "integration_id": "INT-02A",
+  "reason_code": "REP02_FILE_API_EXACT_BYTES_VERIFIED",
+  "rep02_validation": {
+    "adapter_results": [
+      {
+        "adapter_id": "REP-01",
+        "reason_code": "LIVE_ADAPTER_NOT_EXECUTED",
+        "status": "NOT_RUN"
+      },
+      {
+        "adapter_id": "REP-03",
+        "reason_code": "LIVE_ADAPTER_NOT_EXECUTED",
+        "status": "NOT_RUN"
+      }
+    ],
+    "api_version": "1.0.0",
+    "artifact_gaps": [],
+    "artifact_results": [
+      {
+        "access_status": "AVAILABLE",
+        "artifact_id": "REP03-POWER-NOMINAL-001-REPORT",
+        "expected_sha256": "283b71938deefb22a2cc89192f2193c2f52967224cd5408d63e8d0cae900c256",
+        "file_name": "artifacts/power-nominal-001.report.json",
+        "media_type": "application/json",
+        "observed_sha256": "283b71938deefb22a2cc89192f2193c2f52967224cd5408d63e8d0cae900c256",
+        "reason_code": "ARTIFACT_BYTES_VERIFIED",
+        "role": "ASSESSMENT_INPUT",
+        "status": "PASS"
+      }
+    ],
+    "claim_limits": [
+      "DESCRIPTOR_STRUCTURE_AND_FILE_INTEGRITY_ONLY",
+      "SYNTHETIC_FIXTURES_ONLY",
+      "LIVE_ADAPTERS_NOT_RUN",
+      "NO_REP01_OR_REP03_SEMANTIC_MAPPING_CLAIM",
+      "NO_HARDWARE_COMPLIANCE_CLAIM"
+    ],
+    "compatibility_policy": {
+      "api_version_match": "EXACT",
+      "hash_mismatch_status": "BLOCKED",
+      "incompatible_version_status": "BLOCKED",
+      "malformed_json_status": "BLOCKED",
+      "missing_artifact_status": "NOT_RUN",
+      "schema_version_match": "EXACT"
+    },
+    "descriptor_identity": {
+      "configuration_profile_count": 1,
+      "consumer": "REP-02",
+      "descriptor_id": "INT-02A-REP03-POWER-NOMINAL-001",
+      "producer": "REP-03"
+    },
+    "input_binding": {
+      "algorithm": "SHA-256",
+      "kind": "CANONICAL_DESCRIPTOR_FIELDS_EXCLUDING_INPUT_HASH"
+    },
+    "input_hash": "d4eb1b548689adf7cf7e217310ec1ea631c7a8ec9e4dc01233d2525890d39336",
+    "issues": [],
+    "limitations": [
+      "OFFLINE_DESCRIPTOR_CONTRACT_ONLY",
+      "LIVE_REP01_ADAPTER_NOT_EXECUTED",
+      "LIVE_REP03_ADAPTER_NOT_EXECUTED",
+      "NO_CROSS_REPOSITORY_IMPORT_OR_MUTATION",
+      "ARRAY_ORDER_IS_INPUT_HASH_SIGNIFICANT",
+      "NO_SEMANTIC_ENVELOPE_MAPPING_CLAIM",
+      "ARTIFACT_MEDIA_TYPE_DECLARATION_NOT_CONTENT_SNIFFED",
+      "NO_HARDWARE_OR_PHYSICAL_VALIDATION",
+      "CLAIM_LIMIT:DESCRIPTOR_STRUCTURE_AND_FILE_INTEGRITY_ONLY",
+      "CLAIM_LIMIT:SYNTHETIC_FIXTURES_ONLY",
+      "CLAIM_LIMIT:LIVE_ADAPTERS_NOT_RUN",
+      "CLAIM_LIMIT:NO_REP01_OR_REP03_SEMANTIC_MAPPING_CLAIM",
+      "CLAIM_LIMIT:NO_HARDWARE_COMPLIANCE_CLAIM"
+    ],
+    "package_version": "0.5.0",
+    "reason_code": "FILE_API_DESCRIPTOR_VALID",
+    "rule_id": "REP02.INTEGRATION.FILE_API",
+    "schema_version": "1.0.0",
+    "source_refs": [
+      {
+        "content_hash": "e1a40ffd49fb126152a89e37e173ca8aeb87c76f9dc6477540a4b0708c2857da",
+        "source_id": "REP02-FILE-API-CONTRACT",
+        "version": "1.0.0"
+      }
+    ],
+    "sources": [
+      {
+        "content_hash": "e1a40ffd49fb126152a89e37e173ca8aeb87c76f9dc6477540a4b0708c2857da",
+        "source_id": "REP02-FILE-API-CONTRACT",
+        "version": "1.0.0"
+      }
+    ],
+    "status": "PASS",
+    "tool_name": "power-rail-file-api-validator",
+    "tool_version": "0.1.0"
+  },
+  "repo03": {
+    "base_commit": "9273237e8e884b3da6cde8271f119434b784b5b8",
+    "source_state": "UNCOMMITTED_INT02A_WORKTREE"
+  },
+  "scenario": {
+    "canonical_sha256": "cf78b5cabb6a210c67462e0d10521ab7f070f0fe848900fb70f3b26175ed97c5",
+    "canonical_size_bytes": 2641,
+    "identity": "CANONICAL_JSON_SHA256",
+    "path": "variants/fixtures/automotive_power/nominal.json"
+  },
+  "schema_version": "repo03.int02a.verification-result.v1",
+  "scope": "OFFLINE_FILE_INTEGRITY_ONLY",
+  "status": "PASS",
+  "wheel": {
+    "file_name": "power_rail_validation-0.5.0-py3-none-any.whl",
+    "reason_code": "PINNED_WHEEL_BYTES_VERIFIED",
+    "sha256": "27ba10f6e14345c39f70241e56abd67469eb7e8130dc6a0abfdb37ca1a8c5027",
+    "size_bytes": 117705,
+    "status": "PASS"
+  }
+}

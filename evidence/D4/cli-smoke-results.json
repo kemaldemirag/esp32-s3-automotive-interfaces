@@ -1,0 +1,110 @@
+{
+  "checks": {
+    "all_seven_commands": "PASS",
+    "checkout_independent_fixtures": "PASS",
+    "checkout_independent_imports": "PASS",
+    "clean_install_no_index_no_deps": "PASS",
+    "console_entrypoint": "PASS",
+    "packaged_dependency_contract": "PASS",
+    "pip_check": "PASS",
+    "staged_wheel_identity": "PASS",
+    "variant_a_report_determinism": "PASS",
+    "wheel_member_allowlist": "PASS",
+    "wheel_readme_metadata_binding": "PASS",
+    "wheel_record_integrity": "PASS"
+  },
+  "claim_limits": [
+    "LOCAL_VERIFICATION_ONLY",
+    "NO_REMOTE_CI_PASS_CLAIM",
+    "NO_RELEASE_PUBLISH_CLAIM",
+    "NO_HARDWARE_VALIDATION_CLAIM"
+  ],
+  "cli_cases": {
+    "automotive_power": {
+      "exit_code": 0,
+      "input_hash": "cf78b5cabb6a210c67462e0d10521ab7f070f0fe848900fb70f3b26175ed97c5",
+      "output_sha256": "0f925bf5260fd01e34f4a1a03bf36262469743bec85822a7b321fc6a24fea076",
+      "reason_code": "SYNTHETIC_PROFILE_CONTRACT_ACCEPTED",
+      "status": "PASS"
+    },
+    "can": {
+      "exit_code": 0,
+      "input_hash": "f1cd93eca554135af9f2958e003cb1242b95df43e14055ed9999af6d9a9aa2f2",
+      "output_sha256": "081961c7a43bcc748f931e1cc2713f82487f734dcc574d309046e55128c2cae8",
+      "reason_code": "SYNTHETIC_CONTROLLER_FRAME_ACCEPTED",
+      "status": "PASS"
+    },
+    "combined_profile": {
+      "exit_code": 10,
+      "input_hash": "a1c13a50be0491d3d45808d851d604e964c909be005dcc7b26a1f40931605692",
+      "output_sha256": "d795ae3ed0c7efdb55cc008739cdbe7a7dd4288a87c3f7aeda521253ad5d827f",
+      "reason_code": "COMBINED_PROFILE_FORBIDDEN",
+      "status": "FAIL"
+    },
+    "gnss": {
+      "exit_code": 0,
+      "input_hash": "264f74228be5bbe26f9605178792d8eb3f5befa915db41e6863bb12f8969197c",
+      "output_sha256": "8c4b418c3dd4dd2c2721bfeb3abbada02f0bbafdd4ab282b48c15f19341c73cd",
+      "reason_code": "SYNTHETIC_FIX_VALID",
+      "status": "PASS"
+    },
+    "lin": {
+      "exit_code": 0,
+      "input_hash": "c21b24e9522bbf40e085f6a632b8b07bb0aa79b473cd46e82401cd2f5e7ac501",
+      "output_sha256": "fb2f976dbdf2222f2f07bdca8b32d3dda40f02ea9bd396e68918ee2695b08ea1",
+      "reason_code": "LIN_SCENARIO_COMPLETED",
+      "status": "PASS"
+    },
+    "report_a": {
+      "exit_code": 12,
+      "input_hash": "c151bc567286e20b209a3f813c711a1c15caa96a2c1c778ca9791f976e58a98a",
+      "output_sha256": "b99636ca5fc2d8d2aa94db704bdfb97c1c4a1009f7861b4ffb66607223009d0e",
+      "reason_code": "VARIANT_REPORT_BLOCKED",
+      "status": "BLOCKED"
+    },
+    "report_b": {
+      "exit_code": 12,
+      "input_hash": "24a431862f9c1309cc2507b000c4412a468540b1cc990472ca6ec1cb7d04ec2e",
+      "output_sha256": "e1e062ac0420e0abaa38d605584e5639dd4c6b406a2c71549d1531f97c5c9240",
+      "reason_code": "VARIANT_REPORT_BLOCKED",
+      "status": "BLOCKED"
+    },
+    "shutdown": {
+      "exit_code": 12,
+      "input_hash": "215b392b44d18bf5d0d6687bde9dd728457950092bcc32a97838c884609f030f",
+      "output_sha256": "ac2f111be297f284cfa286a7f6bc87d72fb059c7df9963fdd741bf0da97e60f0",
+      "reason_code": "HOST_MODEL_UNRESOLVED",
+      "status": "BLOCKED"
+    },
+    "validate_a": {
+      "exit_code": 12,
+      "input_hash": "f74c42bb2a2519ab563a91cb05cfb6d4e5accd9d6f2570ed89604bbad5e0367e",
+      "output_sha256": "9813425b04645ff4c71d188087add1c3f2848b69282c71f35babe16ee735067b",
+      "reason_code": "SOURCE_INPUT_BLOCKED",
+      "status": "BLOCKED"
+    },
+    "validate_b": {
+      "exit_code": 12,
+      "input_hash": "1b82f114d7fb4280f55d3f72a7a61816f38242b7495a23cfa468f17b92d00fcd",
+      "output_sha256": "b93f92e461f2ef1dbb1742bebacebc598ba49920b9ec3ab353651bd0524e1303",
+      "reason_code": "SOURCE_INPUT_BLOCKED",
+      "status": "BLOCKED"
+    }
+  },
+  "package": {
+    "distribution_name": "esp32-s3-automotive-interfaces",
+    "runtime_dependencies": [],
+    "version": "0.1.0"
+  },
+  "recorded_at_utc": "2026-10-24T12:09:28Z",
+  "release_status": "BLOCKED",
+  "schema_version": "repo03.d4.cli-smoke-results.v1",
+  "status": "PASS",
+  "wheel": {
+    "archive_member_count": 24,
+    "file_name": "esp32_s3_automotive_interfaces-0.1.0-py3-none-any.whl",
+    "record_sha256": "ae62a23284c8ff2265202c2a7d310e31dfcc0567ed60f483d27ca677cc6239de",
+    "sha256": "83a4935a6347c6ce24299c8c3f9f293fd391482743fee7430dd2b665173a00d6",
+    "size_bytes": 72959
+  }
+}

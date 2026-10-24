@@ -12,6 +12,11 @@ Bu dizin, REP-03 kararlarını ve doğrulama çalışmalarını sohbet geçmişi
 - [`REP-03_23-10-2026_Literatur_Entegrasyon_ve_Bitis_Yolu_Analizi.docx`](REP-03_23-10-2026_Literatur_Entegrasyon_ve_Bitis_Yolu_Analizi.docx): 23 Ekim literatür ve entegrasyon klasörlerini repo gerçekliğiyle karşılaştıran, kısaltılmış bitirme yolunu belirleyen analiz.
 - [`source_evidence_register.v1.json`](source_evidence_register.v1.json): GAP-01–04 için kaynak sahipliği, otorite, kapanış ölçütleri ve fiziksel iddia sınırlarını tutan kapalı makine kaydı.
 - [`D3_session4_validation_record.md`](D3_session4_validation_record.md): P0 doğruluk düzeltmeleri, WF-03-06 shutdown FSM’i, 44 fixture/rapor şema regresyonu ve 174 testlik Oturum 4 kabul kaydı.
+- [`INT-02A/verification-record.md`](INT-02A/verification-record.md): pinli REP-02 `0.5.0` wheel'iyle gerçek public file-API çağrısı, exact artifact/descriptor hashleri, sekiz fail-closed vaka ve entegrasyon iddia sınırları.
+- [`INT-02A/manifest.json`](INT-02A/manifest.json): INT-02A kaynak, handoff ve kanıt dosyalarının boyut/SHA-256 envanteri; ayrık checksum `manifest.json.sha256` dosyasındadır.
+- [`D4/verification-record.md`](D4/verification-record.md): WF-03-07 CLI, wheel, package-data, temiz kurulum ve yerel smoke sonuçları ile lisans/uzak-CI release engellerinin insan-okur kabul kaydı.
+- [`D4/verification-result.json`](D4/verification-result.json): tam unit-test ve temiz-kurulum doğrulayıcısının makine-okur sonucu.
+- [`D4/release-manifest.json`](D4/release-manifest.json): wheel ile D4 kaynak/kanıt dosyalarının boyut/SHA-256 envanteri, exact test-bağımlılığı özeti ve ortak UTC koşu zamanı; acceptance marker `release-manifest.json.sha256` dosyasıdır.
 
 ## Kanıt kuralları
 
@@ -19,5 +24,7 @@ Bu dizin, REP-03 kararlarını ve doğrulama çalışmalarını sohbet geçmişi
 - Çalıştırılmamış veya doğrulanmamış kontrol `NOT_RUN`, `UNKNOWN` ya da `BLOCKED` olarak kalır.
 - Sentetik test başarısı fiziksel donanım, EMC, AEC, ISO veya saha uygunluğu kanıtı sayılmaz.
 - G1/G2 tamamlanmadan ERC/DRC, PCB, parça seçimi veya bench doğrulama kanıtı beklenmez ve bu konularda başarı iddiası yapılmaz.
+- Yerel workflow dosyası veya temiz-kurulum sonucu, uzak GitHub Actions koşusunun yerine geçmez; gerçek run kaydı olmadan remote CI `NOT_RUN` kalır.
+- Kullanıcı lisans seçimi yapmadan release/publish kabulü `BLOCKED` kalır.
 
 Kaynak izli hesaplar, ilerideki ERC/DRC, simülasyon ve bench çıktıları ancak ilgili kapılar açıldıktan ve gerçek araç çıktıları üretildikten sonra bu dizine eklenir.

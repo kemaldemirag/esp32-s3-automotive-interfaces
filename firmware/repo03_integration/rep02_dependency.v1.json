@@ -1,0 +1,44 @@
+{
+  "schema_version": "repo03.rep02-dependency.v1",
+  "integration_id": "INT-02A",
+  "integration_scope": "OFFLINE_FILE_INTEGRITY_ONLY",
+  "rep02": {
+    "repository_id": "REP-02",
+    "repository_name": "power-rail-validation-and-review",
+    "source_baseline_commit": "000c88499a8848fcc83dfbdc9352a9f0a0dea3a9",
+    "package_name": "power-rail-validation",
+    "package_version": "0.5.0",
+    "wheel": {
+      "file_name": "power_rail_validation-0.5.0-py3-none-any.whl",
+      "sha256": "27ba10f6e14345c39f70241e56abd67469eb7e8130dc6a0abfdb37ca1a8c5027",
+      "size_bytes": 117705,
+      "build_record_head": "b0a823eca4ff1ce280d967f2a5c5215e97f5c42c",
+      "build_record_working_tree": "DIRTY",
+      "build_record_status_entries": [
+        "M  .gitattributes"
+      ]
+    },
+    "file_api": {
+      "api_version": "1.0.0",
+      "descriptor_schema_version": "1.0.0",
+      "engine_version": "0.1.0",
+      "rule_id": "REP02.INTEGRATION.FILE_API",
+      "tool_name": "power-rail-file-api-validator",
+      "contract_source_id": "REP02-FILE-API-CONTRACT",
+      "contract_sha256": "e1a40ffd49fb126152a89e37e173ca8aeb87c76f9dc6477540a4b0708c2857da"
+    }
+  },
+  "claim_limits": [
+    "DESCRIPTOR_STRUCTURE_AND_FILE_INTEGRITY_ONLY",
+    "SYNTHETIC_FIXTURES_ONLY",
+    "LIVE_ADAPTERS_NOT_RUN",
+    "NO_REP01_OR_REP03_SEMANTIC_MAPPING_CLAIM",
+    "NO_HARDWARE_COMPLIANCE_CLAIM"
+  ],
+  "provenance_notes": [
+    "The exact wheel bytes are the executable dependency identity for INT-02A.",
+    "The source baseline commit identifies the current reviewed repository baseline but is not asserted as a byte-reproducible rebuild of the pinned wheel.",
+    "The historical wheel build record was produced from the stated dirty worktree; this fact is preserved instead of being rewritten as a clean-build claim.",
+    "The sibling REP-02 source worktree is not imported or trusted by the acceptance verifier."
+  ]
+}

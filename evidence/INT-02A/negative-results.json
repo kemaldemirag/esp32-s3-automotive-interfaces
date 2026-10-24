@@ -1,0 +1,93 @@
+{
+  "case_count": 8,
+  "cases": [
+    {
+      "accepted": true,
+      "case_id": "artifact_hash_mismatch",
+      "expected_reason_code": "ARTIFACT_HASH_MISMATCH",
+      "expected_status": "BLOCKED",
+      "observed_reason_codes": [
+        "ARTIFACT_HASH_MISMATCH"
+      ],
+      "observed_status": "BLOCKED"
+    },
+    {
+      "accepted": true,
+      "case_id": "missing_artifact",
+      "expected_reason_code": "ARTIFACT_FILE_MISSING",
+      "expected_status": "BLOCKED",
+      "observed_reason_codes": [
+        "ARTIFACT_FILE_MISSING"
+      ],
+      "observed_status": "BLOCKED"
+    },
+    {
+      "accepted": true,
+      "case_id": "api_version_mismatch",
+      "expected_reason_code": "API_VERSION_INCOMPATIBLE",
+      "expected_status": "BLOCKED",
+      "observed_reason_codes": [
+        "API_VERSION_INCOMPATIBLE"
+      ],
+      "observed_status": "BLOCKED"
+    },
+    {
+      "accepted": true,
+      "case_id": "endpoint_version_mismatch",
+      "expected_reason_code": "ENDPOINT_API_VERSION_INCOMPATIBLE",
+      "expected_status": "BLOCKED",
+      "observed_reason_codes": [
+        "ENDPOINT_API_VERSION_INCOMPATIBLE"
+      ],
+      "observed_status": "BLOCKED"
+    },
+    {
+      "accepted": true,
+      "case_id": "path_traversal",
+      "expected_reason_code": "PATH_TRAVERSAL_BLOCKED",
+      "expected_status": "BLOCKED",
+      "observed_reason_codes": [
+        "PATH_TRAVERSAL_BLOCKED"
+      ],
+      "observed_status": "BLOCKED"
+    },
+    {
+      "accepted": true,
+      "case_id": "malformed_json",
+      "expected_reason_code": "MALFORMED_JSON",
+      "expected_status": "BLOCKED",
+      "observed_reason_codes": [
+        "MALFORMED_JSON"
+      ],
+      "observed_status": "BLOCKED"
+    },
+    {
+      "accepted": true,
+      "case_id": "variant_a_and_combined_profile",
+      "expected_reason_code": "VARIANT_B_REQUIRED",
+      "expected_status": "BLOCKED",
+      "observed_reason_codes": [
+        "VARIANT_B_REQUIRED"
+      ],
+      "observed_status": "BLOCKED",
+      "tested_variant_ids": [
+        "A",
+        "A+B"
+      ]
+    },
+    {
+      "accepted": true,
+      "case_id": "wrong_wheel_sha256",
+      "expected_reason_code": "WHEEL_SHA256_MISMATCH",
+      "expected_status": "BLOCKED",
+      "observed_reason_codes": [
+        "WHEEL_SHA256_MISMATCH"
+      ],
+      "observed_status": "BLOCKED"
+    }
+  ],
+  "integration_id": "INT-02A",
+  "reason_code": "ALL_FAIL_CLOSED_GUARDS_CONFIRMED",
+  "schema_version": "repo03.int02a.negative-results.v1",
+  "status": "PASS"
+}

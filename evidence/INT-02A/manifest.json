@@ -1,0 +1,82 @@
+{
+  "artifact_sha256": "283b71938deefb22a2cc89192f2193c2f52967224cd5408d63e8d0cae900c256",
+  "claim_limits": [
+    "DESCRIPTOR_STRUCTURE_AND_FILE_INTEGRITY_ONLY",
+    "SYNTHETIC_FIXTURES_ONLY",
+    "LIVE_ADAPTERS_NOT_RUN",
+    "NO_REP01_OR_REP03_SEMANTIC_MAPPING_CLAIM",
+    "NO_HARDWARE_COMPLIANCE_CLAIM"
+  ],
+  "descriptor_input_hash": "d4eb1b548689adf7cf7e217310ec1ea631c7a8ec9e4dc01233d2525890d39336",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "9cbe6769521078e15f6e09c3ff2c4842acf58169484e6d356b5ba7291b23b750",
+      "size_bytes": 213
+    },
+    {
+      "path": "evidence/INT-02A/handoff/artifacts/power-nominal-001.report.json",
+      "sha256": "283b71938deefb22a2cc89192f2193c2f52967224cd5408d63e8d0cae900c256",
+      "size_bytes": 6036
+    },
+    {
+      "path": "evidence/INT-02A/handoff/rep03-to-rep02.descriptor.json",
+      "sha256": "b13548d617e4919ad7396a16408dc40a9e48817bd02ed49a01fb397eec2d8cab",
+      "size_bytes": 1434
+    },
+    {
+      "path": "evidence/INT-02A/negative-results.json",
+      "sha256": "49aaa7ce881d24e51dafa155765af2edaa7f0aa30cbfee66ca9c25c576e5ffa0",
+      "size_bytes": 2503
+    },
+    {
+      "path": "evidence/INT-02A/verification-record.md",
+      "sha256": "2db10a6c77a4d803c321e505340d7ae43336a75cabe433e7a9916a6d395f1c28",
+      "size_bytes": 2884
+    },
+    {
+      "path": "evidence/INT-02A/verification-result.json",
+      "sha256": "bcc720854dd01ea6d03f63db579481232a446dc44392f9f3ffac934d324318ac",
+      "size_bytes": 5371
+    },
+    {
+      "path": "firmware/repo03_integration/__init__.py",
+      "sha256": "d016fd5bb540d000d48d96a46bc98031ce3f5f5ff330f05018083410a6de4485",
+      "size_bytes": 906
+    },
+    {
+      "path": "firmware/repo03_integration/rep02_dependency.v1.json",
+      "sha256": "423c728d505ad8660f5eb51e54a23bb61842979bac43f445d4487803d44b406f",
+      "size_bytes": 1909
+    },
+    {
+      "path": "firmware/repo03_integration/rep02_file_api.py",
+      "sha256": "91ed0ad23a8467eaaa01b763d63ebeb75531031d44f13587e1097cab5fd7bcf2",
+      "size_bytes": 18216
+    },
+    {
+      "path": "scripts/verify_int02a_wheel.py",
+      "sha256": "ad1c20d327945773ff5915ec1d4b24bf3b5558483e7ecc05713a90a40643bce3",
+      "size_bytes": 30663
+    },
+    {
+      "path": "tests/test_int02a_handoff.py",
+      "sha256": "9b3f64c29044cb596e90794619b5609f2f33b6c562b248e7735b62e4ed33536e",
+      "size_bytes": 14042
+    }
+  ],
+  "integration_id": "INT-02A",
+  "negative_case_count": 8,
+  "reason_code": "INT02A_ACCEPTANCE_EVIDENCE_COMPLETE",
+  "repo03_base_commit": "9273237e8e884b3da6cde8271f119434b784b5b8",
+  "scenario": {
+    "canonical_sha256": "cf78b5cabb6a210c67462e0d10521ab7f070f0fe848900fb70f3b26175ed97c5",
+    "canonical_size_bytes": 2641,
+    "identity": "CANONICAL_JSON_SHA256",
+    "path": "variants/fixtures/automotive_power/nominal.json"
+  },
+  "schema_version": "repo03.int02a.manifest.v1",
+  "source_state": "UNCOMMITTED_INT02A_WORKTREE",
+  "status": "PASS",
+  "wheel_sha256": "27ba10f6e14345c39f70241e56abd67469eb7e8130dc6a0abfdb37ca1a8c5027"
+}

@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit-tests:
+    name: Unit tests (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.13"]
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: Install test dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements-test.txt
+      - name: Run the complete unit suite
+        env:
+          PYTHONPATH: firmware
+        run: python -m unittest discover -s tests -v
+
+  wheel-smoke:
+    name: Wheel build and isolated smoke
+    needs: unit-tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.10"
+          cache: pip
+      - name: Install the pinned build toolchain
+        run: >-
+          python -m pip install --disable-pip-version-check
+          "setuptools==84.0.0" "wheel==0.48.0"
+      - name: Build one wheel without dependency resolution
+        run: python -m pip wheel . --no-deps --no-build-isolation --wheel-dir dist
+      - name: Verify clean install and checkout-independent CLI behavior
+        shell: bash
+        run: |
+          wheel_path="$(find dist -maxdepth 1 -type f -name '*.whl' -print -quit)"
+          test -n "$wheel_path"
+          python scripts/verify_d4_release.py --wheel "$wheel_path"
+
+# This workflow intentionally has no publish job. INT-02A's separately pinned
+# REP-02 wheel is also not fetched remotely; its exact-byte acceptance remains
+# an explicit offline verification step.
