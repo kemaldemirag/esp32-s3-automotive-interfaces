@@ -96,15 +96,15 @@
     "runtime_dependencies": [],
     "version": "0.1.0"
   },
-  "recorded_at_utc": "2026-10-24T12:09:28Z",
+  "recorded_at_utc": "2026-10-26T22:55:29Z",
   "release_status": "BLOCKED",
   "schema_version": "repo03.d4.cli-smoke-results.v1",
   "status": "PASS",
   "wheel": {
     "archive_member_count": 24,
     "file_name": "esp32_s3_automotive_interfaces-0.1.0-py3-none-any.whl",
-    "record_sha256": "ae62a23284c8ff2265202c2a7d310e31dfcc0567ed60f483d27ca677cc6239de",
-    "sha256": "83a4935a6347c6ce24299c8c3f9f293fd391482743fee7430dd2b665173a00d6",
-    "size_bytes": 72959
+    "record_sha256": "df16f0bc781f046a67ff77b243bb95e62418a4b2f8e26cc09d01643ff057a8ea",
+    "sha256": "a22f99e1cb5800b8f5e9ff1700a980d53d10e86408b5f988be29dc5b180c82dc",
+    "size_bytes": 73102
   }
 }

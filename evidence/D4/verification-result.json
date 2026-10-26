@@ -99,7 +99,7 @@
     },
     "release_blockers": [
       "LICENSE_DECISION_REQUIRED",
-      "REMOTE_CI_NOT_RUN"
+      "REMOTE_CI_PASS_NOT_EVIDENCED"
     ],
     "release_status": "BLOCKED",
     "schema_version": "repo03.d4-local-verification.v1",
@@ -107,14 +107,14 @@
     "wheel": {
       "archive_member_count": 24,
       "file_name": "esp32_s3_automotive_interfaces-0.1.0-py3-none-any.whl",
-      "record_sha256": "ae62a23284c8ff2265202c2a7d310e31dfcc0567ed60f483d27ca677cc6239de",
-      "sha256": "83a4935a6347c6ce24299c8c3f9f293fd391482743fee7430dd2b665173a00d6",
-      "size_bytes": 72959
+      "record_sha256": "df16f0bc781f046a67ff77b243bb95e62418a4b2f8e26cc09d01643ff057a8ea",
+      "sha256": "a22f99e1cb5800b8f5e9ff1700a980d53d10e86408b5f988be29dc5b180c82dc",
+      "size_bytes": 73102
     }
   },
   "environment": {
     "build_tools": {
-      "setuptools": "84.0.0",
+      "setuptools": "84.1.0",
       "wheel": "0.48.0"
     },
     "platform": "Windows-11-10.0.26300-SP0",
@@ -149,10 +149,6 @@
     {
       "check_id": "LIVE_ADAPTER_EXECUTION",
       "status": "NOT_RUN"
-    },
-    {
-      "check_id": "REMOTE_CI",
-      "status": "NOT_RUN"
     }
   ],
   "open_gaps": [
@@ -174,17 +170,21 @@
     }
   ],
   "reason_code": "D4_LOCAL_TEST_AND_CLEAN_INSTALL_PASS",
-  "recorded_at_utc": "2026-10-24T12:09:28Z",
+  "recorded_at_utc": "2026-10-26T22:55:29Z",
   "release_blockers": [
     "LICENSE_DECISION_REQUIRED",
-    "REMOTE_CI_NOT_RUN"
+    "REMOTE_CI_PASS_NOT_EVIDENCED"
   ],
   "release_status": "BLOCKED",
+  "remote_ci": {
+    "run_url": null,
+    "status": "NOT_EVIDENCED"
+  },
   "schema_version": "repo03.d4.release-evidence.v1",
   "status": "PASS",
   "test_dependencies": {
     "excluded_untrusted_bytecode_count": 74,
-    "file_count": 151,
+    "file_count": 150,
     "packages": [
       {
         "name": "attrs",
@@ -195,7 +195,7 @@
       {
         "name": "jsonschema",
         "record_entry_count": 81,
-        "record_sha256": "869c7edf2bc44e023cabe8e679412f95cc80450068fa56df58c1a95a72ae400c",
+        "record_sha256": "dce727291f77df23b9e5d53341ad7e3db10a3fb88cfca0fa17cd3a80e0720850",
         "version": "4.25.1"
       },
       {
@@ -212,9 +212,9 @@
       },
       {
         "name": "rpds-py",
-        "record_entry_count": 12,
-        "record_sha256": "430df17308db3ec261703dcd8e45bd63248858ffb8752108cb5275bb7b54af02",
-        "version": "2026.9.1"
+        "record_entry_count": 11,
+        "record_sha256": "01d9ee7c296bd1da7bc8754aff4c621ceb248e41c29f1f77a6594a317c944e4e",
+        "version": "0.30.0"
       },
       {
         "name": "typing-extensions",
@@ -223,12 +223,12 @@
         "version": "4.16.0"
       }
     ],
-    "path": "repo03-testdeps",
+    "path": "repo03-testdeps-20261027-rpds030",
     "path_scope": "INPUT_BASENAME",
     "requirements_file": "requirements-test.txt",
-    "requirements_sha256": "bb3ab0cefb45cdefe8ebb3440d9b8f6bd27fc73cc49419f76e1968575b7f882c",
+    "requirements_sha256": "6555229d44aa7d1e9620664e1d321ef1d5fc1e556f5feb9143450e998d853a55",
     "status": "PASS",
-    "tree_manifest_sha256": "70b371112639af0da09ee84dce9ac6b0468cdf24ac2e4daf5a2f0c4401602419"
+    "tree_manifest_sha256": "c16ded7d52c4ca0700c644d4f202b71ffac2676bf4e8a596de8c6b96e56f89bb"
   },
   "unit_tests": {
     "combined_log_encoding": "UTF-8",

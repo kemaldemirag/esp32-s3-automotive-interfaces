@@ -924,7 +924,7 @@ def verify(wheel_path: Path, temporary_root: Path) -> dict[str, Any]:
             "release_status": "BLOCKED",
             "release_blockers": [
                 "LICENSE_DECISION_REQUIRED",
-                "REMOTE_CI_NOT_RUN",
+                "REMOTE_CI_PASS_NOT_EVIDENCED",
             ],
             "wheel": {
                 "file_name": wheel_file_name,

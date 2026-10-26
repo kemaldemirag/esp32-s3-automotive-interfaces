@@ -22,7 +22,7 @@ Kullanıcının 18 Ekim 2026 tarihli “Devam et” talebi, D1 varyant sözleşm
 - Varyant B için hosttan bağımsız, GAP-04 fail-closed ignition-shutdown durum makinesi.
 - REP-02 `0.5.0` wheel'ini exact SHA-256 ile sabitleyip gerçek `validate_file_api_file()` API'siyle descriptor ve artifact byte bütünlüğünü doğrulayan INT-02A offline handoff'u.
 - Mevcut public motorları çağıran yedi komutlu, A/B yüzeylerini ayıran ve kanonik JSON üreten `repo03` CLI'sı.
-- Python `firmware/` source-layout wheel paketi, paket içi INT-02A dependency kaydı, temiz-kurulum doğrulayıcısı ve salt-okunur GitHub Actions CI taslağı.
+- Python `firmware/` source-layout wheel paketi, paket içi INT-02A dependency kaydı, temiz-kurulum doğrulayıcısı ve salt-okunur GitHub Actions CI workflow'u.
 - Altı şema ailesindeki 44 fixture girdisini ve 44 motor raporunu gerçek Draft 2020-12 doğrulayıcısıyla sınayan regresyon paketi.
 - GAP-01–04 kaynak sahipliğini, kapanış ölçütlerini ve fiziksel iddia sınırlarını tek dosyada tutan kaynak/kanıt kaydı.
 
@@ -76,7 +76,7 @@ WF-03-07 / D4'ün yerel yazılım dilimi de tamamlanmıştır:
 - [`scripts/verify_d4_release.py`](scripts/verify_d4_release.py): wheel'i kaynak checkout'u dışında `--no-index --no-deps` ile kurup A/B CLI akışlarını ve package-data'yı sınayan yerel kabul kapısı.
 - [`.github/workflows/ci.yml`](.github/workflows/ci.yml): unit-test ve wheel-smoke işlerini tanımlayan, publish adımı içermeyen CI taslağı.
 
-Yerel D4 sonucu yazılım/paketleme için `PASS`, dağıtım için `BLOCKED` durumundadır. Lisans seçimi yapılmamıştır; `LICENSE`, SPDX ifadesi ve lisans classifier'ı bilerek eklenmemiştir. Workflow henüz uzak GitHub runner'ında çalıştırılmadığı için remote CI `NOT_RUN` kalır. Commit, push veya release yapılmamıştır.
+Yerel D4 sonucu yazılım/paketleme için `PASS`, dağıtım için `BLOCKED` durumundadır. Lisans seçimi yapılmamıştır; `LICENSE`, SPDX ifadesi ve lisans classifier'ı bilerek eklenmemiştir. `cf4b691` commit'i `main` dalına push edilmiş, GitHub Actions koşusu `40092982367` ise Python 3.10 bağımlılık kurulumundaki uyumsuz `rpds-py` pini nedeniyle `FAILED` olmuştur. Python 3.13 işi 207 testi geçirmiş, wheel-smoke işi atlanmıştır. Bu çalışma ağacındaki pin düzeltmesi uzak CI yeniden çalışıp geçene kadar `REMOTE_CI_FAILED / PENDING_RERUN` kabul edilir; release yapılmamıştır.
 
 Eksik kaynak veya müşteri girdisi hiçbir zaman varsayımla `PASS` yapılmaz.
 G1/G2 açılana kadar donanıma duyarlı `value` alanları zorunlu `null`, davranış alanları ise yalnız `null` veya `SYNTHETIC_ONLY` olabilir.
@@ -156,6 +156,6 @@ python -B scripts/record_d4_evidence.py `
   --test-dependency-path tmp\d4-test-dependencies
 ```
 
-`pyproject.toml`, build backend'i için `setuptools==84.0.0` ve `wheel==0.48.0` ister. D4 kayıt aracı testleri ambient/user site-packages alanından yalıtır; exact test dağıtımlarını, kurulu dosya hashlerini, wheel–kaynak/README bağını ve UTC koşu zamanını manifestte saklar. Uzak CI dosyası mevcut olsa da henüz push edilip çalıştırılmadı; yerel kanıt, uzak CI başarısı veya yayımlanmış release anlamına gelmez.
+`pyproject.toml`, build backend'i için `setuptools==84.0.0` ve `wheel==0.48.0` ister. D4 kayıt aracı testleri ambient/user site-packages alanından yalıtır; exact test dağıtımlarını, kurulu dosya hashlerini, wheel–kaynak/README bağını ve UTC koşu zamanını manifestte saklar. Uzak CI'nin son bilinen sonucu `FAILED` durumundadır; yerel düzeltme ve yerel kanıt, başarılı yeni bir uzak koşu veya yayımlanmış release anlamına gelmez.
 
 Bu sentetik ve offline sonuçlar donanım, RF veya otomotiv uygunluğu kanıtı değildir. Oturum 4 kaydı için [`evidence/D3_session4_validation_record.md`](evidence/D3_session4_validation_record.md), entegrasyon kabulü için [`evidence/INT-02A/verification-record.md`](evidence/INT-02A/verification-record.md), D4 yerel release durumu için [`evidence/D4/verification-record.md`](evidence/D4/verification-record.md) dosyasına bakın.

@@ -45,7 +45,10 @@ MANIFEST_SCHEMA_VERSION = "repo03.d4.release-manifest.v1"
 PACKAGE_NAME = "esp32-s3-automotive-interfaces"
 PACKAGE_VERSION = "0.1.0"
 SOURCE_STATE = "UNCOMMITTED_D4_WORKTREE"
-RELEASE_BLOCKERS = ["LICENSE_DECISION_REQUIRED", "REMOTE_CI_NOT_RUN"]
+RELEASE_BLOCKERS = [
+    "LICENSE_DECISION_REQUIRED",
+    "REMOTE_CI_PASS_NOT_EVIDENCED",
+]
 EXPECTED_CLI_CASES = {
     "automotive_power",
     "can",
@@ -110,7 +113,6 @@ NOT_RUN_CHECKS = [
     {"check_id": "ISO_COMPLIANCE_VALIDATION", "status": "NOT_RUN"},
     {"check_id": "REAL_HOST_SHUTDOWN", "status": "NOT_RUN"},
     {"check_id": "LIVE_ADAPTER_EXECUTION", "status": "NOT_RUN"},
-    {"check_id": "REMOTE_CI", "status": "NOT_RUN"},
 ]
 
 
@@ -1095,7 +1097,7 @@ def _verification_record(
 - Yerel doğrulama: `PASS`
 - Kayıt zamanı (UTC): `{recorded_at_utc}`
 - Sürüm durumu: `BLOCKED`
-- Engeller: `LICENSE_DECISION_REQUIRED`, `REMOTE_CI_NOT_RUN`
+- Engeller: `LICENSE_DECISION_REQUIRED`, `REMOTE_CI_PASS_NOT_EVIDENCED`
 - Paket: `{PACKAGE_NAME}=={package_version}`
 - Wheel: `{wheel_record['path']}`
 - Wheel SHA-256: `{wheel_record['sha256']}`
@@ -1117,9 +1119,10 @@ gelmez.
 ## Açık kapılar ve iddia sınırı
 
 `GAP-01`, `GAP-02`, `GAP-03` ve `GAP-04` `BLOCKED` kalır. Fiziksel doğrulama,
-RF, EMC, AEC yeterliliği, ISO uygunluğu, gerçek Raspberry Pi kapanışı, canlı
-adaptör yürütmesi ve uzak CI `NOT_RUN` durumundadır. Sentetik test ve temiz
-kurulum sonuçları bu alanlarda donanım, araç veya uygunluk iddiası oluşturmaz.
+RF, EMC, AEC yeterliliği, ISO uygunluğu, gerçek Raspberry Pi kapanışı ve canlı
+adaptör yürütmesi `NOT_RUN` durumundadır. Uzak CI başarısı bu yerel kayıtta
+kanıtlanmamıştır. Sentetik test ve temiz kurulum sonuçları bu alanlarda donanım,
+araç veya uygunluk iddiası oluşturmaz.
 
 ## Yeniden üretim
 
@@ -1198,6 +1201,7 @@ def record(
             "clean_install_and_cli": verifier_result,
             "open_gaps": OPEN_GAPS,
             "not_run_checks": NOT_RUN_CHECKS,
+            "remote_ci": {"status": "NOT_EVIDENCED", "run_url": None},
         }
 
         cli_payload = _json_bytes(cli_smoke)
@@ -1233,7 +1237,7 @@ def record(
                 "spdx_expression": None,
                 "file": None,
             },
-            "remote_ci": {"status": "NOT_RUN", "run_url": None},
+            "remote_ci": {"status": "NOT_EVIDENCED", "run_url": None},
             "repository": {
                 "baseline_git_head": baseline,
                 "source_state": SOURCE_STATE,

@@ -1,7 +1,7 @@
 {
   "environment": {
     "build_tools": {
-      "setuptools": "84.0.0",
+      "setuptools": "84.1.0",
       "wheel": "0.48.0"
     },
     "platform": "Windows-11-10.0.26300-SP0",
@@ -11,7 +11,7 @@
   "generated_files": [
     {
       "path": "evidence/D4/cli-smoke-results.json",
-      "sha256": "84f628562ca944ef1c11332c1090acada5cd421ac70e667275be657125a27250",
+      "sha256": "b3e69812478ee163f9c55f5a66325237b526328abfef4303f11805d5fff4b510",
       "size_bytes": 4282
     },
     {
@@ -21,13 +21,13 @@
     },
     {
       "path": "evidence/D4/verification-record.md",
-      "sha256": "6a318d39d881505937a05b2d4d4afc8d77c080811f4907a3d44102a4fb95fd90",
-      "size_bytes": 2247
+      "sha256": "a5e706cc5802258e6c49f95782164d57e112f7c2a5177a63858cd182f6d09122",
+      "size_bytes": 2303
     },
     {
       "path": "evidence/D4/verification-result.json",
-      "sha256": "4a8bf3c12e6c6311b130bcaef08306408da90d39cc2d2d9f6d1e97d4c49dd08d",
-      "size_bytes": 8534
+      "sha256": "77774d6d3d0ff30a8045f457677ee030dffe63c998e0877fd2b8a616ffc28ac8",
+      "size_bytes": 8574
     }
   ],
   "license": {
@@ -64,10 +64,6 @@
     {
       "check_id": "LIVE_ADAPTER_EXECUTION",
       "status": "NOT_RUN"
-    },
-    {
-      "check_id": "REMOTE_CI",
-      "status": "NOT_RUN"
     }
   ],
   "open_gaps": [
@@ -93,24 +89,24 @@
     "runtime_dependencies": [],
     "version": "0.1.0"
   },
-  "recorded_at_utc": "2026-10-24T12:09:28Z",
+  "recorded_at_utc": "2026-10-26T22:55:29Z",
   "release_blockers": [
     "LICENSE_DECISION_REQUIRED",
-    "REMOTE_CI_NOT_RUN"
+    "REMOTE_CI_PASS_NOT_EVIDENCED"
   ],
   "release_gate_id": "D4",
   "release_status": "BLOCKED",
   "remote_ci": {
     "run_url": null,
-    "status": "NOT_RUN"
+    "status": "NOT_EVIDENCED"
   },
   "repository": {
-    "baseline_git_head": "9273237e8e884b3da6cde8271f119434b784b5b8",
+    "baseline_git_head": "cf4b691e516a9605e1c62fa925efe78345931b76",
     "git_status": {
-      "entry_count": 30,
+      "entry_count": 5,
       "format": "git-status-porcelain-v1-z",
       "output_path_excluded": "evidence/D4",
-      "sha256": "5af3dd61f548cd5beaf9115ded9f9974fa259c58a7a197ee3609785cf0e4155d"
+      "sha256": "aa57b1cc7aec0ecce59b4a62aec644d3b3af3934a09fe373ca805c0573f9972a"
     },
     "source_state": "UNCOMMITTED_D4_WORKTREE"
   },
@@ -133,13 +129,13 @@
     },
     {
       "path": "README.md",
-      "sha256": "be7933d9526e91584cfe9577ca3025d5d3eb154cbb75afd0d7c7f9873ac4d690",
-      "size_bytes": 12516
+      "sha256": "d036f2ddbe8fd33e4ab073f243970913ba0504ae4d8746dba072fa2a7fa262e3",
+      "size_bytes": 12802
     },
     {
       "path": "docs/README.md",
-      "sha256": "69eb53b049134f7d5045c8b6e93b70c8d2a3761343e82a76ae3c4ae516039c07",
-      "size_bytes": 4762
+      "sha256": "0b154760158b0411169a9e9840ac5b3304043930650ec6196b77e3cd4c6e19ae",
+      "size_bytes": 4879
     },
     {
       "path": "evidence/INT-02A/manifest.json",
@@ -268,18 +264,18 @@
     },
     {
       "path": "requirements-test.txt",
-      "sha256": "bb3ab0cefb45cdefe8ebb3440d9b8f6bd27fc73cc49419f76e1968575b7f882c",
-      "size_bytes": 139
+      "sha256": "6555229d44aa7d1e9620664e1d321ef1d5fc1e556f5feb9143450e998d853a55",
+      "size_bytes": 137
     },
     {
       "path": "scripts/record_d4_evidence.py",
-      "sha256": "ea5ddaf8f465fce1048a81ff2649a7a5dcad3180feb84508c84c67b79bc48887",
-      "size_bytes": 51195
+      "sha256": "8b62ac51cd7a653a2ec0a3c263704f5b9b6c6b07195ff01ef0305c0d27ab6438",
+      "size_bytes": 51304
     },
     {
       "path": "scripts/verify_d4_release.py",
-      "sha256": "9388a3386af24700635381f1ad08876093960679c90f59f170971a673a54e5f5",
-      "size_bytes": 36830
+      "sha256": "e594c07b8330c3d2e060175b7c6fe986f7558342c75449950992c6d26cd0a727",
+      "size_bytes": 36841
     },
     {
       "path": "scripts/verify_int02a_wheel.py",
@@ -604,7 +600,7 @@
   ],
   "test_dependencies": {
     "excluded_untrusted_bytecode_count": 74,
-    "file_count": 151,
+    "file_count": 150,
     "packages": [
       {
         "name": "attrs",
@@ -615,7 +611,7 @@
       {
         "name": "jsonschema",
         "record_entry_count": 81,
-        "record_sha256": "869c7edf2bc44e023cabe8e679412f95cc80450068fa56df58c1a95a72ae400c",
+        "record_sha256": "dce727291f77df23b9e5d53341ad7e3db10a3fb88cfca0fa17cd3a80e0720850",
         "version": "4.25.1"
       },
       {
@@ -632,9 +628,9 @@
       },
       {
         "name": "rpds-py",
-        "record_entry_count": 12,
-        "record_sha256": "430df17308db3ec261703dcd8e45bd63248858ffb8752108cb5275bb7b54af02",
-        "version": "2026.9.1"
+        "record_entry_count": 11,
+        "record_sha256": "01d9ee7c296bd1da7bc8754aff4c621ceb248e41c29f1f77a6594a317c944e4e",
+        "version": "0.30.0"
       },
       {
         "name": "typing-extensions",
@@ -643,21 +639,21 @@
         "version": "4.16.0"
       }
     ],
-    "path": "repo03-testdeps",
+    "path": "repo03-testdeps-20261027-rpds030",
     "path_scope": "INPUT_BASENAME",
     "requirements_file": "requirements-test.txt",
-    "requirements_sha256": "bb3ab0cefb45cdefe8ebb3440d9b8f6bd27fc73cc49419f76e1968575b7f882c",
+    "requirements_sha256": "6555229d44aa7d1e9620664e1d321ef1d5fc1e556f5feb9143450e998d853a55",
     "status": "PASS",
-    "tree_manifest_sha256": "70b371112639af0da09ee84dce9ac6b0468cdf24ac2e4daf5a2f0c4401602419"
+    "tree_manifest_sha256": "c16ded7d52c4ca0700c644d4f202b71ffac2676bf4e8a596de8c6b96e56f89bb"
   },
   "unit_tests": {
     "status": "PASS",
     "test_count": 207
   },
   "wheel": {
-    "path": "dist/esp32_s3_automotive_interfaces-0.1.0-py3-none-any.whl",
-    "path_scope": "REPOSITORY_RELATIVE",
-    "sha256": "83a4935a6347c6ce24299c8c3f9f293fd391482743fee7430dd2b665173a00d6",
-    "size_bytes": 72959
+    "path": "esp32_s3_automotive_interfaces-0.1.0-py3-none-any.whl",
+    "path_scope": "INPUT_BASENAME",
+    "sha256": "a22f99e1cb5800b8f5e9ff1700a980d53d10e86408b5f988be29dc5b180c82dc",
+    "size_bytes": 73102
   }
 }
